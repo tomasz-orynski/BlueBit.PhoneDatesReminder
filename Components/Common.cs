@@ -53,12 +53,26 @@ namespace BlueBit.PhoneDatesReminder.Components
             };
         }
 
+        public static Func<TIn,TOut> WithCatchBreak<TIn,TOut>(this Func<TIn,TOut> @this)
+        {
+            Debug.Assert(@this != null);
+            return input => {
+                try {
+                    return @this(input);
+                }
+                catch (BreakException) {
+                    return default(TOut);
+                }
+            };
+        }
+
         public static TOut Run<TIn, TOut>(
             this Func<TIn, TOut> @this,
             TIn @params)
         {
             Debug.Assert(@this != null);
             return @this
+                .WithCatchBreak()
                 .WithLogStartStop()
                 .Invoke(@params);
         }
