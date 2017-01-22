@@ -32,12 +32,12 @@ namespace BlueBit.PhoneDatesReminder
         public static void Main(string[] args)
         {
             Debug.Assert(args.Length == 1);
-            Builder
+            var result = Runner
                 .Start(()=>new Configurator<ConfiguredDataToDownload>())
                 .Then(()=>new Downloader<ConfiguredDataToDownload, DownloadedDataToParse>())
                 .Then(()=>new Parser<DownloadedDataToParse, ParsedDataToSend>())
                 .Then(()=>new Sender<ParsedDataToSend>())
-                .Call(args[0]);
+                .Run(args[0]);
         }
     }
 }

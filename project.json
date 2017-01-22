@@ -5,7 +5,6 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "Microsoft.Extensions.CommandLineUtils": "1.1.0",
     "MailKit": "1.8.1",
     "System.IO.FileSystem": "4.3.0",
     "Newtonsoft.Json": "9.0.1"
@@ -20,5 +19,8 @@
       },
       "imports": "dnxcore50"
     }
+  },
+  "runtimes": {
+    "win10-x64": {}
   }
 }

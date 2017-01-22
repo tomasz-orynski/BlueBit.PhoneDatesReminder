@@ -36,7 +36,7 @@ namespace BlueBit.PhoneDatesReminder.Components
 
             var diff = minDate - DateTime.Now;
             if (diff.TotalDays > input.ParserCfg.DaysCnt)
-                throw new BreakException();
+                Break();
 
             var dt = $"{minDate.ToString("yyyy-MM-dd")}";
             output.Content = $"Dnia [{dt}] upływa termin aktywacji/zapłaty za telefon!";

@@ -3,12 +3,9 @@ using System.Diagnostics;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
-    public sealed class BreakException : Exception
-    {
-    }
+    public sealed class BreakException : Exception {}
 
     public sealed class Void {}
-
 
     public interface IComponent<in TIn, out TOut>
     {
@@ -20,6 +17,8 @@ namespace BlueBit.PhoneDatesReminder.Components
         where TIn: class
         where TOut: new()
     {
+        protected static void Break() { throw new BreakException(); }
+
         public TOut Work(TIn input)
         {
             Debug.Assert(input != null);
@@ -31,17 +30,7 @@ namespace BlueBit.PhoneDatesReminder.Components
         protected abstract void OnWork(TIn input, TOut output);
     }
 
-    public static class Diagnostics
-    {
-        public static T CallWithLogInfo<T>(this Func<T> @this)
-        {
-            var result = @this();
-            Console.WriteLine($"{DateTime.Now}=>{result.GetType()}");
-            return result;
-        }
-    }
-
-    public static class Builder
+    public static class Runner
     {
         public static Func<TIn, TOut> Start<TIn, TOut>(
             Func<IComponent<TIn, TOut>> creator)
@@ -49,8 +38,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             Debug.Assert(creator != null);
             return input => {
                 return creator
-                    .CallWithLogInfo()
-                    .Work(input);
+                    .CallWithLogInfo(_ => _.Work(input));
             };
         }
         public static Func<TIn, TOut> Then<TIn, TOut, T>(
@@ -61,24 +49,18 @@ namespace BlueBit.PhoneDatesReminder.Components
             return input => {
                 var tmp = @this(input);
                 return creator
-                    .CallWithLogInfo()
-                    .Work(tmp);
+                    .CallWithLogInfo(_ => _.Work(tmp));
             };
         }
 
-        public static void Call<TIn>(
-            this Func<TIn, Void> @this,
+        public static TOut Run<TIn, TOut>(
+            this Func<TIn, TOut> @this,
             TIn @params)
         {
             Debug.Assert(@this != null);
-            try
-            {
-                @this(@params);
-            }
-            catch (BreakException e)
-            {
-                //
-            }
+            return @this
+                .WithLogStartStop()
+                .Invoke(@params);
         }
     }
 }

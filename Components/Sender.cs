@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using MimeKit;
 using MailKit.Net.Smtp;
@@ -22,18 +23,21 @@ namespace BlueBit.PhoneDatesReminder.Components
         {
             Debug.Assert(input.SenderCfg != null);
 
-            var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
-            emailMessage.To.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
-            emailMessage.Subject = input.Title;
-            emailMessage.Body = new TextPart("plain") { Text = input.Content };
+            Func<MimeMessage> prepareMsg = () => {
+                var msg = new MimeMessage();
+                msg.From.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
+                msg.To.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
+                msg.Subject = input.Title;
+                msg.Body = new TextPart("plain") { Text = input.Content };
+                return msg;
+            };
 
             using (var client = new SmtpClient())
             {
                 client.Connect(input.SenderCfg.Host, input.SenderCfg.Port);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
                 client.Authenticate(input.SenderCfg.User, input.SenderCfg.Password);
-                client.Send(emailMessage);
+                client.Send(prepareMsg());
                 client.Disconnect(true);
             }
         }
