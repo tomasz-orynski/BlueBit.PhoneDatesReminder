@@ -20,7 +20,12 @@ namespace BlueBit.PhoneDatesReminder.Components
         override sealed protected void OnWork(T input)
         {
             Debug.Assert(input.StorageCfg != null);
-            OnWorkWithPath(Path.Combine(input.StorageCfg.Path, input.Date.ToString("yyyyMMdd")));
+            const string frmt = "yyyyMMdd";
+            var path = Path.Combine(input.StorageCfg.Path, DateTime.Now.ToString(frmt));
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            path = Path.Combine(path, input.Date.ToString(frmt));
+            OnWorkWithPath(Path.Combine(path));
         }
         protected abstract void OnWorkWithPath(string path);
     }
