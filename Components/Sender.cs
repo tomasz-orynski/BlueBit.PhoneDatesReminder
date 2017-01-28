@@ -10,25 +10,28 @@ namespace BlueBit.PhoneDatesReminder.Components
         public interface InputData
         {
             Cfg.SenderCfg SenderCfg {get;}
-            string Content {get;}
-            string Title {get;}
+            DateTime Date {get;}
         }
     }
 
-    public class Sender<TIn> : 
-        ComponentBase<TIn, Void>
-        where TIn: class, Sender.InputData
+    public class Sender<T> : 
+        ComponentBase<T>
+        where T: class, Sender.InputData
     {
-        override protected void OnWork(TIn input, Void output)
+        override protected void OnWork(T input)
         {
             Debug.Assert(input.SenderCfg != null);
+
+            var dt = $"{input.Date.ToString("yyyy-MM-dd")}";
+            var content = $"Dnia [{dt}] upływa termin aktywacji/zapłaty za telefon!";
+            var title = $"Przypomnienie o terminie - {dt}";
 
             Func<MimeMessage> prepareMsg = () => {
                 var msg = new MimeMessage();
                 msg.From.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
                 msg.To.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
-                msg.Subject = input.Title;
-                msg.Body = new TextPart("plain") { Text = input.Content };
+                msg.Subject = title;
+                msg.Body = new TextPart("plain") { Text = content };
                 return msg;
             };
 
