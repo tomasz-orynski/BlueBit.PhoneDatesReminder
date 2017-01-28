@@ -13,6 +13,7 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
         public DownloaderCfg DownloaderCfg {get;set;}
         public ParserCfg ParserCfg {get;set;}
         public SenderCfg SenderCfg {get;set;}
+        public StorageCfg StorageCfg {get;set;}
     }
 
     class DataBase<T> :
@@ -25,6 +26,7 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
             DownloaderCfg = prev.DownloaderCfg;
             ParserCfg = prev.ParserCfg;
             SenderCfg = prev.SenderCfg;
+            StorageCfg = prev.StorageCfg;
         }
     }
 }
