@@ -12,13 +12,32 @@ namespace BlueBit.PhoneDatesReminder.Components
         TOut Work(TIn input);
     }
 
+    public abstract class ComponentBase
+    {
+        protected static void Break() { throw new BreakException(); }
+    }
+
+    public abstract class ComponentBase<T> :
+        ComponentBase,
+        IComponent<T, T>
+        where T: class
+    {
+
+        public T Work(T input)
+        {
+            Debug.Assert(input != null);
+            OnWork(input);
+            return input;
+        }
+        protected abstract void OnWork(T input);
+    }
+
     public abstract class ComponentBase<TIn, TOut> :
+        ComponentBase,
         IComponent<TIn, TOut>
         where TIn: class
         where TOut: new()
     {
-        protected static void Break() { throw new BreakException(); }
-
         public TOut Work(TIn input)
         {
             Debug.Assert(input != null);

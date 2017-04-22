@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using BlueBit.PhoneDatesReminder.Components;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
 
@@ -6,24 +7,24 @@ namespace BlueBit.PhoneDatesReminder
 {
     public static class Program
     {
-        class ParsedDataToSend : 
-            DataBase<DownloadedDataToParse>,
+        class Data : 
+            DataBase<DataFromWeb>,
+            Parser.OutputData,
             Sender.InputData,
-            Parser.OutputData
+            Storage.InputData
             {
-                public string Content {get;set;}
-                public string Title {get;set;}
+                public DateTime Date {get;set;}
             }
-        class DownloadedDataToParse : 
-            DataBase<ConfiguredDataToDownload>,
-            Parser.InputData,
-            Downloader.OutputData
+
+        class DataFromWeb : 
+            DataBase<DataFromCfg>,
+            Downloader.OutputData,
+            Parser.InputData
             {
                 public string Content {get;set;}
-                public string Title {get;set;}
-            }   
+            }
             
-        public class ConfiguredDataToDownload : 
+        class DataFromCfg : 
             DataBase,
             Downloader.InputData
             {
@@ -33,10 +34,12 @@ namespace BlueBit.PhoneDatesReminder
         {
             Debug.Assert(args.Length == 1);
             var result = Runner
-                .Start(()=>new Configurator<ConfiguredDataToDownload>())
-                .Then(()=>new Downloader<ConfiguredDataToDownload, DownloadedDataToParse>())
-                .Then(()=>new Parser<DownloadedDataToParse, ParsedDataToSend>())
-                .Then(()=>new Sender<ParsedDataToSend>())
+                .Start(()=>new Configurator<DataFromCfg>())
+                .Then(()=>new Downloader<DataFromCfg, DataFromWeb>())
+                .Then(()=>new Parser<DataFromWeb, Data>())
+                .Then(()=>new StorageCheck<Data>())
+                .Then(()=>new Sender<Data>())
+                .Then(()=>new StorageSave<Data>())
                 .Run(args[0]);
         }
     }
