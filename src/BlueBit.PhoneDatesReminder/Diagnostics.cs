@@ -5,15 +5,18 @@ namespace BlueBit.PhoneDatesReminder
 {
     public static class Diagnostics
     {
-        public static Func<TIn,TOut> WithLogStartStop<TIn,TOut>(this Func<TIn,TOut> @this)
+        public static Func<TIn, TOut> WithLogStartStop<TIn, TOut>(this Func<TIn, TOut> @this)
         {
             Debug.Assert(@this != null);
-            return input => {
+            return input =>
+            {
                 Console.WriteLine($"{DateTime.Now}=>START");
-                try {
+                try
+                {
                     return @this(input);
                 }
-                finally {
+                finally
+                {
                     Console.WriteLine($"{DateTime.Now}<=STOP");
                 }
             };

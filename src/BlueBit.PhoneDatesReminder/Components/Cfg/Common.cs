@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-
 namespace BlueBit.PhoneDatesReminder.Components.Cfg
 {
     public interface IInitialize<in TBase>
@@ -10,16 +7,16 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
 
     public class DataBase
     {
-        public DownloaderCfg DownloaderCfg {get;set;}
-        public ParserCfg ParserCfg {get;set;}
-        public SenderCfg SenderCfg {get;set;}
-        public StorageCfg StorageCfg {get;set;}
+        public DownloaderCfg DownloaderCfg { get; set; }
+        public ParserCfg ParserCfg { get; set; }
+        public SenderCfg SenderCfg { get; set; }
+        public StorageCfg StorageCfg { get; set; }
     }
 
-    class DataBase<T> :
+    internal class DataBase<T> :
         DataBase,
         IInitialize<T>
-        where T: DataBase
+        where T : DataBase
     {
         public void Init(T prev)
         {

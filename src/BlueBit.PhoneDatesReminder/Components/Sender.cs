@@ -1,7 +1,7 @@
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
 using System.Diagnostics;
-using MimeKit;
-using MailKit.Net.Smtp;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -9,14 +9,14 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public interface InputData
         {
-            Cfg.SenderCfg SenderCfg {get;}
-            DateTime Date {get;}
+            Cfg.SenderCfg SenderCfg { get; }
+            DateTime Date { get; }
         }
     }
 
-    public class Sender<T> : 
+    public class Sender<T> :
         ComponentBase<T>
-        where T: class, Sender.InputData
+        where T : class, Sender.InputData
     {
         override protected void OnWork(T input)
         {
@@ -26,7 +26,8 @@ namespace BlueBit.PhoneDatesReminder.Components
             var content = $"Dnia [{dt}] upływa termin aktywacji/zapłaty za telefon!";
             var title = $"Przypomnienie o terminie - {dt}";
 
-            Func<MimeMessage> prepareMsg = () => {
+            Func<MimeMessage> prepareMsg = () =>
+            {
                 var msg = new MimeMessage();
                 msg.From.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));
                 msg.To.Add(new MailboxAddress(input.SenderCfg.User, input.SenderCfg.Email));

@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.IO;
+using System.Net.Http;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -9,18 +9,19 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public interface InputData
         {
-            Cfg.DownloaderCfg DownloaderCfg {get;}
+            Cfg.DownloaderCfg DownloaderCfg { get; }
         }
+
         public interface OutputData
         {
-            string Content {set;}
+            string Content { set; }
         }
     }
 
-    public class Downloader<TIn, TOut> : 
+    public class Downloader<TIn, TOut> :
         ComponentBase<TIn, TOut>
-        where TIn: class, Downloader.InputData 
-        where TOut: Downloader.OutputData, new()
+        where TIn : class, Downloader.InputData
+        where TOut : Downloader.OutputData, new()
     {
         override protected void OnWork(TIn input, TOut output)
         {

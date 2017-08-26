@@ -1,11 +1,11 @@
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
     public class Configurator<TOut> : IComponent<string, TOut>
-        where TOut: new()
+        where TOut : new()
     {
         public TOut Work(string input)
         {

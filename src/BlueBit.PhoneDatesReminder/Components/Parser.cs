@@ -8,28 +8,29 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public interface InputData
         {
-            Cfg.ParserCfg ParserCfg {get;}
-            string Content {get;}
+            Cfg.ParserCfg ParserCfg { get; }
+            string Content { get; }
         }
+
         public interface OutputData
         {
-            DateTime Date {set;}
+            DateTime Date { set; }
         }
     }
 
-    public class Parser<TIn, TOut> : 
+    public class Parser<TIn, TOut> :
         ComponentBase<TIn, TOut>
-        where TIn: class, Parser.InputData 
-        where TOut: Parser.OutputData, new()
+        where TIn : class, Parser.InputData
+        where TOut : Parser.OutputData, new()
     {
         override protected void OnWork(TIn input, TOut output)
         {
             Debug.Assert(input.ParserCfg != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(input.Content));
             var minDate = input.Content
-                .Split(new [] { System.Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                 .Last()
-                .Split(new [] {','}, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(Convert.ToDateTime)
                 .Min();
 

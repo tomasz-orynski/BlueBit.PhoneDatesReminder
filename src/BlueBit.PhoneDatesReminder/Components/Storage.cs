@@ -8,14 +8,14 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public interface InputData
         {
-            Cfg.StorageCfg StorageCfg {get;}
-            DateTime Date {get;}
+            Cfg.StorageCfg StorageCfg { get; }
+            DateTime Date { get; }
         }
     }
 
-    public abstract class StorageBase<T> : 
+    public abstract class StorageBase<T> :
         ComponentBase<T>
-        where T: class, Storage.InputData
+        where T : class, Storage.InputData
     {
         override sealed protected void OnWork(T input)
         {
@@ -27,12 +27,13 @@ namespace BlueBit.PhoneDatesReminder.Components
             path = Path.Combine(path, input.Date.ToString(frmt));
             OnWorkWithPath(Path.Combine(path));
         }
+
         protected abstract void OnWorkWithPath(string path);
     }
 
-    public class StorageCheck<T> : 
+    public class StorageCheck<T> :
         StorageBase<T>
-        where T: class, Storage.InputData
+        where T : class, Storage.InputData
     {
         override protected void OnWorkWithPath(string path)
         {
@@ -40,13 +41,14 @@ namespace BlueBit.PhoneDatesReminder.Components
                 Break();
         }
     }
-    public class StorageSave<T> : 
+
+    public class StorageSave<T> :
         StorageBase<T>
-        where T: class, Storage.InputData
+        where T : class, Storage.InputData
     {
         override protected void OnWorkWithPath(string path)
         {
-            using (File.Create(path));
+            using (File.Create(path)) ;
         }
     }
 }
