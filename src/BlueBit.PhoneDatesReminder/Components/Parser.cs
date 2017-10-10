@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -23,7 +24,7 @@ namespace BlueBit.PhoneDatesReminder.Components
         where TIn : class, Parser.InputData
         where TOut : Parser.OutputData, new()
     {
-        override protected void OnWork(TIn input, TOut output)
+        override protected async Task OnWorkAsync(TIn input, TOut output)
         {
             Debug.Assert(input.ParserCfg != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(input.Content));

@@ -1,6 +1,6 @@
 namespace BlueBit.PhoneDatesReminder.Components.Cfg
 {
-    public class SenderCfg
+    public class SenderSmtpCfg
     {
         public string Email { get; set; }
         public string Host { get; set; }

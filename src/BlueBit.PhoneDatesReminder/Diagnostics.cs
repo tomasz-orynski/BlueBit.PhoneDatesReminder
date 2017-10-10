@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder
 {
@@ -22,7 +23,7 @@ namespace BlueBit.PhoneDatesReminder
             };
         }
 
-        public static TOut CallWithLogInfo<T, TOut>(this Func<T> @this, Func<T, TOut> call)
+        public static async Task<TOut> CallWithLogInfoAsync<T, TOut>(this Func<T> @this, Func<T, Task<TOut>> call)
         {
             Debug.Assert(@this != null);
             Debug.Assert(@call != null);
@@ -31,7 +32,7 @@ namespace BlueBit.PhoneDatesReminder
             Console.WriteLine($"{DateTime.Now}=>{info}");
             try
             {
-                return call(tmp);
+                return await call(tmp);
             }
             finally
             {

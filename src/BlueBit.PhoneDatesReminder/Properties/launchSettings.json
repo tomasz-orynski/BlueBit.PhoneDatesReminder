@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BlueBit.PhoneDatesReminder": {
+      "commandName": "Project",
+      "commandLineArgs": "d:\\Program.cfg"
+    }
+  }
+}

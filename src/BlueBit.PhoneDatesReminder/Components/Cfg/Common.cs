@@ -9,7 +9,8 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
     {
         public DownloaderCfg DownloaderCfg { get; set; }
         public ParserCfg ParserCfg { get; set; }
-        public SenderCfg SenderCfg { get; set; }
+        public SenderSmtpCfg SenderSmtpCfg { get; set; }
+        public SenderSmsCfg SenderSmsCfg { get; set; }
         public StorageCfg StorageCfg { get; set; }
     }
 
@@ -22,7 +23,8 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
         {
             DownloaderCfg = prev.DownloaderCfg;
             ParserCfg = prev.ParserCfg;
-            SenderCfg = prev.SenderCfg;
+            SenderSmsCfg = prev.SenderSmsCfg;
+            SenderSmtpCfg = prev.SenderSmtpCfg;
             StorageCfg = prev.StorageCfg;
         }
     }

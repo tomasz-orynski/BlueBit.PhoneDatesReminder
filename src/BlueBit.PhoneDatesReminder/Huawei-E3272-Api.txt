@@ -1,0 +1,5347 @@
+﻿2. Strony API - żądania i odpowiedzi
+Moduł cradle
+
+Pobranie podstawowych informacji o cradle(?)
+url: http://192.168.8.1/api/cradle/basic-info
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <connectionmode></connectionmode>
+    <pppoeuser></pppoeuser>
+    <pppoepwd></pppoepwd>
+    <dialmode></dialmode>
+    <maxidletime></maxidletime>
+    <pppoemtu></pppoemtu>
+    <dynamicipmtu></dynamicipmtu>
+    <ipaddress></ipaddress>
+    <netmask></netmask>
+    <gateway></gateway>
+    <primarydns></primarydns>
+    <secondarydns></secondarydns>
+    <staticipmtu></staticipmtu>
+    <dynamicsetdnsmanual></dynamicsetdnsmanual>
+    <dynamicprimarydns></dynamicprimarydns>
+    <dynamicsecondarydns></dynamicsecondarydns>
+</response>
+Uwagi:
+pppoeuser, pppoepwd nie moga zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '&apos;',
+'"' - '&quot;',
+'<' - '&lt;',
+'>' - '&gt;'
+connectionmode:
+0 - automatyczny
+1 - PPPoE + Dynamiczny adres IP
+2 - PPPoE
+3 - Dynamiczny adres IP
+4 - Statyczny adres IP
+5 - Tylko sieć LAN
+dialmode:
+0 - automatyczny
+1 - Na żądanie
+
+Ustawienia sieci cradle(?)
+url: http://192.168.8.1/api/cradle/basic-info
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <connectionmode></connectionmode>
+    <pppoeuser></pppoeuser>
+    <pppoepwd></pppoepwd>
+    <dialmode></dialmode>
+    <maxidletime></maxidletime>
+    <pppoemtu></pppoemtu>
+    <dynamicipmtu></dynamicipmtu>
+    <ipaddress></ipaddress>
+    <netmask></netmask>
+    <gateway></gateway>
+    <primarydns></primarydns>
+    <secondarydns></secondarydns>
+    <staticipmtu></staticipmtu>
+    <dynamicsetdnsmanual></dynamicsetdnsmanual>
+    <dynamicprimarydns></dynamicprimarydns>
+    <dynamicsecondarydns></dynamicsecondarydns>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+pppoeuser, pppoepwd nie moga zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '&apos;',
+'"' - '&quot;',
+'<' - '&lt;',
+'>' - '&gt;'
+connectionmode:
+0 - automatyczny
+1 - PPPoE + Dynamiczny adres IP
+2 - PPPoE
+3 - Dynamiczny adres IP
+4 - Statyczny adres IP
+5 - Tylko sieć LAN
+dialmode:
+0 - automatyczny
+1 - Na żądanie
+
+Ustawienie adresu MAC urządzenia
+url: http://192.168.8.1/api/cradle/current-mac
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <currentmac>00:00:00:00:00:00</currentmac>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie informacji o fabrycznym adresie MAC urządzenia
+url: http://192.168.8.1/api/cradle/factory-mac
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <factorymac></factorymac>
+</response>
+Uwagi: brak
+
+Pobranie informacji o adresach MAC
+url: http://192.168.8.1/api/cradle/mac-info
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <currentmac></currentmac>
+    <hostmac></hostmac>
+</response>
+Uwagi: brak
+
+Pobranie informacji o statusie cradle(?)
+url: http://192.168.8.1/api/cradle/status-info
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <cradlestatus></cradlestatus>
+    <connectstatus></connectstatus>
+    <connectionmode></connectionmode>
+    <currenttime></currenttime>
+    <ipaddress></ipaddress>
+    <netmask></netmask>
+    <gateway></gateway>
+    <primarydns></primarydns>
+    <secondarydns></secondarydns>
+</response>
+Uwagi:
+connectstatus:
+900 - łączenie
+901 - połączony
+902 - rozłączony
+903 - rozłączanie
+904 - błąd połączenia
+905 - brak konta PPPoE
+906 - błędne konto PPPoE
+connectionmode:
+0 - automatyczny
+1 - PPPoE + Dynamiczny adres IP
+2 - PPPoE
+3 - Dynamiczny adres IP
+4 - Statyczny adres IP
+5 - Tylko sieć LAN
+Moduł DDNS
+
+Pobranie pobranie listy DNS
+url: http://192.168.8.1/api/ddns/ddns-list
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <ddnss>
+        <ddns>
+            <index></index>
+            <provider></provider>
+            <status></status>
+            <domainname></domainname>
+            <username></username>
+            <password></password>
+        </ddns>
+        <ddns>
+            ...
+        </ddns>
+        ...
+    </ddnss>
+</response>
+Uwagi: brak
+
+Usatwienie DNS
+url: http://192.168.8.1/api/ddns/ddns-list
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <ddnss>
+        <ddns>
+            <index></index>
+            <provider></provider>
+            <status></status>
+            <domainname></domainname>
+            <username></username>
+            <password></password>
+        </ddns>
+        <ddns>
+            ...
+        </ddns>
+        ...
+    </ddnss>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Moduł device
+
+Sprawdzenie dostępności nowej wersji?
+url: http://192.168.8.1/api/device/autorun-version
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Version>22.001.25.00.03</Version>
+</response>
+Uwagi: brak
+
+Podstawowe informacje
+url: http://192.168.8.1/api/device/basic_information
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <productfamily>LTE</productfamily>
+    <classify>hilink</classify>
+    <multimode>0</multimode>
+</response>
+Uwagi:
+productfamily:
+1 lub CDMA - tryb CDMA
+2 lub WCDMA lub LTE - tryb WCDMA/LTE
+multimode:
+1 - single mode?
+2 - multi mode?
+
+Pobranie ścieżki dostępu pliku rejestrowania wydarzeń
+url: http://192.168.8.1/api/device/compresslogfile
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <LogPath>http://192.168.8.1/FS:/app/webroot/data/userdata/device/WebApp.zip</LogPath>
+</response>
+Uwagi: brak
+
+Restart modemu, przywrócenie konfiguracji, kopia zapasowa konfiguracji, wyłączenie urządzenia
+url: http://192.168.8.1/api/device/control
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Control></Control>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Control:
+1 - restart urządzenia
+2 - przywrócenie konfiguracji (brak informacji jak podać plik z zapisaną konfiguracją. Być może korzysta z pliku http://192.168.8.1/nvram.bak)
+3 - kopia zapasowa konfiguracji (konfiguracja jest dostępna pod adresem http://192.168.8.1/nvram.bak. Plik jest z kodowaniem base64)
+4 - wyłączenie urządzenia
+
+Sprawdzenie stanu trybu szybkiego startu urządzenia
+url: http://192.168.8.1/api/device/fastbootswitch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <fastbootswitch></fastbootswitch>
+</response>
+Uwagi: brak
+
+Ustawienie stanu trybu szybkiego startu urządzenia
+url: http://192.168.8.1/api/device/fastbootswitch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <fastbootswitch></fastbootswitch>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Informacje o urządzeniu
+url: http://192.168.8.1/api/device/information
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <DeviceName>E3372</DeviceName>
+    <SerialNumber>L8FBY14926014416</SerialNumber>
+    <Imei>866133021233764</Imei>
+    <Imsi>260060064970338</Imsi>
+    <Iccid>89480610500149703380</Iccid>
+    <Msisdn></Msisdn>
+    <HardwareVersion>CL1E3372SM Ver.A</HardwareVersion>
+    <SoftwareVersion>22.286.53.01.161</SoftwareVersion>
+    <WebUIVersion>16.100.05.00.03</WebUIVersion>
+    <MacAddress1>00:0D:87:8E:4B:AC</MacAddress1>
+    <MacAddress2></MacAddress2>
+    <ProductFamily>LTE</ProductFamily>
+    <Classify>hilink</Classify>
+    <supportmode>LTE|WCDMA|GSM</supportmode>
+    <workmode>LTE</workmode>
+</response>
+Uwagi: brak
+
+Przełączanie modemu w tryb debugowania/NDIS
+url: http://192.168.8.1/api/device/mode
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <mode>1</mode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: Mając modem wpięty do routera zniknie połączenie z internetem gdy zostanie włączony tryb debug.
+mode:
+0 - tryb project (normalna praca?)
+1 - tryb debug/NDIS (dostęp do portów szeregowych)
+
+Pobranie ustawień pliku rejestrowania wydarzeń
+url: http://192.168.8.1/api/device/logsetting
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Where>2</Where>
+    <Size>1000</Size>
+    <Modules>
+        <Module>
+            <name>ats</name>
+            <desc>AT Server</desc>
+            <mask>0</mask>
+            <file></file>
+        </Module>
+        <Module>
+            ...
+        </Module>
+        ...
+    </Modules>
+</response>
+Uwagi: brak
+
+Ustawienia pliku rejestrowania wydarzeń
+url: http://192.168.8.1/api/device/logsetting
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Where>2</Where>
+    <Size>1000</Size>
+    <Modules>
+        <Module>
+            <name>ats</name>
+            <desc>AT Server</desc>
+            <mask>0</mask>
+            <file></file>
+        </Module>
+        <Module>
+            ...
+        </Module>
+        ...
+    </Modules>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie stanu trybu oszczędzania energii
+url: http://192.168.8.1/api/device/powersaveswitch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <powersaveswitch></powersaveswitch>
+</response>
+Uwagi: brak
+
+Ustawienie stanu trybu oszczędzania energii
+url: http://192.168.8.1/api/device/powersaveswitch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <powersaveswitch></powersaveswitch>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Parametry sygnału (2)
+url: http://192.168.8.1/api/device/signal
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <pci>40</pci>
+    <sc></sc>
+    <cell_id>2123610</cell_id>
+    <rsrq>-6dB</rsrq>
+    <rsrp>-91dBm</rsrp>
+    <rssi>-71dBm</rssi>
+    <sinr>14dB</sinr>
+    <rscp></rscp>
+    <ecio></ecio>
+    <mode>7</mode>
+</response>
+Uwagi: brak
+
+Sprawdzenie stanu modułu tetheringu przez USB
+url: http://192.168.8.1/api/device/usb-tethering-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <tetheringswitch></tetheringswitch>
+</response>
+Uwagi: brak
+
+Sprawdzenie stanu tetheringu przez USB
+url: http://192.168.8.1/api/device/usb-tethering
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <tethering></tethering>
+</response>
+Uwagi: brak
+
+Ustawienie stanu tetheringu przez USB
+url: http://192.168.8.1/api/device/usb-tethering
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <tethering></tethering>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+Moduł DHCP
+
+Pobranie ustawień DHCP
+url: http://192.168.8.1/api/dhcp/settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <DhcpIPAddress>192.168.8.1</DhcpIPAddress>
+    <DhcpLanNetmask>255.255.255.0</DhcpLanNetmask>
+    <DhcpStatus>1</DhcpStatus>
+    <DhcpStartIPAddress>192.168.8.100</DhcpStartIPAddress>
+    <DhcpEndIPAddress>192.168.8.200</DhcpEndIPAddress>
+    <DhcpLeaseTime>86400</DhcpLeaseTime>
+    <DnsStatus>1</DnsStatus>
+    <PrimaryDns>192.168.8.1</PrimaryDns>
+    <SecondaryDns>192.168.8.1</SecondaryDns>
+</response>
+Uwagi:
+DhcpStatus:
+0 - serwer DHCP wyłączony
+1 - serwer DHCP włączony
+DhcpLeaseTime: czas zwolnienia musi zawierać się w przedziale od 86400 do 604800. Domyślnie jest 86400.
+
+Ustawienie DHCP
+url: http://192.168.8.1/api/dhcp/settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <DhcpIPAddress></DhcpIPAddress>
+    <DhcpLanNetmask></DhcpLanNetmask>
+    <DhcpStatus></DhcpStatus>
+    <DhcpStartIPAddress></DhcpStartIPAddress>
+    <DhcpEndIPAddress></DhcpEndIPAddress>
+    <DhcpLeaseTime></DhcpLeaseTime>
+    <PrimaryDns></PrimaryDns>
+    <SecondaryDns></SecondaryDns>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+DhcpStatus:
+0 - serwer DHCP wyłączony
+1 - serwer DHCP włączony
+DhcpLeaseTime: czas zwolnienia musi zawierać się w przedziale od 86400 do 604800. Domyślnie jest 86400.
+
+
+Moduł diagnosis
+
+Polecenie PING
+url: http://192.168.8.1/api/diagnosis/ping
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <target></target>
+    <packetsize></packetsize>
+    <timeout></timeout>
+    <fragment></fragment>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <result></result>
+    <resultdetail></resultdetail>
+</response>
+Uwagi:
+packetsize: musi zawierać się od powyżej 0 do 9000.
+timeout: czas pingowania musi zawierać się w przedziale od 1 do 10. Domyślnie jest 86400.
+
+Polecenie TRACEROUTE
+url: http://192.168.8.1/api/diagnosis/traceroute
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <target></target>
+    <maxhops></maxhops>
+    <timeout></timeout>
+</request>
+odpowiedź:
+Kod:
+<response>?</response>
+Uwagi:
+maxhops: maksymalna ilość skoków musi zawierać się od 1 do 100.
+timeout: czas śledzenia musi zawierać się w przedziale od 2 do 10. Domyślnie jest 86400.
+W następnej kolejności należy pobrać wynik śledzenia api/diagnosis/tracerouteresult.
+
+Wynik śledzenia TRACEROUTE
+url: http://192.168.8.1/api/diagnosis/tracerouteresult
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <result></result>
+    <resultdetail></resultdetail>
+</response>
+Uwagi:
+result:
+2 - trwa wyznaczanie ścieżki
+Moduł dialup
+
+Pobranie informacji o statusie automatycznego doboru APN?
+url: http://192.168.8.1/api/dialup/auto-apn
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <AutoAPN></AutoAPN>
+</response>
+Uwagi: brak
+
+Ustawienie statusu automatycznego doboru APN?
+url: http://192.168.8.1/api/dialup/auto-apn
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <AutoAPN></AutoAPN>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Ustawienia automatycznego nawiązywania połaczenia
+url: http://192.168.8.1/api/dialup/connection
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <RoamAutoConnectEnable>0</RoamAutoConnectEnable>
+    <MaxIdelTime>300</MaxIdelTime>
+    <ConnectMode>0</ConnectMode>
+    <MTU>1450</MTU>
+    <auto_dial_switch>1</auto_dial_switch>
+</response>
+Uwagi:
+ConnectMode:
+0 - łączenie automatyczne
+1 - łączenie ręczne
+2 - łączenie na żądanie
+
+Ustawienia automatycznego nawiązywania połaczenia
+url: http://192.168.8.1/api/dialup/connection
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <RoamAutoConnectEnable>0</RoamAutoConnectEnable>
+    <AutoReconnect>1</AutoReconnect>
+    <RoamAutoReconnctEnable>1</RoamAutoReconnctEnable>
+    <ReconnectInterval>3</ReconnectInterval>
+    <MaxIdelTime>0</MaxIdelTime>
+    <ConnectMode>0</ConnectMode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+ConnectMode:
+0 - łączenie automatyczne
+1 - łączenie ręczne
+2 - łączenie na żądanie
+
+Nawiązywanie i rozłączanie połączenia
+url: http://192.168.8.1/api/dialup/dial
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Action></Action>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Action:
+0 - rozłączenie
+1 - nawiązanie połączenia
+
+Pobranie ustawień przełaczników dla modułu dialup
+url: http://192.168.8.1/api/dialup/dialup-feature-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <iptype_enabled>0</iptype_enabled>
+    <auto_dial_enabled>0</auto_dial_enabled>
+</response>
+Uwagi: brak
+
+Pobranie informacji o połączeniu
+url: http://192.168.8.1/api/dialup/mobile-dataswitch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <dataswitch></dataswitch>
+</response>
+Uwagi:
+dataswitch:
+0 - dane mobile wyłączone
+1 - dane mobile włączone
+
+Przełączenie danych mobilnych
+url: http://192.168.8.1/api/dialup/mobile-dataswitch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <dataswitch></dataswitch>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+dataswitch:
+0 - dane mobile wyłączone
+1 - dane mobile włączone
+
+Usunięcie profilu połączenia
+url: http://192.168.8.1/api/dialup/profiles
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Delete></Delete>
+    <SetDefault></SetDefault>
+    <Modify>0</Modify>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: Delete - indeks usuwanego profilu, SetDefault - indeks profilu ustawianego jako domyślny
+
+Pobranie informacji o profilach połączenia
+url: http://192.168.8.1/api/dialup/profiles
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentProfile>1</CurrentProfile>
+    <Profiles>
+        <Profile>
+            <Index>1</Index>
+            <IsValid>1</IsValid>
+            <Name>PLAY</Name>
+            <ApnIsStatic>1</ApnIsStatic>
+            <ApnName>internet</ApnName>
+            <DialupNum>*99#</DialupNum>
+            <Username/>
+            <Password/>
+            <AuthMode>2</AuthMode>
+            <IpIsStatic>0</IpIsStatic>
+            <IpAddress/>
+            <Ipv6Address/>
+            <DnsIsStatic>0</DnsIsStatic>
+            <PrimaryDns/>
+            <SecondaryDns/>
+            <PrimaryIpv6Dns/>
+            <SecondaryIpv6Dns/>
+            <ReadOnly>2</ReadOnly>
+            <iptype>2</iptype>
+        </Profile>
+        <Profile>
+            ...
+        </Profile>
+        ...
+    </Profiles>
+</response>
+Uwagi:
+AuthMode:
+0 - autoryzacja automatyczna,
+1 - autoryzacja PAP (Password Authentication Protocol),
+2 - autoryzacja CHAP (Challenge-Handshake Authentication Protocol),
+
+Dodanie nowego lub modyfikacja istniejącego profilu połączenia
+url: http://192.168.8.1/api/dialup/profiles
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Delete></Delete>
+    <SetDefault></SetDefault>
+    <Modify>0</Modify>
+    <CurrentProfile>1</CurrentProfile>
+    <Profile>
+        <Index></Index>
+        <IsValid>1</IsValid>
+        <Name></Name>
+        <ApnIsStatic></ApnIsStatic>
+        <ApnName></ApnName>
+        <DialupNum></DialupNum>
+        <Username></Username>
+        <Password></Password>
+        <AuthMode>2</AuthMode>
+        <IpIsStatic></IpIsStatic>
+        <IpAddress></IpAddress>
+        <Ipv6Address></Ipv6Address>
+        <DnsIsStatic></DnsIsStatic>
+        <PrimaryDns></PrimaryDns>
+        <SecondaryDns></SecondaryDns>
+        <PrimaryIpv6Dns></PrimaryIpv6Dns>
+        <SecondaryIpv6Dns></SecondaryIpv6Dns>
+        <ReadOnly>0</ReadOnly>
+        <iptype></iptype>
+    </Profile>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+aby utworzyć nowy profil ustawić następujące wartości dla parametrów: Delete - 0, Modify - 1, ReadOnly - 0;
+aby zmodyfikować profil ustawić następujące wartości dla parametrów: Delete - 0, Modify - 2, ReadOnly - 0;
+
+Moduł filemanager
+
+Przesłanie pliku do urządzenia
+url: http://192.168.8.1/api/filemanager/upload
+metoda: POST
+żądanie: ?
+odpowiedź: ?
+Uwagi: Najbardziej chyba tajemnicze API. Poza adresem nic nie wiadomo. Zapewne podobnie działa jak równie tajemnicze API api/sdcard/fileupload tyle, że chyba przesyła plik do głównego katalogu urządzenia.
+Moduł global
+
+Informacje o stanie modułów
+url: http://192.168.8.1/api/global/module-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <ussd_enabled>1</ussd_enabled>
+    <bbou_enabled>0</bbou_enabled>
+    <sms_enabled>1</sms_enabled>
+    <sdcard_enabled>0</sdcard_enabled>
+    <wifi_enabled>0</wifi_enabled>
+    <statistic_enabled>1</statistic_enabled>
+    <help_enabled>0</help_enabled>
+    <stk_enabled>1</stk_enabled>
+    <pb_enabled>1</pb_enabled>
+    <dlna_enabled></dlna_enabled>
+    <ota_enabled>0</ota_enabled>
+    <wifioffload_enabled>0</wifioffload_enabled>
+    <cradle_enabled>0</cradle_enabled>
+    <multssid_enable>0</multssid_enable>
+    <ipv6_enabled>0</ipv6_enabled>
+    <monthly_volume_enabled>1</monthly_volume_enabled>
+    <powersave_enabled>0</powersave_enabled>
+    <sntp_enabled>0</sntp_enabled>
+    <dataswitch_enabled>1</dataswitch_enabled>
+    <poweroff_enabled>0</poweroff_enabled>
+    <ecomode_enabled>1</ecomode_enabled>
+    <zonetime_enabled>0</zonetime_enabled>
+    <localupdate_enabled>0</localupdate_enabled>
+    <cbs_enabled>0</cbs_enabled>
+    <qrcode_enabled>0</qrcode_enabled>
+    <charger_enbaled>0</charger_enbaled>
+</response>
+Uwagi: brak
+Moduł host
+
+Ustawienia regionalne
+url: http://192.168.8.1/api/host/info
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Time></Time>
+    <Timezone></Timezone>
+    <Platform></Platform>
+    <PlatformVer></PlatformVer>
+    <Navigator></Navigator>
+    <NavigatorVer></NavigatorVer>
+</request>
+odpowiedź:
+Kod:
+<response>?</response>
+Uwagi: brak
+Timezone: w postaci "GMT+HH:MM" lub "GMT-HH:MM"
+Moduł language
+
+Pobranie informacji o języku WebUI
+url: http://192.168.8.1/api/language/current-language
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentLanguage>pl-pl</CurrentLanguage>
+</response>
+Uwagi: brak
+
+Ustawienie języka WebUI
+url: http://192.168.8.1/api/language/current-language
+metoda: POST
+żądanie:
+Kod:
+<request> 
+    <CurrentLanguage>pl_pl</CurrentLanguage> 
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: język wprowadzany w standardowej postaci tyle, że zamiast pauzy '-' ma być podkreślnik '_' np. 'pl_pl' lub 'en_us'. Wymaga żeby dany język był na liście językowej w pliku konfiguracyjnym
+Moduł monitoring
+
+Powiadomienia
+url: http://192.168.8.1/api/monitoring/check-notifications
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <UnreadMessage>5</UnreadMessage>
+    <SmsStorageFull>0</SmsStorageFull>
+    <OnlineUpdateStatus>10</OnlineUpdateStatus>
+</response>
+Uwagi: brak
+
+Wyzerowanie statystyk
+url: http://192.168.8.1/api/monitoring/clear-traffic
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <ClearTraffic>1</ClearTraffic>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Status telefonii konwergentnej (?) (Status PIN)
+url: http://192.168.8.1/api/monitoring/converged-status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SimState>257</SimState>
+    <SimLockEnable>0</SimLockEnable>
+    <CurrentLanguage>en-us</CurrentLanguage>
+</response>
+Uwagi: api/monitoring/converged-status ma być oficjalnie optymalizacją i połączeniem stron api/pin/status + api/pin/simlock + api/language/current-language
+SimState:
+255 - brak karty SIM,
+256 - błąd CPIN,
+257 - gotowa,
+258 - PIN wyłączony,
+259 - sprawdzanie PIN,
+260 - wymagany PIN,
+261 - wymagany PUK
+
+Statystyki miesięczne urządzenia?
+url: http://192.168.8.1/api/monitoring/month_statistics
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentMonthDownload>26943751933</CurrentMonthDownload>
+    <CurrentMonthUpload>2839508254</CurrentMonthUpload>
+    <MonthDuration>2366237</MonthDuration>
+    <MonthLastClearTime>2015-1-1</MonthLastClearTime>
+</response>
+Uwagi: brak
+
+Statystyki miesięczne WLAN?
+url: http://192.168.8.1/api/monitoring/month_statistics_wlan
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentMonthDownload></CurrentMonthDownload>
+    <CurrentMonthUpload></CurrentMonthUpload>
+    <MonthDuration></MonthDuration>
+    <MonthLastClearTime></MonthLastClearTime>
+</response>
+Uwagi: brak
+
+Sprawdzenie czasu pracy urządzenia?
+url: http://192.168.8.1/api/monitoring/start_date
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <StartDay>1</StartDay>
+    <DataLimit>0MB</DataLimit>
+    <DataLimitAwoke>0</DataLimitAwoke>
+    <MonthThreshold>90</MonthThreshold>
+    <SetMonthData>0</SetMonthData>
+    <trafficmaxlimit>0</trafficmaxlimit>
+    <turnoffdataenable>0</turnoffdataenable>
+    <turnoffdataswitch>0</turnoffdataswitch>
+    <turnoffdataflag>0</turnoffdataflag>
+</response>
+Uwagi: brak
+
+Ustawienie czasu pracy urządzenia?
+url: http://192.168.8.1/api/monitoring/start_date
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <StartDay>1</StartDay>
+    <DataLimit>0MB</DataLimit>
+    <DataLimitAwoke>0</DataLimitAwoke>
+    <MonthThreshold>90</MonthThreshold>
+    <SetMonthData>0</SetMonthData>
+    <trafficmaxlimit>0</trafficmaxlimit>
+    <turnoffdataenable>0</turnoffdataenable>
+    <turnoffdataswitch>0</turnoffdataswitch>
+    <turnoffdataflag>0</turnoffdataflag>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie czasu pracy WLAN?
+url: http://192.168.8.1/api/monitoring/start_date_wlan
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <DataLimit></DataLimit>
+    <StartDay></StartDay>
+    <MonthThreshold></MonthThreshold>
+    <SetMonthData></SetMonthData>
+</response>
+Uwagi: brak
+
+Ustawienie czasu pracy WLAN?
+url: http://192.168.8.1/api/monitoring/start_date_wlan
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SettingEnbale></SettingEnbale>
+    <StartDay></StartDay>
+    <DataLimit></DataLimit>
+    <MonthThreshold></MonthThreshold>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Status połączenia
+url: http://192.168.8.1/api/monitoring/status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <ConnectionStatus>901</ConnectionStatus>
+    <WifiConnectionStatus></WifiConnectionStatus>
+    <SignalStrength></SignalStrength>
+    <SignalIcon>4</SignalIcon>
+    <CurrentNetworkType>101</CurrentNetworkType>
+    <CurrentServiceDomain>3</CurrentServiceDomain>
+    <RoamingStatus>0</RoamingStatus>
+    <BatteryStatus></BatteryStatus>
+    <BatteryLevel></BatteryLevel>
+    <BatteryPercent></BatteryPercent>
+    <simlockStatus>0</simlockStatus>
+    <WanIPAddress>31.175.29.71</WanIPAddress>
+    <WanIPv6Address></WanIPv6Address>
+    <PrimaryDns>89.108.195.20</PrimaryDns>
+    <SecondaryDns>89.108.202.20</SecondaryDns>
+    <PrimaryIPv6Dns></PrimaryIPv6Dns>
+    <SecondaryIPv6Dns></SecondaryIPv6Dns>
+    <CurrentWifiUser></CurrentWifiUser>
+    <TotalWifiUser></TotalWifiUser>
+    <currenttotalwifiuser>0</currenttotalwifiuser>
+    <ServiceStatus>2</ServiceStatus>
+    <SimStatus>1</SimStatus>
+    <WifiStatus></WifiStatus>
+    <CurrentNetworkTypeEx>101</CurrentNetworkTypeEx>
+    <maxsignal>5</maxsignal>
+    <wifiindooronly>-1</wifiindooronly>
+    <wififrequence>0</wififrequence>
+    <msisdn></msisdn>
+    <classify>hilink</classify>
+    <flymode>0</flymode>
+</response>
+Uwagi:
+ConnectionStatus, WifiConnectionStatus:
+2, 3, 5, 8, 20, 21, 23, 27, 28, 29, 30, 31, 32, 33, 65538, 65539, 65567, 65568, 131073, 131074, 131076, 131078 - błąd połączenia (błędny profil).
+7, 11, 14, 37, 131079, 131080, 131081, 131082, 131083, 131084, 131085, 131086, 131087, 131088, 131089 - błąd połączenia (zabroniony dostęp do sieci)
+12, 13 - brak połączenia (brak roamingu)
+112 - brak automatycznego nawiązywania połączenia
+113 - brak automatycznego nawiązywania połączenia w roamingu
+114 - brak ponownego połączenia
+115 - brak ponownego połączenia w roamingu
+201 - połączenie przerwane, przekroczony limit transmisji danych
+900 - łączenie
+901 - połączony
+902 - rozłączony
+903 - rozłączanie
+904 - połączenie się nie powiodło
+905 - brak połączenia (słaby sygnał)
+906 - błąd połączenia
+CurrentNetworkType, CurrentNetworkTypeEx:
+0 - brak usługi
+1 - GSM
+2 - GPRS
+3 - EDGE
+4 - WCDMA
+5 - HSDPA
+6 - HSUPA
+7 - HSPA
+8 - TDSCDMA
+9 - HSPA+
+10 - EVDO rev. 0
+11 - EVDO rev. A
+12 - EVDO rev. B
+13 - 1xRTT
+14 - UMB
+15 - 1xEVDV
+16 - 3xRTT
+17 - HSPA+64QAM
+18 - HSPA+MIMO
+19 - LTE
+21 - IS95A
+22 - IS95B
+23 - CDMA1x
+24 - EVDO rev. 0
+25 - EVDO rev. A
+26 - EVDO rev. B
+27 - Hybrydowa CDMA1x
+28 - Hybrydowa EVDO rev. 0
+29 - Hybrydowa EVDO rev. A
+30 - Hybrydowa EVDO rev. B
+31 - EHRPD rev. 0
+32 - EHRPD rev. A
+33 - EHRPD rev. B
+34 - Hybrydowa EHRPD rev. 0
+35 - Hybrydowa EHRPD rev. A
+36 - Hybrydowa EHRPD rev. B
+41 - WCDMA
+42 - HSDPA
+43 - HSUPA
+44 - HSPA
+45 - HSPA+
+46 - DC HSPA+
+61 - TD SCDMA
+62 - TD HSDPA
+63 - TD HSUPA
+64 - TD HSPA
+65 - TD HSPA+
+81 - 802.16E
+101 - LTE
+SimStatus:
+0 - brak karty SIM lub jest ona niepoprawna
+1 - poprawna karta SIM
+2 - niepoprawna karta SIM dla przypadku komutacji łącza (CS)
+3 - niepoprawna karta SIM dla przypadku komutacji pakietu (PS)
+4 - niepoprawna karta SIM dla przypadku komutacji łącza i pakietu (PS+CS)
+240 - ROMSIM
+255 - brak karty SIM
+BatteryStatus:
+0 - normalny stan pracy baterii
+1 - ładowanie baterii
+-1 - niski poziom naładowania baterii
+2 - brak baterii
+ServiceStatus:
+2 - usługa jest dostępna
+WifiStatus:
+0 - WiFi wyłączone
+1 - WiFi włączone
+5G - WiFi 5GHz włączone
+RoamingStatus:
+0 - roaming wyłączony
+1 - roaming włączony
+2 - bez zmian
+
+Statystyki łącza
+url: http://192.168.8.1/api/monitoring/traffic-statistics
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentConnectTime>41226</CurrentConnectTime>
+    <CurrentUpload>6320878</CurrentUpload>
+    <CurrentDownload>44699227</CurrentDownload>
+    <CurrentDownloadRate>0</CurrentDownloadRate>
+    <CurrentUploadRate>0</CurrentUploadRate>
+    <TotalUpload>3623189297</TotalUpload>
+    <TotalDownload>28873100218</TotalDownload>
+    <TotalConnectTime>2653408</TotalConnectTime>
+    <showtraffic>1</showtraffic>
+</response>
+Uwagi: brak
+
+Moduł net
+
+Informacje o sieci
+url: http://192.168.8.1/api/net/current-plmn
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <State>0</State>
+    <FullName>Play</FullName>
+    <ShortName>Play</ShortName>
+    <Numeric>26006</Numeric>
+    <Rat>7</Rat>
+</response>
+Uwagi:
+Rat:
+0 - sieć 2G
+2 - sieć 3G
+5 - sieć HSPA/HSPA+
+7 - sieć 4G
+
+Tryb pracy sieci (1) - informacja (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/net-mode
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <NetworkMode>00</NetworkMode>
+    <NetworkBand>3FFFFFFF</NetworkBand>
+    <LTEBand>800C5</LTEBand>
+</response>
+Uwagi:
+NetworkMode:
+00 - automatycznie (wszystkie sieci)
+01 - tylko 2G
+02 - tylko 3G
+03 - Tylko 4G (LTE)
+99 - bez zmian
+tryb sieci może być połączony np '0302' jest równoważne z 'Preferowane LTE -> 3G'
+NetworkBand:
+80 - GSM1800
+300 - GSM900
+80000 - GSM850
+200000 - GSM1900
+400000 - UTMS B1 (2100)
+800000 - UTMS B2 (1900)
+4000000 - UTMS B5 (850)
+2000000000000 - UTMS B8 (900)
+1 - BC0A
+2 - BC0B
+4 - BC1
+8 - BC2
+10 - BC3
+20 - BC4
+40 - BC5
+400 - BC6
+800 - BC7
+1000 - BC8
+2000 - BC9
+4000 - BC10
+8000 - BC11
+10000000 - BC12
+20000000 - BC13
+80000000 - BC14
+3FFFFFFF - wszystkie obsługiwane
+inny zapis jest sumą heksadecymalną powyższych sieci (np. GSM900 + UTMS B8 = 0x2000000000000 + 0x300 = 0x2000000000300)
+LTEBand:
+1 - B1 (FDD 2100)
+4 - B3 (FDD 1800)
+40 - B7 (FDD 2600)
+80 - B8 (FDD 900)
+80000 - B20 (FDD 800)
+2000000000 - B38 (TDD 2600)
+8000000000 - B40 (TDD 2300)
+800C5 - pasma EU (LTE Band 1, 3, 7, 8, 20)
+800D5 - pasma EU/Asia/Africa (LTE Band 1, 3, 5, 7, 8, 20)
+7FFFFFFFFFFFFFFF - wszystkie pasma
+inny zapis jest sumą heksadecymalną powyższych sieci
+
+Tryb pracy sieci (1) - ustawienia (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/net-mode
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <NetworkMode>00</NetworkMode>
+    <NetworkBand>3FFFFFFF</NetworkBand>
+    <LTEBand>800C5</LTEBand>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+NetworkMode:
+00 - automatycznie (wszystkie sieci)
+01 - tylko 2G
+02 - tylko 3G
+03 - Tylko 4G (LTE)
+99 - bez zmian
+tryb sieci może być połączony np '0302' jest równoważne z 'Preferowane LTE -> 3G'
+NetworkBand:
+80 - GSM1800
+300 - GSM900
+80000 - GSM850
+200000 - GSM1900
+400000 - UTMS B1 (2100)
+800000 - UTMS B2 (1900)
+4000000 - UTMS B5 (850)
+2000000000000 - UTMS B8 (900)
+1 - BC0A
+2 - BC0B
+4 - BC1
+8 - BC2
+10 - BC3
+20 - BC4
+40 - BC5
+400 - BC6
+800 - BC7
+1000 - BC8
+2000 - BC9
+4000 - BC10
+8000 - BC11
+10000000 - BC12
+20000000 - BC13
+80000000 - BC14
+3FFFFFFF - wszystkie obsługiwane
+inny zapis jest sumą heksadecymalną powyższych sieci (np. GSM900 + UTMS B8 = 0x2000000000000 + 0x300 = 0x2000000000300)
+LTEBand:
+1 - B1 (FDD 2100)
+4 - B3 (FDD 1800)
+40 - B7 (FDD 2600)
+80 - B8 (FDD 900)
+80000 - B20 (FDD 800)
+2000000000 - B38 (TDD 2600)
+8000000000 - B40 (TDD 2300)
+800C5 - pasma EU (LTE Band 1, 3, 7, 8, 20)
+800D5 - pasma EU/Asia/Africa (LTE Band 1, 3, 5, 7, 8, 20)
+7FFFFFFFFFFFFFFF - wszystkie pasma
+inny zapis jest sumą heksadecymalną powyższych sieci
+
+Lista trybów pracy sieci (wydaje mi się że chodzi o częstotliwości jakie obsługuje modem. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/net-mode-list
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <AccessList>
+        <Access>00</Access>
+        <Access>01</Access>
+        <Access>02</Access>
+        <Access>03</Access>
+    </AccessList>
+    <BandList>
+        <Band>
+            <Name>GSM900/GSM1800/WCDMA BCVIII/WCDMA BCI</Name>
+            <Value>2000000400380</Value>
+        </Band>
+    </BandList>
+    <LTEBandList>
+        <LTEBand>
+            <Name>LTE BC1/LTE BC3/LTE BC7/LTE BC8/LTE BC20</Name>
+            <Value>800c5</Value>
+        </LTEBand>
+        <LTEBand>
+            <Name>All bands</Name>
+            <Value>7ffffffffffffff</Value>
+        </LTEBand>
+    </LTEBandList>
+</response>
+Uwagi: brak
+
+Tryb pracy sieci (2) - informacja (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/network
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <NetworkMode>0</NetworkMode>
+    <NetworkBand></NetworkBand>
+</response>
+Uwagi:
+NetworkMode:
+00 - automatycznie (wszystkie sieci)
+01 - tylko 2G
+02 - tylko 3G
+03 - Tylko 4G (LTE)
+99 - bez zmian
+tryb sieci może być połączony np '0302' jest równoważne z 'Preferowane LTE -> 3G'
+NetworkBand:
+80 - GSM1800
+300 - GSM900
+80000 - GSM850
+200000 - GSM1900
+400000 - UTMS B1 (2100)
+800000 - UTMS B2 (1900)
+4000000 - UTMS B5 (850)
+2000000000000 - UTMS B8 (900)
+1 - BC0A
+2 - BC0B
+4 - BC1
+8 - BC2
+10 - BC3
+20 - BC4
+40 - BC5
+400 - BC6
+800 - BC7
+1000 - BC8
+2000 - BC9
+4000 - BC10
+8000 - BC11
+10000000 - BC12
+20000000 - BC13
+80000000 - BC14
+3FFFFFFF - wszystkie obsługiwane
+inny zapis jest sumą heksadecymalną powyższych sieci (np. GSM900 + UTMS B8 = 0x2000000000000 + 0x300 = 0x2000000000300)
+
+Tryb pracy sieci (2) - ustawienia (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/network
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <NetworkBand>3FFFFFFF</NetworkBand>
+    <LTEBand>800C5</LTEBand>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: Co ciekawe wg JavaScriptu wymaga innych parametrów w request (LTEBand i NetworkBand) niż zwraca w trybie informacyjnym (NetworkMode i NetworkBand)
+NetworkMode:
+00 - automatycznie (wszystkie sieci)
+01 - tylko 2G
+02 - tylko 3G
+03 - Tylko 4G (LTE)
+99 - bez zmian
+tryb sieci może być połączony np '0302' jest równoważne z 'Preferowane LTE -> 3G'
+NetworkBand:
+80 - GSM1800
+300 - GSM900
+80000 - GSM850
+200000 - GSM1900
+400000 - UTMS B1 (2100)
+800000 - UTMS B2 (1900)
+4000000 - UTMS B5 (850)
+2000000000000 - UTMS B8 (900)
+1 - BC0A
+2 - BC0B
+4 - BC1
+8 - BC2
+10 - BC3
+20 - BC4
+40 - BC5
+400 - BC6
+800 - BC7
+1000 - BC8
+2000 - BC9
+4000 - BC10
+8000 - BC11
+10000000 - BC12
+20000000 - BC13
+80000000 - BC14
+3FFFFFFF - wszystkie obsługiwane
+inny zapis jest sumą heksadecymalną powyższych sieci (np. GSM900 + UTMS B8 = 0x2000000000000 + 0x300 = 0x2000000000300)
+LTEBand:
+1 - B1 (FDD 2100)
+4 - B3 (FDD 1800)
+40 - B7 (FDD 2600)
+80 - B8 (FDD 900)
+80000 - B20 (FDD 800)
+2000000000 - B38 (TDD 2600)
+8000000000 - B40 (TDD 2300)
+800C5 - pasma EU (LTE Band 1, 3, 7, 8, 20)
+800D5 - pasma EU/Asia/Africa (LTE Band 1, 3, 5, 7, 8, 20)
+7FFFFFFFFFFFFFFF - wszystkie pasma
+inny zapis jest sumą heksadecymalną powyższych sieci
+
+Lista dostępnych sieci
+url: http://192.168.8.1/api/net/plmn-list
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Networks>
+        <Network>
+            <Index>0</Index>
+            <State>1</State>
+            <FullName>Play</FullName>
+            <ShortName>Play</ShortName>
+            <Numeric>26006</Numeric>
+            <Rat>7</Rat>
+        </Network>
+        <Network>
+            ...
+        </Network>
+        ...
+    </Networks>
+</response>
+Uwagi:
+State:
+1 - sieć nadająca się do użytku
+2 - sieć zarejestrowana
+3 - sieć niedozwolona
+Rat:
+0 - sieć 2G
+2 - sieć 3G
+5 - sieć HSPA/HSPA+
+7 - sieć 4G
+
+Rejestracja sieci - informacja (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/register
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Mode>0</Mode>
+    <Plmn></Plmn>
+    <Rat></Rat>
+</response>
+Uwagi:
+Mode:
+0 - automatyczne wyszukiwanie sieci
+1 - ręczne wyszukiwanie sieci
+
+Rejestracja sieci - ustawienia (wydaje mi się, że chodzi o ustawienie na jakich częstotliwościach modem może się łączyć. Jak ktoś ma lepszą nazwę to się nie krępować i pisać Tongue)
+url: http://192.168.8.1/api/net/register
+żądanie:
+Kod:
+<request>
+    <Mode>0</Mode>
+    <Plmn></Plmn>
+    <Rat></Rat>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Mode:
+0 - automatyczne wyszukiwanie sieci
+1 - ręczne wyszukiwanie sieci
+Plmn: brak informacji
+Rat:
+0 - sieć 2G
+2 - sieć 3G
+5 - sieć HSPA/HSPA+
+7 - sieć 4G
+
+Parametry sygnału (1)
+url: http://192.168.8.1/api/net/signal-para
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Rscp>-145</Rscp>
+    <Ecio>-32</Ecio>
+    <Rssi>-69dBm</Rssi>
+    <Lac>00C9</Lac>
+    <CellID>0020675A</CellID>
+</response>
+Uwagi: brak
+Moduł online-update
+
+Potwierdzenie nowej wersji?
+url: http://192.168.8.1/api/online-update/ack-newversion
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <userAckNewVersion></userAckNewVersion>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Anulowanie pobierania aktualizacji
+url: http://192.168.8.1/api/online-update/cancel-downloading
+metoda: POST (?)
+żądanie: '' (pusty ciąg, prawdopodobnie nawet bez słów kluczowych request)
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie czy są nowe aktualizacje online?
+url: http://192.168.8.1/api/online-update/check-new-version
+metoda: POST (?)
+żądanie: '' (pusty ciąg, prawdopodobnie nawet bez słów kluczowych request)
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: to API jest niejasne. W odpowiedzi daje OK, ale żądania brak (wg źródeł js wysyłany jako POST -d ""). Co w ogóle jest tu tak naprawdę pytaniem a co odpowiedzią?
+
+Sprawdzenie statusu aktualizacji online
+url: http://192.168.8.1/api/online-update/status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <CurrentComponentStatus></CurrentComponentStatus>
+    <DownloadProgress></DownloadProgress>
+    <updatebatterystatus></updatebatterystatus>
+    <CurrentComponentIndex></CurrentComponentIndex>
+    <TotalComponents></TotalComponents>
+</response>
+Uwagi:
+CurrentComponentStatus:
+10 - bezczynny, brak aktualizacji
+11 - pobieranie informacji o aktualizacjach
+12 - znaleziono nową wersję
+13 - błąd pobierania informacji o aktualizacjach
+14 - obecna wersja jest aktualna
+20 - błąd pobierania aktualizacji
+30 - pobieranie aktualizacji w toku
+31 - odśwież?pobieranie aktualizacji, oczekuje
+40 - pobieranie aktualizacji ukończone
+50 - gotowe do aktualizacji
+51 - niski poziom baterii
+60 - aktualizacja w toku
+70 - błąd aktualizacji, patrz log?
+80 - błąd aktualizacji, brak logu?
+90 - koniec sesji?aktualizacja ukończona pomyślnie, patrz log
+100 - aktualizacja ukończona pomyślnie, brak logu
+
+Sprawdzenie czy istnieje nowa wersja? Sprawdzenie statusu przypomnienia o nowej wersji?
+url: http://192.168.8.1/api/online-update/upgrade-messagebox
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <messagebox></messagebox>
+</response>
+Uwagi: brak
+
+Ustawienie przypomnienia o nowej wersji?
+url: http://192.168.8.1/api/online-update/upgrade-messagebox
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <messagebox></messagebox>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie czy są nowe aktualizacje online
+url: http://192.168.8.1/api/online-update/url-list
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <ComponentList>
+        <Component>
+            <ComponentName></ComponentName>
+            <Version></Version>
+            <ComponentSize></ComponentSize>
+        </Component>
+        <Component>
+            ...
+        </Component>
+        ...
+    </ComponentList>
+</response>
+Uwagi: brak
+
+Moduł OTA
+
+Aktywacja OTA?
+url: http://192.168.8.1/api/ota/activate
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <AutoActivate></AutoActivate>
+    <Number></Number>
+    <Mdn></Mdn>
+    <Min></Min>
+    <HomeSid></HomeSid>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+AutoActivate:
+0 - MARCO_ACTIVETYPE_MANUAL
+1 - MARCO_ACTIVETYPE_AUTO
+2 - MARCO_ACTIVETYPE_AUTOMANUAL
+
+Pobranie ustawień blokady OTA?
+url: http://192.168.8.1/api/ota/otamsg
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Otamsg></Otamsg>
+</response>
+Uwagi:
+Otamsg:
+0 - status początkowy
+1 - rozpoczęcie programowania OTASP
+2 - odblokowano programowanie serwisowe
+3 - pobrano parametry NAM
+4 - pobrano MDN
+5 - pobrano IMSI
+6 - pobrano plik PRL
+7 - wysłano dane OTASP
+8 - zakończono programowanie OTASP
+9 - nie udało się wysłać danych OTASP
+
+Pobranie statusu OTA?
+url: http://192.168.8.1/api/ota/otksl
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <OtkslStatus></OtkslStatus>
+    <RetryTimes></RetryTimes>
+</response>
+Uwagi:
+OtkslStatus:
+0 - MARCO_OTKSLTYPE_NOPASSWORD
+1 - MARCO_OTKSLTYPE_OTKSL
+2 - MARCO_OTKSLTYPE_MSL
+
+Aktywacja OTA?
+url: http://192.168.8.1/api/ota/otksl
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Type></Type>
+    <Password></Password>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Type:
+0 - MARCO_OTKSLUNLOCK_OTKSL
+1 - MARCO_OTKSLUNLOCK_MSL
+Moduł pb
+
+Usunięcie grupy w książce kontaktów
+url: http://192.168.8.1/api/pb/group-delete
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie grup z ksiązki telefonicznej
+url: http://192.168.8.1/api/pb/group-list
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <PageIndex></PageIndex>
+    <ReadCount></ReadCount>
+    <SortType></SortType>
+    <Ascending></Ascending>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <Count></Count>
+    <Groups>
+        <Group>
+            <GroupID></GroupID>
+            <GroupName></GroupName>
+            <Number></Number>
+        </Group>
+        <Group>
+            ...
+        </Group>
+        ...
+    </Groups>
+</response>
+Uwagi:
+SortType:
+0 - sortowanie wg. indeksu
+1 - sportowanie po nazwie
+Ascending:
+0 - malejąco
+1 - rosnąco
+
+Dodanie nowej grupy w książce kontaktów
+url: http://192.168.8.1/api/pb/group-new
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupName></GroupName>
+</request>
+odpowiedź:
+Kod:
+<response>??</response>
+Uwagi:
+GroupName nie może zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - ''',
+
+Edycja grupy w książce kontaktów
+url: http://192.168.8.1/api/pb/group-update
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+    <GroupName></GroupName>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+GroupName nie może zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - ''',
+
+Import kontaktów z karty SIM do pamięci lokalnej
+url: http://192.168.8.1/api/pb/pb-copySIM
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+</request>
+odpowiedź: dla poprawnie wykonanej operacji:
+Kod:
+<response>
+    <TotalNum></TotalNum>
+    <SucceedNum></SucceedNum>
+</response>
+gdy pamięć lokalna jest pełna:
+Kod:
+<response>FULL</response>
+Uwagi: brak
+
+Pobranie ilości kontaktów z książki telefonicznej
+url: http://192.168.8.1/api/pb/pb-count
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <LocalUsed></LocalUsed>
+    <SimUsed></SimUsed>
+    <LocalMax></LocalMax>
+    <SimMax></SimMax>
+</response>
+Uwagi: brak
+
+Usunięcie kontaktu
+url: http://192.168.8.1/api/pb/pb-delete
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Index></Index>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Eksport kontaktów z pamięci lokalnej do pliku
+url: http://192.168.8.1/api/pb/pb-export
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Indexs>
+        <Index></Index>
+        <Index></Index>
+        ...
+    </Indexs>
+    <SaveType>0</SaveType>
+    <FileType>csv</FileType>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: jeżeli chcemy eksportować wszystkie kontakty wysyłamy żądanie <Indexs>all</Indexs> (nie zawiera wpisów <Index>). Prawdopodobnie plik wyeksportuje się do katalogu głównego urządzenia.
+
+Import kontaktów z pliku do pamięci lokalnej
+url: http://192.168.8.1/api/pb/pb-import
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID>0</GroupID>
+    <SaveType>0</SaveType>
+    <FileType>csv</FileType>
+</request>
+odpowiedź: dla poprawnie wykonanej operacji:
+Kod:
+<response>
+    <TotalNum></TotalNum>
+    <SucceedNum></SucceedNum>
+</response>
+gdy pamięć lokalna jest pełna:
+Kod:
+<response>FULL</response>
+Uwagi: Nie wiem gdzie wgrywa się plik CSV. Prawdopodobnie trzeba wykorzystać API filemanager i wgrać plik CSV do katalogu głównego urządzenia.
+
+Sprawdzenie importowanego kontaktu?
+url: http://192.168.8.1/api/pb/pb-import-field
+metoda: GET
+żądanie: brak
+odpowiedź: gdy pola się zgadzają:
+Kod:
+<response>
+    <FieldMatch>1</FieldMatch>
+</response>
+gdy pola sie nie zgadzają:
+Kod:
+<response>
+    <Fields>
+        <Count></Count>
+        <Name></Name>
+        <Name></Name>
+        ...
+    </Fields>
+</response>
+Uwagi: nie wiem co z czym porównuje
+
+Ustawienie wielkości rekordów importowanej książki kontaktów
+url: http://192.168.8.1/api/pb/pb-import-length
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Field>
+        <Name>FormattedName</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>MobilePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>HomePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkPhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkEmail</Name>
+        <Value></Value>
+    </Field>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Pola Value dla nazw FormattedName, WorkEmail nie mogą zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '''
+
+Sprawdzenie importowanego kontaktu?
+url: http://192.168.8.1/api/pb/pb-import-match
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Field>
+        <Name>FormattedName</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>MobilePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>HomePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkPhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkEmail</Name>
+        <Value></Value>
+    </Field>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Pola Value dla nazw FormattedName, WorkEmail nie mogą zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '''
+
+Pobranie listy kontaktów
+url: http://192.168.8.1/api/pb/pb-list
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+    <PageIndex></PageIndex>
+    <ReadCount></ReadCount>
+    <SaveType></SaveType>
+    <SortType></SortType>
+    <Ascending></Ascending>
+    <KeyWord></KeyWord>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <SumSize></SumSize>
+    <Count></Count>
+    <Phonebooks>
+        <Phonebook>
+            <GroupID></GroupID>
+            <Index></Index>
+            <Field>
+                <Name>FormattedName</Name>
+                <Value></Value>
+            </Field>
+            <Field>
+                <Name>MobilePhone</Name>
+                <Value></Value>
+            </Field>
+            <Field>
+                <Name>HomePhone</Name>
+                <Value></Value>
+            </Field>
+            <Field>
+                <Name>WorkPhone</Name>
+                <Value></Value>
+            </Field>
+            <Field>
+                <Name>WorkEmail</Name>
+                <Value></Value>
+            </Field>
+        </Phonebook>
+        <Phonebook>
+            ...
+        </Phonebook>
+        ...
+    </Phonebooks>
+</response>
+Uwagi:
+Pola Value dla nazw FormattedName, WorkEmail nie mogą zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '''
+SaveType:
+0 - pamięć lokalna
+1 - pamięć na karcie SIM
+SortType:
+0 - sortowanie wg. indeksu
+1 - sportowanie po nazwie
+Ascending:
+0 - malejąco
+1 - rosnąco
+
+Dodanie kontaktu do listy
+url: http://192.168.8.1/api/pb/pb-new
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+    <SaveType></SaveType>
+    <Field>
+        <Name>FormattedName</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>MobilePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>HomePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkPhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkEmail</Name>
+        <Value></Value>
+    </Field>
+</request>
+odpowiedź:
+Kod:
+<response>??</response>
+Uwagi:
+Pola Value dla nazw FormattedName, WorkEmail nie mogą zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '''
+SaveType:
+0 - pamięć lokalna
+1 - pamięć na karcie SIM
+
+Dodanie kontaktu do listy
+url: http://192.168.8.1/api/pb/pb-update
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <GroupID></GroupID>
+    <Index></Index>
+    <SaveType></SaveType>
+    <Field>
+        <Name>FormattedName</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>MobilePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>HomePhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkPhone</Name>
+        <Value></Value>
+    </Field>
+    <Field>
+        <Name>WorkEmail</Name>
+        <Value></Value>
+    </Field>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Pola Value dla nazw FormattedName, WorkEmail nie mogą zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - '''
+SaveType:
+0 - pamięć lokalna
+1 - pamięć na karcie SIM
+
+Przesunięcie kontaktów do grupy
+url: http://192.168.8.1/api/pb/pb-move
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Indexs>
+        <Index></Index>
+    </Indexs>
+    <SaveType>0</SaveType>
+    <GroupID></GroupID>
+</request>
+odpowiedź:
+Kod:
+<response>??</response>
+Uwagi: brak
+
+Sprawdzenie nazw w książce telefonicznej po numerach telefonów
+url: http://192.168.8.1/api/pb/pb-match
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Phone></Phone>
+    ...
+</request>
+odpowiedź:
+Kod:
+<response>
+    <Name></Name>
+    ...
+</response>
+Uwagi: brak
+
+Moduł PIN
+
+Ustawienia PIN
+url: http://192.168.8.1/api/pin/operate
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <OperateType>3</OperateType>
+    <CurrentPin>6132</CurrentPin>
+    <NewPin>6132</NewPin>
+    <PukCode></PukCode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: Osobiście nie testowałem.
+OperateType:
+0 - weryfikacja PIN,
+1 - włączenie PIN,
+2 - wyłączenie PIN,
+3 - nowy PIN.
+4 - włączenie PUK
+
+Sprawdzenie automatycznego wprowadzania PIN
+url: http://192.168.8.1/api/pin/save-pin
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SimSavepinStatus></SimSavepinStatus>
+    <SimSavepinScid></SimSavepinScid>
+    <simsavepinenable></simsavepinenable>
+</response>
+Uwagi: brak
+
+Ustawienie automatycznego wprowadzania PIN
+url: http://192.168.8.1/api/pin/save-pin
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SimSavepinStatus></SimSavepinStatus>
+    <SimSavepinPIN></SimSavepinPIN>
+    <simsavepinenable></simsavepinenable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie statusu SIMLock'a
+url: http://192.168.8.1/api/pin/simlock
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SimLockEnable></SimLockEnable>
+    <SimLockRemainTimes></SimLockRemainTimes>
+    <pSimLockEnable></pSimLockEnable>
+    <pSimLockRemainTimes></pSimLockRemainTimes>
+</response>
+Uwagi:
+SimLockEnable:
+0 - simlock wyłaczony,
+1 - simlock włączony,
+
+Status PIN
+url: http://192.168.8.1/api/pin/status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SimState>257</SimState>
+    <PinOptState>258</PinOptState>
+    <SimPinTimes>3</SimPinTimes>
+    <SimPukTimes>10</SimPukTimes>
+</response>
+Uwagi:
+SimState, PinOptState:
+255 - brak karty SIM,
+256 - błąd CPIN,
+257 - gotowa,
+258 - PIN wyłączony,
+259 - sprawdzanie PIN,
+260 - wymagany PIN,
+261 - wymagany PUK
+
+Odblokowanie SIMLocka za pomocą kodu?
+url: http://192.168.8.1/api/pin/verify-simlock
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SimLockCode></SimLockCode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+Moduł redirection
+
+Pobranie adresu strony operatora
+url: http://192.168.8.1/api/redirection/homepage
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <EnableRedirection>0</EnableRedirection>
+    <Homepage></Homepage>
+</response>
+Uwagi: brak
+Moduł sdcard
+
+Przerwanie wgrywania pliku?
+url: http://192.168.8.1/api/sdcard/Check_file_exist
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>??</response>
+Uwagi: brak
+
+Sprawdzenie czy plik istnieje
+url: http://192.168.8.1/api/sdcard/Check_file_exist
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <CurrentPath></CurrentPath>
+    <FileName></FileName>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: odpowiedź OK oznacza, że plik nie istnieje. Gdy plik istnieje wtedy będzie błąd 114001
+
+Utworzenie katalogu na karcie SD
+url: http://192.168.8.1/api/sdcard/createdir
+metoda: POST
+żądanie: <request>
+<CurrentPath></CurrentPath>
+<FileName></FileName>
+<Time>
+<Year></Year>
+<Month></Month>
+<Day></Day>
+<Hour></Hour>
+<Min></Min>
+<Sec></Sec>
+</Time>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+FileName nie może zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - ''',
+
+Usunięcie pliku/katalogu na karcie SD
+url: http://192.168.8.1/api/sdcard/deletefile
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <CurrentPath></CurrentPath>
+    <DeleteFileList></DeleteFileList>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+FileName nie może zawierać niektórych znaków, trzeba je więc zamienić wg wzoru:
+'&' - '&amp;',
+"'" - ''',
+
+Pobranie informacji o ustawieniach DLNA
+url: http://192.168.8.1/api/sdcard/dlna-setting
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sharepath></sharepath>
+    <enabled></enabled>
+    <shareallpath></shareallpath>
+</response>
+Uwagi: brak
+
+Ustawienia DLNA
+url: http://192.168.8.1/api/sdcard/dlna-setting
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <enabled></enabled>
+    <shareallpath></shareallpath>
+    <sharepath></sharepath>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie bieżącej ścieżki
+url: http://192.168.8.1/api/sdcard/getpath
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <path>
+        <rempath></rempath>
+    </path>
+</response>
+Uwagi: brak
+
+Pobranie listy drukarek współdzielonych
+url: http://192.168.8.1/api/sdcard/printerlist
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>??</response>
+Uwagi: brak
+
+Pobranie informacji o pojemności karty SD
+url: http://192.168.8.1/api/sdcard/sdcapacity
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sdcapacity>
+        <AvailableSize></AvailableSize>
+        <TotalSize></TotalSize>
+    </sdcapacity>
+</response>
+Uwagi: brak
+
+Pobranie informacji o karcie SD
+url: http://192.168.8.1/api/sdcard/sdcard
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sdcard>
+        <SDShareMode>0</SDShareMode>
+        <SDCardShareStatus>0</SDCardShareStatus>
+        <SDShareFileMode>0</SDShareFileMode>
+        <SDAccessType>0</SDAccessType>
+        <SDSharePath></SDSharePath>
+        <SDCardStatus>0</SDCardStatus>
+    </sdcard>
+</response>
+Uwagi:
+SDCardStatus:
+0 - brak karty SD lub jest ona wyłączona
+2 - karta SD nie sformatowana
+SDCardShareStatus:
+0 - brak udostępnienia
+1 - udostępnianie włączone
+SDShareMode:
+0 - udostępnianie sieciowe (globalne?)
+1 - udostępnianie USB (lokalne?)
+
+Ustawienie udostępniania na karcie SD
+url: http://192.168.8.1/api/sdcard/sdcard
+metoda: POST
+żądanie: <request>
+<SDShareMode></SDShareMode>
+<SDCardShareStatus></SDCardShareStatus>
+<SDShareFileMode></SDShareFileMode>
+<SDAccessType></SDAccessType>
+<SDSharePath></SDSharePath>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+SDCardShareStatus:
+0 - brak udostępnienia
+1 - udostępnianie włączone
+SDShareMode:
+0 - udostępnianie sieciowe (globalne?)
+1 - udostępnianie USB (lokalne?)
+
+Sprawdzenie statusu współdzielenia (samba)
+url: http://192.168.8.1/api/sdcard/sdcardsamba
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <enabled></enabled>
+    <printerenable></printerenable>
+</response>
+Uwagi: brak
+
+Włączenie współdzielenia (samba)
+url: http://192.168.8.1/api/sdcard/sdcardsamba
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <enabled>1</enabled>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie listy katalogów
+url: http://192.168.8.1/api/sdcard/sdfile
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <CurrentPath></CurrentPath>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <FileList>
+        <File>
+            <Name></Name>
+            <Type></Type>
+            <Size></Size>
+        </File>
+    </FileList>
+</response>
+Uwagi:
+Type:
+0 - katalog
+1 - plik
+Size - podawany w bajtach
+
+Status przesyłania pliku na kartę SD
+url: http://192.168.8.1/api/sdcard/sdfilestate
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sduploadstatus>
+        <State></State>
+        <UploadProgress></UploadProgress>
+    </sduploadstatus>
+</response>
+Uwagi:
+State:
+0 - przesyłanie pliku zakończone pomyślnie,
+1 - przesyłanie pliku zakończone niepowodzeniem,
+2 - trwa przesyłanie pliku,
+3 - przesyłanie pliku zakończone niepowodzeniem - za mało miejsca,
+4 - przesyłanie pliku zakończone niepowodzeniem - brak karty SD,
+5 - przesyłanie pliku zakończone niepowodzeniem - plik nie może przekraczać 2GB,
+6 - przesyłanie pliku zakończone niepowodzeniem - zła nazwa pliku,
+7 - przesyłanie pliku zakończone niepowodzeniem - usunięto kartę SD,
+8 - przesyłanie pliku zakończone niepowodzeniem - za długa nazwa pliku,
+9 - przesyłanie pliku zakończone niepowodzeniem - brak uprawnień,
+
+Pobranie listy użytkowników serwera samba
+url: http://192.168.8.1/api/sdcard/share-account
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <accounts>
+        <account>
+            <accountname></accountname>
+            <accountpwd></accountpwd>
+            <sharepath></sharepath>
+            <accesstype></accesstype>
+            <shareallpath></shareallpath>
+        </account>
+        <account>
+            ...
+        </account>
+        ...
+    </accounts>
+</response>
+Uwagi:
+sharepath oraz shareallpath zamienić wg wzoru:
+'%26' - '&amp;'
+'%27' - '''
+'%20' - ' '
+'%23' - '#'
+'%25' - '%'
+'%3B' - ';'
+"'" - '''
+'&' - '&amp;'
+
+Ustawienie listy użytkowników serwera samba
+url: http://192.168.8.1/api/sdcard/share-account
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <accounts>
+        <account>
+            <accountname></accountname>
+            <accountpwd></accountpwd>
+            <sharepath></sharepath>
+            <accesstype></accesstype>
+            <shareallpath></shareallpath>
+        </account>
+        <account>
+            ...
+        </account>
+        ...
+    </accounts>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+sharepath oraz shareallpath zamienić wg wzoru:
+'%26' - '&amp;'
+'%27' - '''
+'%20' - ' '
+'%23' - '#'
+'%25' - '%'
+'%3B' - ';'
+"'" - '''
+'&' - '&amp;'
+
+Status zajętości przesyłania plików
+url: http://192.168.8.1/api/sdcard/uploadflag
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Uploadflag></Uploadflag>
+</response>
+Uwagi:
+State:
+0 - aktualnie nie są przesyłane żadne pliki,
+1 - pliki są aktualnie przesyłane,
+
+Przesłanie plików na kartę SD?
+url: http://192.168.8.1/api/sdcard/fileupload
+metoda: POST
+żądanie: ?
+odpowiedź:
+Kod:
+<response>?</response>
+Uwagi: niestety o tym API nic nie wiadomo, poza tym, że jest. Przy samym adresie API są jeszcze następujące dane które mogą być przydatne: enctype='multipart/form-data'
+
+Moduł security
+
+Pobranie informacji o trybie mostka
+url: http://192.168.8.1/api/security/bridgemode
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <bridgemode></bridgemode>
+</response>
+Uwagi: brak
+
+Ustawienia trybu mostka
+url: http://192.168.8.1/api/security/bridgemode
+metoda: POST
+żądanie:
+Kod:
+<request> 
+    <bridgemode></bridgemode> 
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie informacji o DMZ
+url: http://192.168.8.1/api/security/dmz
+metoda: GET
+żądanie: brak[/code]
+odpowiedź:
+Kod:
+<response>
+    <DmzStatus></DmzStatus>
+    <DmzIPAddress></DmzIPAddress>
+</response>
+Uwagi: brak
+DmzStatus:
+0 - strefa DMZ wyłączona
+1 - strefa DMZ włączona
+
+Ustawienie DMZ
+url: http://192.168.8.1/api/security/dmz
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <DmzStatus></DmzStatus>
+    <DmzIPAddress></DmzIPAddress>
+</request>
+odpowiedź:
+Kod:
+<response>?</response>
+Uwagi: brak
+DmzStatus:
+0 - strefa DMZ wyłączona
+1 - strefa DMZ włączona
+
+Sprawdzenie ustawień firewall'a
+url: http://192.168.8.1/api/security/firewall-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <FirewallMainSwitch>1</FirewallMainSwitch>
+    <FirewallIPFilterSwitch>1</FirewallIPFilterSwitch>
+    <FirewallWanPortPingSwitch>0</FirewallWanPortPingSwitch>
+    <firewallurlfilterswitch></firewallurlfilterswitch>
+    <firewallmacfilterswitch></firewallmacfilterswitch>
+</response>
+Uwagi: brak
+
+Ustawienia firewall'a
+url: http://192.168.8.1/api/security/firewall-switch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <FirewallMainSwitch></FirewallMainSwitch>
+    <FirewallIPFilterSwitch></FirewallIPFilterSwitch>
+    <FirewallWanPortPingSwitch></FirewallWanPortPingSwitch>
+    <firewallurlfilterswitch></firewallurlfilterswitch>
+    <firewallmacfilterswitch></firewallmacfilterswitch>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie listy filtrów IP sieci LAN
+url: http://192.168.8.1/api/security/lan-ip-filter
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <IPFilters>
+        <IPFilter>
+            <LanIPFilterProtocol></LanIPFilterProtocol>
+            <LanIPFilterStatus></LanIPFilterStatus>
+            <LanIPFilterLanStartAddress></LanIPFilterLanStartAddress>
+            <LanIPFilterLanEndAddress></LanIPFilterLanEndAddress>
+            <LanIPFilterLanStartPort></LanIPFilterLanStartPort>
+            <LanIPFilterLanEndPort></LanIPFilterLanEndPort>
+            <LanIPFilterWanStartAddress></LanIPFilterWanStartAddress>
+            <LanIPFilterWanEndAddress></LanIPFilterWanEndAddress>
+            <LanIPFilterWanStartPort></LanIPFilterWanStartPort>
+            <LanIPFilterWanEndPort></LanIPFilterWanEndPort>
+            <LanIPFilterSrcStartIPMask></LanIPFilterSrcStartIPMask>
+            <LanIPFilterDestStartIPMask></LanIPFilterDestStartIPMask>
+            <LanIPFilterPolicy>0</LanIPFilterPolicy>
+        </IPFilter>
+        <IPFilter>
+            ...
+        </IPFilter>
+        ...
+    </IPFilters>
+</response>
+Uwagi: brak
+
+Ustawienie filtrów IP sieci LAN
+url: http://192.168.8.1/api/security/lan-ip-filter
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <IPFilters>
+        <IPFilter>
+            <LanIPFilterProtocol></LanIPFilterProtocol>
+            <LanIPFilterStatus></LanIPFilterStatus>
+            <LanIPFilterLanStartAddress></LanIPFilterLanStartAddress>
+            <LanIPFilterLanEndAddress></LanIPFilterLanEndAddress>
+            <LanIPFilterLanStartPort></LanIPFilterLanStartPort>
+            <LanIPFilterLanEndPort></LanIPFilterLanEndPort>
+            <LanIPFilterWanStartAddress></LanIPFilterWanStartAddress>
+            <LanIPFilterWanEndAddress></LanIPFilterWanEndAddress>
+            <LanIPFilterWanStartPort></LanIPFilterWanStartPort>
+            <LanIPFilterWanEndPort></LanIPFilterWanEndPort>
+            <LanIPFilterSrcStartIPMask></LanIPFilterSrcStartIPMask>
+            <LanIPFilterDestStartIPMask></LanIPFilterDestStartIPMask>
+            <LanIPFilterPolicy>0</LanIPFilterPolicy>
+        </IPFilter>
+        <IPFilter>
+            ...
+        </IPFilter>
+        ...
+    </IPFilters>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ustawień i listy filtrowania urządzeń po adresach MAC???
+url: http://192.168.8.1/api/security/mac-filter
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Ustawienia listy filtrowania urządzeń po adresach MAC
+url: http://192.168.8.1/api/security/mac-filter
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <policy>1</policy>
+    <macfilters>
+        <macfilter>
+            <value></value>
+            <status></status>
+        </macfilter>
+    </macfilters>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+policy:
+0 - filtrowanie MAC wyłączone
+1 - zezwól na dostęp adresom MAC
+2 - odmów dostępu adresom MAC
+
+Sprawdzenie ustawień NAT
+url: http://192.168.8.1/api/security/nat
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <NATType></NATType>
+</response>
+Uwagi:
+NATType:
+0 - NAT wyłączony
+1 - NAT włączony
+
+Zmiana ustawień NAT
+url: http://192.168.8.1/api/security/nat
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <NATType></NATType>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+NATType:
+0 - NAT wyłączony
+1 - NAT włączony
+
+Pobranie konfiguracji SIP ALG
+url: http://192.168.8.1/api/security/sip
+metoda: POST
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SipStatus></SipStatus>
+    <SipPort></SipPort>
+</response>
+Uwagi: brak
+
+Ustawienia SIP ALG
+url: http://192.168.8.1/api/security/sip
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SipStatus></SipStatus>
+    <SipPort></SipPort>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie ustawień firewalla (port forwarding)
+url: http://192.168.8.1/api/security/special-applications
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <LanPorts>
+        <LanPort>
+            <SpecialApplicationTriggerName></SpecialApplicationTriggerName>
+            <SpecialApplicationTriggerStatus></SpecialApplicationTriggerStatus>
+            <SpecialApplicationTriggerPort></SpecialApplicationTriggerPort>
+            <SpecialApplicationTriggerProtocol></SpecialApplicationTriggerProtocol>
+            <SpecialApplicationOpenProtocol></SpecialApplicationOpenProtocol>
+            <SpecialApplicationStartOpenPort0></SpecialApplicationStartOpenPort0>
+            <SpecialApplicationEndOpenPort0></SpecialApplicationEndOpenPort0>
+            <SpecialApplicationStartOpenPort1></SpecialApplicationStartOpenPort1>
+            <SpecialApplicationEndOpenPort1></SpecialApplicationEndOpenPort1>
+            <SpecialApplicationStartOpenPort2></SpecialApplicationStartOpenPort2>
+            <SpecialApplicationEndOpenPort2></SpecialApplicationEndOpenPort2>
+            <SpecialApplicationStartOpenPort3></SpecialApplicationStartOpenPort3>
+            <SpecialApplicationEndOpenPort3></SpecialApplicationEndOpenPort3>
+            <SpecialApplicationStartOpenPort4></SpecialApplicationStartOpenPort4>
+            <SpecialApplicationEndOpenPort4></SpecialApplicationEndOpenPort4>
+        </LanPort>
+        <LanPort>
+            ...
+        </LanPort>
+        ...
+    </LanPorts>
+</response>
+Uwagi:
+SpecialApplicationTriggerProtocol, SpecialApplicationOpenProtocol:
+0 - protokół UDP i TCP
+1 - protokół IMCP
+6 - protokół TCP
+17 - protokół UDP
+SpecialApplicationTriggerStatus:
+0 - filtrowanie wyłączone
+1 - filtrowanie włączone
+
+Zmiana ustawień firewalla (port forwarding)
+url: http://192.168.8.1/api/security/special-applications
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <LanPorts>
+        <LanPort>
+            <SpecialApplicationTriggerName></SpecialApplicationTriggerName>
+            <SpecialApplicationTriggerStatus></SpecialApplicationTriggerStatus>
+            <SpecialApplicationTriggerPort></SpecialApplicationTriggerPort>
+            <SpecialApplicationTriggerProtocol></SpecialApplicationTriggerProtocol>
+            <SpecialApplicationOpenProtocol></SpecialApplicationOpenProtocol>
+            <SpecialApplicationStartOpenPort0></SpecialApplicationStartOpenPort0>
+            <SpecialApplicationEndOpenPort0></SpecialApplicationEndOpenPort0>
+            <SpecialApplicationStartOpenPort1></SpecialApplicationStartOpenPort1>
+            <SpecialApplicationEndOpenPort1></SpecialApplicationEndOpenPort1>
+            <SpecialApplicationStartOpenPort2></SpecialApplicationStartOpenPort2>
+            <SpecialApplicationEndOpenPort2></SpecialApplicationEndOpenPort2>
+            <SpecialApplicationStartOpenPort3></SpecialApplicationStartOpenPort3>
+            <SpecialApplicationEndOpenPort3></SpecialApplicationEndOpenPort3>
+            <SpecialApplicationStartOpenPort4></SpecialApplicationStartOpenPort4>
+            <SpecialApplicationEndOpenPort4></SpecialApplicationEndOpenPort4>
+        </LanPort>
+        <LanPort>
+            ...
+        </LanPort>
+        ...
+    </LanPorts>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+SpecialApplicationTriggerProtocol, SpecialApplicationOpenProtocol:
+0 - protokół UDP i TCP
+1 - protokół IMCP
+6 - protokół TCP
+17 - protokół UDP
+SpecialApplicationTriggerStatus:
+0 - filtrowanie wyłączone
+1 - filtrowanie włączone
+
+Pobranie statusu UPnP
+url: http://192.168.8.1/api/security/upnp
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <UpnpStatus></UpnpStatus>
+</response>
+Uwagi: brak
+
+Ustawienie statusu UPnP
+url: http://192.168.8.1/api/security/upnp
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <UpnpStatus></UpnpStatus>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie listy filtrowanych adresów url
+url: http://192.168.8.1/api/security/url-filter
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <urlfilters>
+        <urlfilter>
+            <value></value>
+            <status></status>
+        </urlfilter>
+        <urlfilter>
+            ...
+        </urlfilter>
+        ...
+    </urlfilters>
+</response>
+Uwagi: brak
+
+Ustawienie listy filtrowanych adresów url
+url: http://192.168.8.1/api/security/url-filter
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <urlfilters>
+        <urlfilter>
+            <value></value>
+            <status></status>
+        </urlfilter>
+        <urlfilter>
+            ...
+        </urlfilter>
+        ...
+    </urlfilters>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie listy serwerów wirtualnych
+url: http://192.168.8.1/api/security/virtual-servers
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Servers>
+        <Server>
+            <VirtualServerIPName></VirtualServerIPName>
+            <VirtualServerWanPort></VirtualServerWanPort>
+            <VirtualServerIPAddress></VirtualServerIPAddress>
+            <VirtualServerLanPort></VirtualServerLanPort>
+            <VirtualServerProtocol></VirtualServerProtocol>
+            <VirtualServerStatus></VirtualServerStatus>
+        </Server>
+        <Server>
+            ...
+        </Server>
+        ...
+    </Servers>
+</response>
+Uwagi:
+VirtualServerProtocol:
+0 - protokół TCP i UDP
+1 - protokół IMCP
+6 - protokół TCP
+17 - protokół UDP
+VirtualServerStatus:
+0 - wyłączony
+1 - włączony
+
+Ustawienie serwerów wirtualnych
+url: http://192.168.8.1/api/security/virtual-servers
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Servers>
+        <Server>
+            <VirtualServerIPName></VirtualServerIPName>
+            <VirtualServerWanPort></VirtualServerWanPort>
+            <VirtualServerIPAddress></VirtualServerIPAddress>
+            <VirtualServerRemoteIP></VirtualServerRemoteIP>
+            <VirtualServerWanEndPort></VirtualServerWanEndPort>
+            <VirtualServerLanPort></VirtualServerLanPort>
+            <VirtualServerProtocol></VirtualServerProtocol>
+            <VirtualServerStatus></VirtualServerStatus>
+        </Server>
+        <Server>
+            ...
+        </Server>
+        ...
+    </Servers>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+VirtualServerProtocol:
+0 - protokół TCP i UDP
+1 - protokół IMCP
+6 - protokół TCP
+17 - protokół UDP
+VirtualServerStatus:
+0 - wyłączony
+1 - włączony
+
+Moduł SMS
+
+Backup SMS'ów z karty SIM
+url: http://192.168.8.1/api/sms/backup-sim
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <IsMove>0</IsMove>
+    <Date></Date>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <FailNumber></FailNumber>
+    <sucNumber></sucNumber>
+</response>
+Uwagi: Date w formacie yyyy-MM-dd hh:mmConfuseds
+
+Anulowanie wysłania SMS
+url: http://192.168.8.1/api/sms/cancel-send
+metoda: POST
+żądanie:
+Kod:
+<request>1</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ustawień SMS
+url: http://192.168.8.1/api/sms/config
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SaveMode>0</SaveMode>
+    <Validity>10752</Validity>
+    <Sca>+48790998250</Sca>
+    <UseSReport>0</UseSReport>
+    <SendType>1</SendType>
+</response>
+Uwagi: brak
+SaveMode:
+0 - zapisz lokalnie
+1 - zapisz na karcie SIM
+2 - preferuj zapis na karcie SIM
+3 - preferuj zapis lokalnie
+Validity - czas ważności w godzinach, typowe wartości to:
+1 - 1 godzina
+12 - 12 godzin
+24 - 1 doba
+168 - 1 tydzień
+10752 - maksymalny limit ważności
+UseSReport:
+0 - raport SMS wyłączony
+1 - raport SMS włączony
+SendType:
+0 - wyślij
+1 - wyślij i zapisz
+Priority:
+0 - normalny
+1 - interaktywny
+2 - pilny
+3 - awaryjny
+
+Ustawienia SMS
+url: http://192.168.8.1/api/sms/config
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SaveMode></SaveMode>
+    <Validity></Validity>
+    <Sca></Sca>
+    <UseSReport></UseSReport>
+    <SendType></SendType>
+    <Priority></Priority>
+</response>
+Uwagi:
+SaveMode:
+0 - zapisz lokalnie
+1 - zapisz na karcie SIM
+2 - preferuj zapis na karcie SIM
+3 - preferuj zapis lokalnie
+Validity - czas ważności w godzinach, typowe wartości to:
+1 - 1 godzina
+12 - 12 godzin
+24 - 1 doba
+168 - 1 tydzień
+10752 - maksymalny limit ważności
+UseSReport:
+0 - raport SMS wyłączony
+1 - raport SMS włączony
+SendType:
+0 - wyślij
+1 - wyślij i zapisz
+Priority:
+0 - normalny
+1 - interaktywny
+2 - pilny
+3 - awaryjny
+
+Usunięcie SMS
+url: http://192.168.8.1/api/sms/delete-sms
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Index></Index>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie informacji o kanałach CBS
+url: http://192.168.8.1/api/sms/get-cbschannellist
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <channellist></channellist>
+</response>
+Uwagi: brak
+
+Pobranie listy usług wiadomości sieciowych
+url: http://192.168.8.1/api/sms/get-cbsnewslist
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <cbsnewslist></cbsnewslist>
+    <timeid></timeid>
+</response>
+Uwagi: brak
+
+Ustawienia kanałów CBS
+url: http://192.168.8.1/api/sms/operate-cbschannel
+metoda: POST
+żądanie:
+Kod:
+<request> 
+    <type></type>
+    <channel></channel>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Zapisanie SMS'a
+url: http://192.168.8.1/api/sms/save-sms
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Index></Index>
+    <Phones>
+        <Phone></Phone>
+        ...
+    </Phones>
+    <Sca></Sca>
+    <Content></Content>
+    <Length></Length>
+    <Reserved></Reserved>
+    <Date></Date>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Wysyłanie SMS
+url: http://192.168.8.1/api/sms/send-sms
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Index>-1</Index>
+    <Phones>
+        <Phone>+12345678901</Phone>
+        ...
+    </Phones>
+    <Sca></Sca>
+    <Content>HELLO</Content>
+    <Length>-1</Length>
+    <Reserved>1</Reserved>
+    <Date>-1</Date>
+    <SendType></SendType>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: Parametru SendType nie trzeba podawać przy wysyłaniu zwykłych SMS. Dla USSD wysyłanych za pomocą SMS: SendType przyjmuje wartość 1, Reserved przyjmuje wartość 0, Index przyjmuje wartość -1.
+
+Sprawdzenie statusu wysyłania SMS
+url: http://192.168.8.1/api/sms/send-status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Phone></Phone>
+    <SucPhone></SucPhone>
+    <FailPhone></FailPhone>
+    <TotalCount>0</TotalCount>
+    <CurIndex>0</CurIndex>
+</response>
+Uwagi: brak
+
+Ustawienie flagi odczytania dla danego SMS'a
+url: http://192.168.8.1/api/sms/set-read
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Index></Index>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ilości SMS
+url: http://192.168.8.1/api/sms/sms-count
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <LocalUnread>5</LocalUnread>
+    <LocalInbox>8</LocalInbox>
+    <LocalOutbox>0</LocalOutbox>
+    <LocalDraft>0</LocalDraft>
+    <LocalDeleted>0</LocalDeleted>
+    <SimUnread>0</SimUnread>
+    <SimInbox>2</SimInbox>
+    <SimOutbox>0</SimOutbox>
+    <SimDraft>0</SimDraft>
+    <LocalMax>500</LocalMax>
+    <SimMax>25</SimMax>
+    <SimUsed>2</SimUsed>
+    <NewMsg>0</NewMsg>
+</response>
+Uwagi: brak
+
+Sprawdzenie czy włączona książka adresowa?
+url: http://192.168.8.1/api/sms/sms-feature-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <getcontactenable>0</getcontactenable>
+</response>
+Uwagi: brak
+
+Odczytanie SMS'ów ze skrzynki na danej stronie (PageIndex)
+url: http://192.168.8.1/api/sms/sms-list
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <PageIndex>1</PageIndex>
+    <ReadCount>20</ReadCount>
+    <BoxType>1</BoxType>
+    <SortType>0</SortType>
+    <Ascending>0</Ascending>
+    <UnreadPreferred>0</UnreadPreferred>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <Count>8</Count>
+    <Messages>
+        <Message>
+            <Smstat>1</Smstat>
+            <Index>40007</Index>
+            <Phone>48791398076</Phone>
+            <Content>Ocen rozwiazanie zgloszenia przez konsultanta Play wysylajac SMS z cyfra: 6-doskonale, 5-bardzo dobrze, 4-dobrze, 3-przecietnie, 2-slabo, trudno powiedziec - 9.</Content>
+            <Date>2014-12-19 21:20:39</Date>
+            <Sca></Sca>
+            <SaveType>4</SaveType>
+            <Priority>0</Priority>
+            <SmsType>1</SmsType>
+        </Message>
+        ... (i tak dalej)
+    </Messages>
+</response>
+Uwagi: PageIndex zaczyna się od 0 (zera). Index dla danego SMS'a oznacza tylko jego pozycję na danej stronie (PageIndex). Jeżeli nie istnieje dana strona (PageIndex) wtedy w odpowiedzi otrzymamy ilość (Count) 0 i pustą listę wiadomości (Messages).
+BoxType:
+1 - lokalna odbiorcza,
+2 - lokalna nadawcza,
+3 - lokalna kosz,
+4 - lokalna szkic,
+5 - SIM odbiorcza,
+6 - SIM nadawcza,
+7 - SIM szkic,
+8 - mix odbiorcza,
+9 - mix nadawcza,
+10 - lokalna szkic.
+
+Sprawdzenie podziału SMS w zależności od języka?
+url: http://192.168.8.1/api/sms/splitinfo-sms
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <splitinfo></splitinfo>
+    <convert_type></convert_type>
+</response>
+Uwagi: brak
+
+Moduł sntp
+
+Sprawdzenie stanu SNTP
+url: http://192.168.8.1/api/sntp/sntpswitch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SntpSwitch></SntpSwitch>
+</response>
+Uwagi: brak
+
+Zmiana stanu SNTP
+url: http://192.168.8.1/api/sntp/sntpswitch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SntpSwitch></SntpSwitch>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+Moduł STK
+
+Menu główne SIM ToolKit (STK)
+url: http://192.168.8.1/api/stk/stk-get-main
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <CmdType></CmdType>
+    <CmdIndex></CmdIndex>
+    <Result>15</Result>
+    <DataType></DataType>
+    <Data></Data>
+    <MenuLevel></MenuLevel>
+    <PageIndex></PageIndex>
+    <ReadCount></ReadCount>
+    <IsJumpPage></IsJumpPage>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <STKData>
+        <Field>
+            <Value></Value>
+            <Name></Name>
+        </Field>
+        <TextInfo></TextInfo>
+        <TextFormat></TextFormat>
+        <RspFormat></RspFormat>
+        <ClearMode></ClearMode>
+        <DurationTime></DurationTime>
+        <SizeMax></SizeMax>
+        <SizeMin></SizeMin>
+        <PackMode></PackMode>
+    </STKData>
+    <DataTotal></DataTotal>
+    <CmdType></CmdType>
+    <CmdIndex></CmdIndex>
+</response>
+Uwagi:
+CmdType:
+0 - menu ustawień?
+1 - wyświetl tekst?
+2 - pobierz inkey?
+3 - pobierz wejście?
+4 - ustawienia połączeń?
+5 - odtwórz dźwięk?
+6 - zaznacz wybór?
+7 - odśwież?
+8 - wyślij SS?
+9 - wyślij SMS?
+10 - wyślij USSD?
+11 - uruchom przeglądarkę?
+12 - ustaw tekst trybu czuwania?
+99 - koniec sesji?
+DataType:
+1 - typ danych - liczbowe
+2 - typ danych - ciąg znaków
+15 - typ danych - dowolne/bez znaczenia
+RspFormat:
+0 - GSM7 (dla CmdType: 2 i 3)
+1 - tak/nie (dla CmdType: 2)
+2 - liczbowy (0-9,*,#,+) (dla CmdType: 2 i 3)
+3 - UCS2 (dla CmdType: 2 i 3)
+Result:
+0 - koniec sesji
+1 - funkcja wykonana poprawnie (OK)
+2 - wymagana pomoc?
+3 - powrót do poprzedniego menu
+4 - brak wsparcia dla funkcji
+15 - bez znaczenia/dowolna
+
+Menu podrzędne SIM ToolKit (STK)
+url: http://192.168.8.1/api/stk/stk-get-sub
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <CmdType></CmdType>
+    <CmdIndex></CmdIndex>
+    <Result>15</Result>
+    <DataType></DataType>
+    <Data></Data>
+    <MenuLevel></MenuLevel>
+    <PageIndex></PageIndex>
+    <ReadCount></ReadCount>
+    <IsJumpPage></IsJumpPage>
+</request>
+odpowiedź:
+Kod:
+<response>
+    <STKData>
+        <Field>
+            <Value></Value>
+            <Name></Name>
+        </Field>
+        <TextInfo></TextInfo>
+        <TextFormat></TextFormat>
+        <RspFormat></RspFormat>
+        <ClearMode></ClearMode>
+        <DurationTime></DurationTime>
+        <SizeMax></SizeMax>
+        <SizeMin></SizeMin>
+        <PackMode></PackMode>
+    </STKData>
+    <DataTotal></DataTotal>
+    <CmdType></CmdType>
+    <CmdIndex></CmdIndex>
+</response>
+Uwagi:
+CmdType:
+0 - menu ustawień?
+1 - wyświetl tekst?
+2 - pobierz inkey?
+3 - pobierz wejście?
+4 - ustawienia połączeń?
+5 - odtwórz dźwięk?
+6 - zaznacz wybór?
+7 - odśwież?
+8 - wyślij SS?
+9 - wyślij SMS?
+10 - wyślij USSD?
+11 - uruchom przeglądarkę?
+12 - ustaw tekst trybu czuwania?
+99 - koniec sesji?
+DataType:
+1 - typ danych - liczbowe
+2 - typ danych - ciąg znaków
+15 - typ danych - dowolne/bez znaczenia
+RspFormat:
+0 - GSM7 (dla CmdType: 2 i 3)
+1 - tak/nie (dla CmdType: 2)
+2 - liczbowy (0-9,*,#,+) (dla CmdType: 2 i 3)
+3 - UCS2 (dla CmdType: 2 i 3)
+Result:
+0 - koniec sesji
+1 - funkcja wykonana poprawnie (OK)
+2 - wymagana pomoc?
+3 - powrót do poprzedniego menu
+4 - brak wsparcia dla funkcji
+15 - bez znaczenia/dowolna
+
+Sprawdzenie czy nie przekroczono czasu zapytania STK
+url: http://192.168.8.1/api/stk/stk-query
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <IsTimeout></IsTimeout>
+</response>
+Uwagi: brak
+Moduł user
+
+Wylogowanie użytkownika
+url: http://192.168.8.1/api/user/logout
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Logout>1</Logout>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Zmiana hasła admina
+url: http://192.168.8.1/api/user/password
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Username>admin</Username>
+    <CurrentPassword></CurrentPassword>
+    <NewPassword></NewPassword>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: CurrentPassword i NewPassword w kodowaniu base64
+
+Sprawdzenie stanu przypomnienia o zmianie hasła?
+url: http://192.168.8.1/api/user/remind
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <remindstate></remindstate>
+</response>
+Uwagi: brak
+
+Przypomnienie o zmianie hasła?
+url: http://192.168.8.1/api/user/remind
+metoda: GET
+żądanie:
+Kod:
+<request>
+    <remindstate></remindstate>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Wysłanie podtrzymania sesji?
+url: http://192.168.8.1/api/user/session
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <keep>1</keep>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie informacji o zalogowanym użytkowniku
+url: http://192.168.8.1/api/user/state-login
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <State></State>
+</response>
+Uwagi:
+State:
+0 - zalogowany
+1 - błąd
+
+Moduł USSD
+
+Odebranie wiadomości USSD
+url: http://192.168.8.1/api/ussd/get
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <content></content>
+</response>
+Uwagi: Wysyłanie i odbieranie wymaga sieci co najwyżej 3G. Tak więc chcąc wysłać USSD z LTE potrzeba albo mieć wybraną sieć Preferowana LTE (wtedy z automatu modem przełączy się na niższą sieć 3G lub 2G w celu wysłania i odebrania wiadomości USSD) albo ręcznie przełączyć na sieć typu niższego (2G lub 3G)
+
+Zwolnienie wiadomości USSD (gdy status USSD result=1)
+url: http://192.168.8.1/api/ussd/release
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: result równe 1 - USSD w toku
+
+Wysyłanie kodów USSD
+url: http://192.168.8.1/api/ussd/send
+metoda: POST
+żądanie skrócone:
+Kod:
+<request>
+    <content></content>
+</request>
+żądanie pełne:
+Kod:
+<request>
+    <content></content>
+    <codeType></codeType>
+    <timeout></timeout>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: content powinien zwierać kod USSD np. *101*#. Wysyłanie i odbieranie wymaga sieci co najwyżej 3G. Tak więc chcąc wysłać USSD z LTE potrzeba albo mieć wybraną sieć Preferowana LTE (wtedy z automatu modem przełączy się na niższą sieć 3G lub 2G w celu wysłania i odebrania wiadomości USSD) albo ręcznie przełączyć na sieć typu niższego (2G lub 3G)
+
+Sprawdzenie statusu wiadomości USSD
+url: http://192.168.8.1/api/ussd/status
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <result></result>
+</response>
+Uwagi: Jeżeli result = 1 - USSD w toku
+Moduł voice
+
+Dodanie nowego konta sip
+url: http://192.168.8.1/api/voice/addsipaccount
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <account>
+        <directorynumber></directorynumber>
+        <username></username>
+        <password></password>
+        <registerstatus></registerstatus>
+    </account>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie listy kodeków audio
+url: http://192.168.8.1/api/voice/codec
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <codec>
+        <codec></codec>
+        <priority></priority>
+        <index></index>
+        <silencesuppression></silencesuppression>
+        <packetizationperiod></packetizationperiod>
+    </codec>
+    <codec>
+        ...
+    </codec>
+    ...
+</response>
+Uwagi: brak
+
+Ustawienie kodeków audio
+url: http://192.168.8.1/api/voice/codec
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <codec>
+        <codec></codec>
+        <priority></priority>
+        <index></index>
+        <silencesuppression></silencesuppression>
+        <packetizationperiod></packetizationperiod>
+    </codec>
+    <codec>
+        ...
+    </codec>
+    ...
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Usunięcie konta sip
+url: http://192.168.8.1/api/voice/deletesipaccount
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <index></index>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie konfiguracji konta sip
+url: http://192.168.8.1/api/voice/sipaccount
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <account>
+        <index></index>
+        <directorynumber></directorynumber>
+        <username></username>
+        <password></password>
+        <registerstatus></registerstatus>
+    </account>
+</response>
+Uwagi: brak
+
+Ustawienie konfiguracji konta sip?
+url: http://192.168.8.1/api/voice/sipaccount
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <account>
+        <index></index>
+        <directorynumber></directorynumber>
+        <username></username>
+        <password></password>
+        <registerstatus></registerstatus>
+    </account>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ustawień zaawansowanych sip
+url: http://192.168.8.1/api/voice/sipadvance
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <registerexpires></registerexpires>
+    <sessionexpires></sessionexpires>
+    <minisessionexpires></minisessionexpires>
+    <pracksupport></pracksupport>
+    <callwaitingenable></callwaitingenable>
+</response>
+Uwagi: brak
+
+Ustawienia zaawansowane sip
+url: http://192.168.8.1/api/voice/sipadvance
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <registerexpires></registerexpires>
+    <sessionexpires></sessionexpires>
+    <minisessionexpires></minisessionexpires>
+    <pracksupport></pracksupport>
+    <callwaitingenable></callwaitingenable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ustawień serwera sip
+url: http://192.168.8.1/api/voice/sipserver
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sipserver>
+        <proxyserveraddress></proxyserveraddress>
+        <proxyserverport></proxyserverport>
+        <registerserveraddress></registerserveraddress>
+        <registerserverport></registerserverport>
+        <sipserverdomain></sipserverdomain>
+        <secondproxyserveraddress></secondproxyserveraddress>
+        <secondproxyserverport></secondproxyserverport>
+        <secondregisterserveraddress></secondregisterserveraddress>
+        <secondregisterserverport></secondregisterserverport>
+        <secondsipserverdomain></secondsipserverdomain>
+    </sipserver>
+</response>
+Uwagi: brak
+
+Ustawienie serwera sip
+url: http://192.168.8.1/api/voice/sipserver
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <sipserver>
+        <proxyserveraddress></proxyserveraddress>
+        <proxyserverport></proxyserverport>
+        <registerserveraddress></registerserveraddress>
+        <registerserverport></registerserverport>
+        <sipserverdomain></sipserverdomain>
+        <secondproxyserveraddress></secondproxyserveraddress>
+        <secondproxyserverport></secondproxyserverport>
+        <secondregisterserveraddress></secondregisterserveraddress>
+        <secondregisterserverport></secondregisterserverport>
+        <secondsipserverdomain></secondsipserverdomain>
+    </sipserver>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie numerów szybkiego wybierania
+url: http://192.168.8.1/api/voice/speeddial
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <speeddial>
+        <index></index>
+        <quicknumber></quicknumber>
+        <destination></destination>
+        <description></description>
+    </speeddial>
+    <speeddial>
+        ...
+    </speeddial>
+</response>
+Uwagi: brak
+
+Ustawienie numerów szybkiego wybierania
+url: http://192.168.8.1/api/voice/speeddial
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <speeddial>
+        <index></index>
+        <quicknumber></quicknumber>
+        <destination></destination>
+        <description></description>
+    </speeddial>
+    <speeddial>
+        ...
+    </speeddial>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie zaawansowanych ustawień połączenia głosowego
+url: http://192.168.8.1/api/voice/voiceadvance
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <region></region>
+    <dtmfmethod></dtmfmethod>
+    <faxoption></faxoption>
+    <outgoinglist></outgoinglist>
+    <rtpportmin></rtpportmin>
+    <inerdigitimershort></inerdigitimershort>
+    <startdigittimerstd></startdigittimerstd>
+    <unresponseinterval></unresponseinterval>
+    <busytonetime></busytonetime>
+    <howltonetime></howltonetime>
+    <enablesharpkey></enablesharpkey>
+    <clipenable></clipenable>
+</response>
+Uwagi: brak
+
+Ustawienia zaawansowane połączenia głosowego
+url: http://192.168.8.1/api/voice/voiceadvance
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <region></region>
+    <dtmfmethod></dtmfmethod>
+    <faxoption></faxoption>
+    <outgoinglist></outgoinglist>
+    <rtpportmin></rtpportmin>
+    <inerdigitimershort></inerdigitimershort>
+    <startdigittimerstd></startdigittimerstd>
+    <unresponseinterval></unresponseinterval>
+    <busytonetime></busytonetime>
+    <howltonetime></howltonetime>
+    <enablesharpkey></enablesharpkey>
+    <clipenable></clipenable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+Moduł webserver
+
+Pobranie tokena
+url: http://192.168.8.1/api/webserver/token
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <token></token>
+</response>
+Uwagi: brak
+
+Moduł WLAN
+
+Pobranie informacji o podstawowych ustawieniach WLAN
+url: http://192.168.8.1/api/wlan/basic-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <WifiSsid></WifiSsid>
+    <WifiHide></WifiHide>
+    <WifiRestart></WifiRestart>
+    <WifiCountry></WifiCountry>
+    <WifiChannel></WifiChannel>
+    <WifiMode></WifiMode>
+    <Wifioffenable></Wifioffenable>
+    <WifiIsolationBetween></WifiIsolationBetween>
+    <WifiIsolate></WifiIsolate>
+    <Wifiofftime></Wifiofftime>
+    <wifibandwidth></wifibandwidth>
+    <wifiautocountryswitch></wifiautocountryswitch>
+    <WifiEnable></WifiEnable>
+</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+dialmode:
+0 - automatyczny
+1 - Na żądanie
+
+Zmiana podstawowych ustawień WLAN
+url: http://192.168.8.1/api/wlan/basic-settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WifiSsid></WifiSsid>
+    <WifiHide></WifiHide>
+    <WifiRestart></WifiRestart>
+    <WifiCountry></WifiCountry>
+    <WifiChannel></WifiChannel>
+    <WifiMode></WifiMode>
+    <Wifioffenable></Wifioffenable>
+    <WifiIsolationBetween></WifiIsolationBetween>
+    <WifiIsolate></WifiIsolate>
+    <Wifiofftime></Wifiofftime>
+    <wifibandwidth></wifibandwidth>
+    <wifiautocountryswitch></wifiautocountryswitch>
+    <WifiEnable></WifiEnable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+dialmode:
+0 - automatyczny
+1 - Na żądanie
+
+Pobranie informacji o połączeniu?
+url: http://192.168.8.1/api/wlan/handover-setting
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Handover></Handover>
+</response>
+Uwagi:
+Handover:
+0 - preferowane 3G (G3?)
+2 - preferowane WiFi
+
+Ustawienia połączenia?
+url: http://192.168.8.1/api/wlan/handover-setting
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Handover></Handover>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+Handover:
+0 - preferowane 3G (G3?)
+2 - preferowane WiFi
+
+Sprawdzenie podłączonych do WiFi hostów
+url: http://192.168.8.1/api/wlan/host-list
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Hosts>
+        <Host>
+            <AssociatedSsid></AssociatedSsid>
+            <AssociatedTime></AssociatedTime>
+            <ID></ID>
+            <IpAddress></IpAddress>
+            <HostName></HostName>
+            <MacAddress></MacAddress>
+        </Host>
+        <Host>
+            ...
+        </Host>
+        ...
+    </Hosts>
+</response>
+Uwagi: brak
+
+Pobranie listy filtrów po adresie MAC
+url: http://192.168.8.1/api/wlan/mac-filter
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <WifiMacFilterMac0></WifiMacFilterMac0>
+    <WifiMacFilterMac1></WifiMacFilterMac1>
+    <WifiMacFilterMac2></WifiMacFilterMac2>
+    <WifiMacFilterMac3></WifiMacFilterMac3>
+    <WifiMacFilterMac4></WifiMacFilterMac4>
+    <WifiMacFilterMac5></WifiMacFilterMac5>
+    <WifiMacFilterMac6></WifiMacFilterMac6>
+    <WifiMacFilterMac7></WifiMacFilterMac7>
+    <WifiMacFilterMac8></WifiMacFilterMac8>
+    <WifiMacFilterMac9></WifiMacFilterMac9>
+    <WifiMacFilterStatus></WifiMacFilterStatus>
+</response>
+Uwagi: brak
+
+Ustawienie listy filtrów po adresie MAC
+url: http://192.168.8.1/api/wlan/mac-filter
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WifiMacFilterMac0></WifiMacFilterMac0>
+    <WifiMacFilterMac1></WifiMacFilterMac1>
+    <WifiMacFilterMac2></WifiMacFilterMac2>
+    <WifiMacFilterMac3></WifiMacFilterMac3>
+    <WifiMacFilterMac4></WifiMacFilterMac4>
+    <WifiMacFilterMac5></WifiMacFilterMac5>
+    <WifiMacFilterMac6></WifiMacFilterMac6>
+    <WifiMacFilterMac7></WifiMacFilterMac7>
+    <WifiMacFilterMac8></WifiMacFilterMac8>
+    <WifiMacFilterMac9></WifiMacFilterMac9>
+    <WifiMacFilterStatus></WifiMacFilterStatus>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie ustawień podstawowych WiFi multi SSID
+url: http://192.168.8.1/api/wlan/multi-basic-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Ssids>
+        <Ssid>
+            <WifiSsid></WifiSsid>
+            <WifiBroadcast></WifiBroadcast>
+            <WifiWpaencryptionmodes></WifiWpaencryptionmodes>
+            <WifiWpapsk></WifiWpapsk>
+            <WifiWepKey1></WifiWepKey1>
+            <WifiWepKey2></WifiWepKey2>
+            <WifiWepKey3></WifiWepKey3>
+            <WifiWepKey4></WifiWepKey4>
+            <WifiWepKeyIndex></WifiWepKeyIndex>
+            <WifiIsolate></WifiIsolate>
+            <wifitotalswitch></wifitotalswitch>
+            <WifiEnable></WifiEnable>
+            <WifiAuthmode></WifiAuthmode>
+            <WifiBasicencryptionmodes></WifiBasicencryptionmodes>
+            <WifiMacFilterMac0></WifiMacFilterMac0>
+            <WifiMacFilterMac1></WifiMacFilterMac1>
+            <WifiMacFilterMac2></WifiMacFilterMac2>
+            <WifiMacFilterMac3></WifiMacFilterMac3>
+            <WifiMacFilterMac4></WifiMacFilterMac4>
+            <WifiMacFilterMac5></WifiMacFilterMac5>
+            <WifiMacFilterMac6></WifiMacFilterMac6>
+            <WifiMacFilterMac7></WifiMacFilterMac7>
+            <WifiMacFilterMac8></WifiMacFilterMac8>
+            <WifiMacFilterMac9></WifiMacFilterMac9>
+            <WifiMacFilterStatus></WifiMacFilterStatus>
+        </Ssid>
+        <Ssid>
+            ...
+        </Ssid>
+        ...
+    </Ssids>
+</response>
+Uwagi:
+WifiBasicencryptionmodes:
+NONE - brak szyfrowania
+WEP - szyfrowanie WEP
+WEP64 - szyfrowanie WEP 64 bit
+WEP128 - szyfrowanie WEP 128 bit
+WifiWpaencryptionmodes:
+AES - szyfrowanie AES
+MIX - szyfrowanie mieszane
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Ustawienia podstawowe WiFi multi SSID
+url: http://192.168.8.1/api/wlan/multi-basic-settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Ssids>
+        <Ssid>
+            <WifiSsid></WifiSsid>
+            <WifiBroadcast></WifiBroadcast>
+            <WifiWpaencryptionmodes></WifiWpaencryptionmodes>
+            <WifiWpapsk></WifiWpapsk>
+            <WifiWepKey1></WifiWepKey1>
+            <WifiWepKey2></WifiWepKey2>
+            <WifiWepKey3></WifiWepKey3>
+            <WifiWepKey4></WifiWepKey4>
+            <WifiWepKeyIndex></WifiWepKeyIndex>
+            <WifiIsolate></WifiIsolate>
+            <wifitotalswitch></wifitotalswitch>
+            <WifiEnable></WifiEnable>
+            <WifiAuthmode></WifiAuthmode>
+            <WifiBasicencryptionmodes></WifiBasicencryptionmodes>
+            <WifiMacFilterMac0></WifiMacFilterMac0>
+            <WifiMacFilterMac1></WifiMacFilterMac1>
+            <WifiMacFilterMac2></WifiMacFilterMac2>
+            <WifiMacFilterMac3></WifiMacFilterMac3>
+            <WifiMacFilterMac4></WifiMacFilterMac4>
+            <WifiMacFilterMac5></WifiMacFilterMac5>
+            <WifiMacFilterMac6></WifiMacFilterMac6>
+            <WifiMacFilterMac7></WifiMacFilterMac7>
+            <WifiMacFilterMac8></WifiMacFilterMac8>
+            <WifiMacFilterMac9></WifiMacFilterMac9>
+            <WifiMacFilterStatus></WifiMacFilterStatus>
+        </Ssid>
+        <Ssid>
+            ...
+        </Ssid>
+        ...
+    </Ssids>
+    <WifiRestart>0</WifiRestart>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiBasicencryptionmodes:
+NONE - brak szyfrowania
+WEP - szyfrowanie WEP
+WEP64 - szyfrowanie WEP 64 bit
+WEP128 - szyfrowanie WEP 128 bit
+WifiWpaencryptionmodes:
+AES - szyfrowanie AES
+MIX - szyfrowanie mieszane
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Pobranie listy filtrów po adresie MAC dla multi-SSID
+url: http://192.168.8.1/api/wlan/multi-macfilter-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Ssids>
+        <Ssid>
+            <WifiMacFilterMac0></WifiMacFilterMac0>
+            <WifiMacFilterMac1></WifiMacFilterMac1>
+            <WifiMacFilterMac2></WifiMacFilterMac2>
+            <WifiMacFilterMac3></WifiMacFilterMac3>
+            <WifiMacFilterMac4></WifiMacFilterMac4>
+            <WifiMacFilterMac5></WifiMacFilterMac5>
+            <WifiMacFilterMac6></WifiMacFilterMac6>
+            <WifiMacFilterMac7></WifiMacFilterMac7>
+            <WifiMacFilterMac8></WifiMacFilterMac8>
+            <WifiMacFilterMac9></WifiMacFilterMac9>
+            <WifiMacFilterStatus></WifiMacFilterStatus>
+        </Ssid>
+        <Ssid>
+            ...
+        </Ssid>
+        ...
+    </Ssids>
+</response>
+Uwagi: brak
+
+Ustawienie listy filtrów po adresie MAC dla multi-SSID
+url: http://192.168.8.1/api/wlan/multi-macfilter-settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Ssids>
+        <Ssid>
+            <WifiMacFilterMac0></WifiMacFilterMac0>
+            <WifiMacFilterMac1></WifiMacFilterMac1>
+            <WifiMacFilterMac2></WifiMacFilterMac2>
+            <WifiMacFilterMac3></WifiMacFilterMac3>
+            <WifiMacFilterMac4></WifiMacFilterMac4>
+            <WifiMacFilterMac5></WifiMacFilterMac5>
+            <WifiMacFilterMac6></WifiMacFilterMac6>
+            <WifiMacFilterMac7></WifiMacFilterMac7>
+            <WifiMacFilterMac8></WifiMacFilterMac8>
+            <WifiMacFilterMac9></WifiMacFilterMac9>
+            <WifiMacFilterStatus></WifiMacFilterStatus>
+        </Ssid>
+        <Ssid>
+            ...
+        </Ssid>
+        ...
+    </Ssids>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie statusu rozszerzenia sieci WiFi
+url: http://192.168.8.1/api/wlan/multi-switch-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <multissidstatus></multissidstatus>
+</response>
+Uwagi: brak
+
+Pobranie ustawień profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/multi-security-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <WifiCountry></WifiCountry>
+    <WifiChannel></WifiChannel>
+    <WifiMode></WifiMode>
+    <Wifioffenable></Wifioffenable>
+    <WifiIsolationBetween></WifiIsolationBetween>
+    <WifiIsolate></WifiIsolate>
+    <Wifiofftime></Wifiofftime>
+    <wifibandwidth></wifibandwidth>
+    <wifiautocountryswitch></wifiautocountryswitch>
+    <WifiRestart></WifiRestart>
+    <WifiEnable></WifiEnable>
+</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+
+Zmiana ustawień profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/multi-security-settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WifiCountry></WifiCountry>
+    <WifiChannel></WifiChannel>
+    <WifiMode></WifiMode>
+    <Wifioffenable></Wifioffenable>
+    <WifiIsolationBetween></WifiIsolationBetween>
+    <WifiIsolate></WifiIsolate>
+    <Wifiofftime></Wifiofftime>
+    <wifibandwidth></wifibandwidth>
+    <wifiautocountryswitch></wifiautocountryswitch>
+    <WifiRestart></WifiRestart>
+    <WifiEnable></WifiEnable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+
+Pobranie ustawień rozszerzonych profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/multi-security-settings-ex
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <ssids>
+        <ssid>
+            <WifiMode></WifiMode>
+            <WifiIsolationBetween></WifiIsolationBetween>
+            <WifiChannel></WifiChannel>
+            <wifibandwidth></wifibandwidth>
+            <WifiEnable></WifiEnable>
+        </ssid>
+        <ssid>
+            ...
+        </ssid>
+        ...
+    </ssids>
+</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+
+Ustawienia rozszerzone profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/multi-security-settings-ex
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <ssids>
+        <ssid>
+            <WifiMode></WifiMode>
+            <WifiIsolationBetween></WifiIsolationBetween>
+            <WifiChannel></WifiChannel>
+            <wifibandwidth></wifibandwidth>
+            <WifiEnable></WifiEnable>
+        </ssid>
+        <ssid>
+            ...
+        </ssid>
+        ...
+    </ssids>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiMode:
+a - standard 802.11a
+a/n - standard 802.11a/n
+a/n/ac - standard 802.11a/n/ac
+b/g/n - standard 802.11b/g/n
+
+Pobranie statusu pokazywania hasła na wyświetlaczu OLED?
+url: http://192.168.8.1/api/wlan/oled-showpassword
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <oledshowpassword></oledshowpassword>
+</response>
+Uwagi: brak
+
+Zmiana stanu pokazywania hasła na wyświetlaczu OLED?
+url: http://192.168.8.1/api/wlan/oled-showpassword
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <oledshowpassword></oledshowpassword>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Pobranie ustawień zabezpieczeń sieci WiFi
+url: http://192.168.8.1/api/wlan/security-settings
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <WifiAuthmode></WifiAuthmode>
+    <WifiWepKey1></WifiWepKey1>
+    <WifiWepKey2></WifiWepKey2>
+    <WifiWepKey3></WifiWepKey3>
+    <WifiWepKey4></WifiWepKey4>
+    <WifiWepKeyIndex></WifiWepKeyIndex>
+    <WifiWpaencryptionmodes></WifiWpaencryptionmodes>
+    <WifiBasicencryptionmodes></WifiBasicencryptionmodes>
+    <WifiWpapsk></WifiWpapsk>
+</response>
+Uwagi:
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Ustawienia zabezpieczeń sieci WiFi
+url: http://192.168.8.1/api/wlan/security-settings
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WifiAuthmode></WifiAuthmode>
+    <WifiWepKey1></WifiWepKey1>
+    <WifiWepKey2></WifiWepKey2>
+    <WifiWepKey3></WifiWepKey3>
+    <WifiWepKey4></WifiWepKey4>
+    <WifiWepKeyIndex></WifiWepKeyIndex>
+    <WifiWpaencryptionmodes></WifiWpaencryptionmodes>
+    <WifiBasicencryptionmodes></WifiBasicencryptionmodes>
+    <WifiWpapsk></WifiWpapsk>
+    <WifiRestart>1</WifiRestart>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Sprawdzenie obecności karty SIM?
+url: http://192.168.8.1/api/wlan/sta-sim-relation
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <sim_relation></sim_relation>
+</response>
+Uwagi: brak
+
+Pobranie informacji o WLAN
+url: http://192.168.8.1/api/wlan/station-information
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <RxFlux></RxFlux>
+    <TxFlux></TxFlux>
+    <TotalRxFlux></TotalRxFlux>
+    <TotalTxFlux></TotalTxFlux>
+    <CurrentTime></CurrentTime>
+    <TotalTime></TotalTime>
+</response>
+Uwagi: brak
+
+Moduł WLAN - cd.
+
+Sprawdzenie stanu funkcji WiFi
+url: http://192.168.8.1/api/wlan/wifi-feature-switch
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <stawpsenabled></stawpsenabled>
+    <maxapnum></maxapnum>
+    <isdoublechip></isdoublechip>
+    <opennonewps_enable></opennonewps_enable>
+    <wifi24g_switch_enable></wifi24g_switch_enable>
+</response>
+Uwagi: brak
+
+Ustawienie funkcji WiFi
+url: http://192.168.8.1/api/wlan/wifi-feature-switch
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <stawpsenabled></stawpsenabled>
+    <maxapnum></maxapnum>
+    <isdoublechip></isdoublechip>
+    <opennonewps_enable></opennonewps_enable>
+    <wifi24g_switch_enable></wifi24g_switch_enable>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Ustawienia profilu WiFi
+url: http://192.168.8.1/api/wlan/wifiaddprofile
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WifiSsid></WifiSsid>
+    <WifiAuthMode></WifiAuthMode>
+    <WifiSecMode></WifiSecMode>
+    <WifiAuthSecret></WifiAuthSecret>
+    <wifiwispruser></wifiwispruser>
+    <wifiwisprpwd></wifiwisprpwd>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: wifiwispruser oraz wifiwisprpwd są opcjonalne. Można te zmienne pominąć, chyba że łączymy z siecią typu WISPr.
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Rozłączenie połączenia WiFi
+url: http://192.168.8.1/api/wlan/wifidial
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <DialAction></DialAction>
+    <WifiSsid></WifiSsid>
+    <WifiSecMode></WifiSecMode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+DialAction:
+0 - rozłączony
+1 - połączony
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+
+Nawiązywanie połączenia i rozłączanie WiFi
+url: http://192.168.8.1/api/wlan/wifidial
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <DialAction></DialAction>
+    <WifiSsid></WifiSsid>
+    <WifiSecMode></WifiSecMode>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+DialAction:
+0 - rozłączony
+1 - połączony
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+
+Pobranie informacji o priorytecie profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/wifiprofile
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SsidLists>
+        <SsidList>
+            <WifiSsid></WifiSsid>
+            <WifiSecMode></WifiSecMode>
+            <Preset></Preset>
+            <Index></Index>
+            <Order></Order>
+        </SsidList>
+        <SsidList>
+            ...
+        </SsidList>
+        ...
+    </SsidLists>
+</response>
+Uwagi:
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+Jako ciekawostka do logu w js przekazywana jest informacja o API mające adres api/wlan/profile-information
+
+Ustawienie priorytetu profilów sieci WiFi
+url: http://192.168.8.1/api/wlan/wifiprofile
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <SsidLists>
+        <SsidList>
+            <WifiSsid></WifiSsid>
+            <WifiSecMode></WifiSecMode>
+            <Preset></Preset>
+            <Index></Index>
+            <Order></Order>
+        </SsidList>
+        <SsidList>
+            ...
+        </SsidList>
+        ...
+    </SsidLists>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi:
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+
+Włączenie wyszukiwania sieci WiFi
+url: http://192.168.8.1/api/wlan/wifiscan
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <Wifiscan>0</Wifiscan>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie statusu wyszukiwania sieci WiFi
+url: http://192.168.8.1/api/wlan/wifiscan
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <Wifiscan></Wifiscan>
+</response>
+Uwagi:
+Wifiscan:
+0 - zakończono wyszukiwanie sieci WiFi
+1 - trwa wyszikiwanie sieci WiFi
+
+Pobranie wyników wyszukiwania sieci WiFi
+url: http://192.168.8.1/api/wlan/wifiscanresult
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <SsidLists>
+        <SsidList>
+            <WifiSsid></WifiSsid>
+            <WifiSignal></WifiSignal>
+            <WifiAuthMode></WifiAuthMode>
+            <WifiSecMode></WifiSecMode>
+            <WifiNeedPassword></WifiNeedPassword>
+            <wifiwisprenable></wifiwisprenable>
+            <wifiwispruser></wifiwispruser>
+            <profileenable></profileenable>
+            <wifiwispruwd></wifiwispruwd>
+        </SsidList>
+        <SsidList>
+            ...
+        </SsidList>
+        ...
+    </SsidLists>
+</response>
+Uwagi:
+WifiSecMode:
+NONE - brak zabezpieczeń sieci
+OPEN - sieć otwarta
+WEP - sieć zabezpieczona za pomocą WEP
+WPA-PSK - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+WPA-EAP - sieć zabezpieczona za pomocą WPA-EAP
+WPA2-EAP - sieć zabezpieczona za pomocą WPA2-EAP
+WPA/WPA2-EAP - sieć zabezpieczona za pomocą WPA/WPA2-EAP
+WPA_ENTERPRISE - sieć zabezpieczona za pomocą WPA_ENTERPRISE
+WPA2_ENTERPRISE - sieć zabezpieczona za pomocą WPA2_ENTERPRISE
+WifiAuthmode:
+AUTO - autoryzacja automatyczna
+OPEN - autoryzacja sieć otwarta
+SHARE - autoryzacja sieć udostępniona
+WEP - autoryzacja - sieć zabezpieczona za pomocą WEP
+WPA-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA-PSK
+WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA2-PSK
+WPA/WPA2-PSK - autoryzacja - sieć zabezpieczona za pomocą WPA/WPA2-PSK
+
+Pobranie listy filtrów po adresie MAC
+url: http://192.168.8.1/api/wlan/wps
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <WPSPin></WPSPin>
+</response>
+Uwagi: brak
+
+Ustawienie listy filtrów po adresie MAC
+url: http://192.168.8.1/api/wlan/wps
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WPSPin></WPSPin>
+    <ssidindex></ssidindex>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+
+Sprawdzenie połączenia WiFi PBC
+url: http://192.168.8.1/api/wlan/wps-pbc
+metoda: GET
+żądanie: brak
+odpowiedź:
+Kod:
+<response>
+    <State></State>
+    <WPSMode>3</WPSMode>
+    <ssidindex></ssidindex>
+</response>
+Uwagi:
+State:
+3 - błąd połączenia
+4 - łączenie
+5 - połączono
+
+Ustawienia połączenia WiFi PBC??
+url: http://192.168.8.1/api/wlan/wps-pbc
+metoda: POST
+żądanie:
+Kod:
+<request>
+    <WPSMode>3</WPSMode>
+    <ssidindex></ssidindex>
+</request>
+odpowiedź:
+Kod:
+<response>OK</response>
+Uwagi: brak
+Uwagi
+
+3. Używanie API
+
+API HiLinka bez problemu można użyć w Linuxie. Zarówno w postaci komendy wpisanej w wierszu poleceń jak i skryptu. W Windowsie zaczyna być odrobinę trudniej. Można sobie sprawę uprościć ściągając binarki curl (patrz strona projektu cURL) oraz pakiet narzędzi linii poleceń Linuxa dla Windowsa (np. UnxUtils) z którego warto zaopatrzyć się w grep i cut.
+Poniżej kilka przykładów przetestowanych na OpenWRT Barrier Breaker (r43618) by Cezary (obsy) Jackiewicz (http://eko.one.pl) za pomocą polecenia curl (bez problemu myślę, że można zaadaptować do polecenia wget), a także przykłady plików wsadowych dla Windows.
+Przykład 1a - restart modemu - wiersz poleceń w OpenWRT
+Kod:
+curl -X POST -d "<request><Control>1</Control></request>" http://192.168.8.1/api/device/control -H "__RequestVerificationToken: $(curl -s -X GET http://192.168.8.1/api/webserver/token | grep token  | cut -d '>' -f2 | cut -d '<' -f1)" -H "Content-Type: text/xml"
+Przykład 1b - restart modemu - skrypt 'restart.sh' wywoływany poleceniem 'sh restart.sh' w OpenWRT
+Kod:
+#!/bin/bash
+token=$(curl -s -X GET http://192.168.8.1/api/webserver/token | grep token  | cut -d '>' -f2 | cut -d '<' -f1)
+curl -X POST -d "<request><Control>1</Control></request>" --url http://192.168.8.1/api/device/control -H "__RequestVerificationToken: $token" -H "Content-Type: text/xml"
+Przykład 1c - restart modemu - plik wsadowy 'restart.cmd' dla Windows
+Kod:
+@ECHO OFF
+
+rem pobranie tokena i zapisanie do zmiennej tok
+@curl -s -X GET http://192.168.8.1/api/webserver/token | grep token | cut -d ^> -f2 | cut -d ^< -f1 > tmp.tmp
+@SET /p tok= < tmp.tmp
+@del /A /F tmp.tmp
+@SET tok=__RequestVerificationToken: %tok%
+
+rem wykonanie restartu modemu
+@curl -X POST -d "<request><Control>1</Control></request>" http://192.168.8.1/api/device/control -H "%tok%" -H "Content-Type: text/xml"
+Przykład 2 - Odczytanie SMSów ze skrzynki odbiorczej ze strony 2 - wiersz poleceń w OpenWRT
+Kod:
+curl -X POST -d "<request><PageIndex>1</PageIndex><ReadCount>20</ReadCount><BoxType>1</BoxType><SortType>0</SortType><Ascending>0</Ascending><UnreadPreferred>0</UnreadPreferred></request>" http://192.168.8.1/api/sms/sms-list -H "__RequestVerificationToken: $(curl -s -X GET http://192.168.8.1/api/webserver/token | grep token  | cut -d '>' -f2 | cut -d '<' -f1)" -H "Content-Type: text/xml"
+Przykład 3 - Wysłanie SMS - wiersz poleceń w OpenWRT
+Kod:
+curl -X POST -d "<?xml version='1.0' encoding='UTF-8'?><request><Index>-1</Index><Phones><Phone>+48123456789</Phone></Phones><Sca></Sca><Content>To jest tresc SMS'a</Content><Length>-1</Length><Reserved>1</Reserved><Date>-1</Date></request>" http://192.168.8.1/api/sms/send-sms -H "__RequestVerificationToken: $(curl -s -X GET http://192.168.8.1/api/webserver/token | grep token  | cut -d '>' -f2 | cut -d '<' -f1)" -H "Content-Type: text/xml"
+Przykład 4a - Pobranie tokena - wiersz poleceń w OpenWRT
+Kod:
+curl http://192.168.8.1/api/webserver/token
+Przykład 4b - Pobranie tokena przycięcie do samego tokena - wiersz poleceń w OpenWRT
+Kod:
+curl -s -X GET http://192.168.8.1/api/webserver/token | grep token  | cut -d '>' -f2 | cut -d '<' -f1
+
+4. Numery błędów
+
+API potrafi odpowiedzieć błędem na nasze żądanie. Błąd wygląda następująco:
+Kod:
+<?xml version="1.0" encoding="UTF-8"?>
+<error>
+    <code>NR_BŁĘDU</code>
+    <message></message>
+</error>
+
+gdzie NR_BŁĘDU:
+100002 - brak wsparcia w firmware lub błędny adres API
+100003 - brak uprawnień
+100004 - system zajęty
+100005 - brak informacji o danym błędzie
+100006 - błędny parametr
+100009 - błąd zapisu
+103002 - brak informacji o danym błędzie
+103015 - brak informacji o danym błędzie
+108001 - niepoprawna nazwa użytkownika
+108002 - niepoprawne hasło użytkownika
+108003 - użytkownik aktualnie zalogowany
+108006 - nieprawidłowa nazwa użytkownika lub hasło
+108007 - nieprawidłowa nazwa użytkownika lub hasło, osiągnięto limit prób
+110024 - bateria poniżej 50% (przy aktualizacji oprogramowania)
+111019 - brak odpowiedzi sieci
+111020 - przekroczenie czasu sieci
+111022 - sieć nie obsługuje
+113018 - system zajęty (dotyczy operacji na SMS'ach)
+114001 - plik już istnieje
+114002 - plik już istnieje
+114003 - karta SD jest obecnie w użyciu
+114004 - udostępniona ścieżka nie istnieje
+114005 - zbyt długa ścieżka dostępu
+114006 - brak uprawnień do pliku/katalogu
+115001 - brak informacji o danym błędzie
+117001 - niepoprawne hasło (przy połączeniu WiFi)
+117004 - niepoprawne hasło WISPr (przy połączeniu WiFi)
+120001 - połączenie głosowe zajęte
+125001 - niepoprawny token
+
+5. Inne
+Modyfikacja plików WebUI na przykładzie odblokowania języka polskiego w pliku konfiguracyjnym
+
+UWAGA: Niżej opisana procedura wymaga urządzenia z odblokowanym dostępem przez ADB i/lub telnet.
+
+UWAGA: Niżej opisana procedura prawdopodobnie działa jak na razie tylko na modemie E3372 z odblokowanym ADB (nie mam jak sprawdzić na innych urządzeniach).
+
+W pierwszej kolejności z wiersza poleceń się łączymy z modemem za pomocą ADB i uruchamiamy shella:
+Kod:
+adb connect 192.168.8.1
+adb shell
+
+Następnie w shellu należy odmontować katalog webroota i podmontować go w sposób:
+Kod:
+# umount /app/webroot
+# mount -t jffs2 /dev/block/mtdblock14 /app/webroot
+
+Wracamy do wiersza poleceń (ctrl+D) i ściągamy plik konfiguracji językowej:
+Kod:
+adb pull /app/webroot/WebApp/common/config/global/languagelist.xml
+
+Teraz najlepiej zrobić sobie kopię zapasową pliku który ściągnęliśmy i możemy go wyedytować. W sekcji <languages> dodajemy:
+Kod:
+<language>pl-pl</language>
+
+I na koniec trzeba podmienić zmieniony plik konfiguracyjny w modemie:
+Kod:
+adb push languagelist.xml /app/webroot/WebApp/common/config/global/
+
+Jeżeli wszytko przebiegło poprawnie i w WebUI zawarty jest plik językowy polski (można sprawdzić przechodząc pod adres http://192.168.8.1/language/lang_pl_pl.js) to po wejściu na stronę konfiguracji modemu 192.168.8.1 będziemy mogli z listy wybrać język polski Big Grin
+
+Obrazek
+
+P.S. Nie dopowiadam za ew uwalenie modemu jak ktoś coś namiesza w plikach
+
+EDIT Inne podejście do tematu:
+Całość możemy zrobić łącząc się np za pomocą putty wykorzystując połączenie typu telnet (czyli pomijamy adb) i wyedytować za pomocą edytora vi.
+
+Po połączeniu z modemem za pomocą putty należy odmontować katalog webroota i podmontować go w sposób:
+Kod:
+# umount /app/webroot
+# mount -t jffs2 /dev/block/mtdblock14 /app/webroot
+Włączamy shella busybox:
+Kod:
+# busybox sh
+I na koniec edytujemy plik językowy za pomocą vi:
+Kod:
+/# vi /app/webroot/WebApp/common/config/global/languagelist.xml
+Ze względu na dziką obsługę Tongue edytora vi nie polecam tej metody mniej doświadczonym użytkownikom.
+
+EDIT Inne podejście do tematu modyfikacji praw do edycji systemu plików:
+Zamiast odmontowywać webroota możemy ponownie zamontować w trybie zapisu: 
+Kod:
+# mount -o remount,rw /dev/block/mtdblock14 /app/webroot
+
+Po skończonych zmianach warto ponownie przemontować w tryb do odczytu:
+Kod:
+# mount -o remount,ro /dev/block/mtdblock14 /app/webroot
+Automatyczne podawanie PIN - modyfikacja skryptu autorun.sh
+
+Z jakiegoś bliżej nie określonego powodu w modemach Huawei HiLink nie działa funkcja automatycznego wpisywania PINu. Dzięki API HiLinka można ten problem ominąć robiąc własny skrypt który automatycznie wpisywałby PIN do modemu. W nowszych modemach, w których za zarządzanie podstawowymi funkcjami modemu odpowiedzialny jest system Android można umieścić taki skrypt (pod warunkiem, że odblokowany jest ADB i telnet) w samym modemie. Rozwiązanie takie jest o tyle lepsze, że nie nie jest przywiązane do konkretnego urządzenia do którego jest podłączony modem, a więc będzie działało zawsze.
+
+UWAGA: Niżej opisana procedura wymaga urządzenia z odblokowanym dostępem przez ADB i/lub telnet.
+
+UWAGA metoda ta ingeruje w pliki systemowe, w wyniku czego można uwalić modem. Za ew. szkody nie odpowiadam.
+
+Niżej opisana metoda wymaga połączenia za pomocą programu PuTTY (protokół telnet) i zainstalowanego na modemie Midnight Commander'a (mc dla modemów E3372x, mc dla modemów E327x). Ten ostatni nie jest wymagany, ponieważ można wykonać wszytko za pomocą podstawowych funkcji jakie oferuje busybox, w tym edycja pliku za pomocą edytora vi Smile . Jeżeli protokół telent nie jest odblokowany, ale jest dostęp do modemu przez ADB również powinno dać się wykonać poniższą metodę.
+
+Poniższa modyfikacja była testowana na modemach E3372s-153 z wgranym oprogramowaniem E3372Update_22.286.53.01.161_S_ADB_TLN_01, ale powinna działać też na innych modemach z odblokowanym ADB i/lub telnetem.
+
+Są informacje, że coś się zmieniło w oprogramowaniu 22.491.03.* w związku z tym nie działa pobieranie tokena (API HiLink). Niestety nie mam na czym sprawdzić jakie są zmiany i czy da się je obejść.
+
+W pierwszej kolejności należy sprawdzić parę rzeczy:
+Należy połączyć się z modemem za pomocą programu PuTTY
+Sprawdzamy do jakiego urządzenia jest zamontowany /system
+Kod:
+mount
+W przykładzie /system jest zamontowany na urządzeniu
+Kod:
+/dev/block/mtdblock15
+i takie urządzenie jest niżej użyte. Jeżeli jest inaczej trzeba odpowiednio zmienić używane funkcje.
+Odblokowujemy teraz możliwości edycji plików w katalogu /system
+Kod:
+mount -o remount,rw /dev/block/mtdblock15 /system
+Przejchodzimy z shella ADB do shella busybox:
+Kod:
+busybox sh
+Sprawdzamy ustawienia sieci:
+Kod:
+ifconfig
+Głównym urządzeniem modemu w przykładzie jest urządzenie br0 i takie zostało użyte do określenia IP modemu w skrypcie poniżej. Jeżeli jest inaczej trzeba skrypt zmodyfikować.
+
+Teraz można przejść już do modyfikacji.
+Odpalamy Midnight Commander'a
+Kod:
+mc
+Przechodzimy do katalogu /system/etc i tworzymy tutaj nowy plik tekstowy (Shift + F4)
+W otwarty edytor tekstu wpisujemy skrypt, oczywiście w miejscu 1234 należy wstawić własny PIN:
+Kod:
+#!/system/bin/busybox sh
+sleep 5
+
+# w miejscu 1234 wprowadź swój pin
+PIN=1234
+
+# pobranie adresu na jakim modem funkcjonuje, przy założeniu, że modem jest urządzeniem br0 i adres jego zaczyna się od 192
+IPADDR=$(ifconfig br0 | grep 192 | cut -d ':' -f2 | cut -d ' ' -f1)
+
+# pobranie tokena
+TOKEN=$(wget -qO- http://$IPADDR/api/webserver/token | grep token | cut -d '>' -f2 | cut -d '<' -f1)
+
+# pobranie stanu SIM
+SIMSTATE=$(wget -qO- http://$IPADDR/api/monitoring/converged-status --header "__RequestVerificationToken: $TOKEN" --header "Content-Type: text/xml" | grep SimState | cut -d '>' -f2 | cut -d '<' -f1)
+
+# jeżeli SimState = 260 (wymagany PIN) wtedy wprowadzenie PINu
+if [ $SIMSTATE == 260 ]; then
+    wget -qO- http://$IPADDR/api/pin/operate --post-data="<request><OperateType>0</OperateType><CurrentPin>$PIN</CurrentPin><NewPin></NewPin><PukCode></PukCode></request>" --header "__RequestVerificationToken: $TOKEN" --header "Content-Type: text/xml"
+fi
+Zapisujemy plik (klawisz F2) jako pushpin.sh i wychodzimy z edytora tekstu (klawisz F10)
+Mając podświetlony plik pushpin.sh edytujemy jego prawa. Z górnej belki programu wybieramy File->Chmod i ustawiamy uprawnienia:
+read by owner
+write by owner
+execute/search by owner
+read by group
+write by group
+execute/search by group
+read by others
+execute/search by others
+W mc teraz trzeba się cofnąć do głównej gałęzi drzewa, a następnie przejść do katalogu /etc i edytujemy plik autorun.sh (klawisz F4) dodając na końcu (na końcu tego pliku powinno być zakończenie funkcji warunkowej, a więc dopisujemy poniżej fi):
+Kod:
+/system/etc/pushpin.sh &
+Zapisujemy plik (F2) i wychodzimy z edytora (F10) i mc (F10).
+Warto sprawdzić teraz to co zmodyfikowaliśmy. A więc sprawdzamy jak wygląda plik /etc/autorun.sh
+Kod:
+cat /etc/autorun.sh
+
+U mnie wygląda to tak:
+Kod:
+#!/system/bin/busybox sh
+
+mkdir bin
+ln -s /system/bin/sh /bin/sh
+
+/system/sbin/NwInquire &
+
+busybox echo 0 > /proc/sys/net/netfilter/nf_conntrack_checksum
+
+#¸ůžÝ˛úĎßNVĎîŁŹČçšűĘÇ˛úĎß°ćąžŁŹÔňÖťĆđwifiŁŹˇńÔňĆđČŤÓŚÓĂŁŹforgive me pls, no better method thought
+ecall bsp_get_factory_mode
+#BEGIN DTS2013092201594 yaozhanwei 2013-05-25 modified for wifi factory mode
+dmesg | /system/bin/busybox grep "+=+=+==factory_mode+=+=+=="
+#END DTS2013092201594 yaozhanwei 2013-05-25 modified for wifi factory mode
+if [ $? -eq 0 ]
+then
+        #BEGIN DTS2013092201594 yaozhanwei 2013-05-25 added for wifi factory mode
+        /system/bin/wifi_brcm/exe/wifi_poweron_factory_43241.sh
+        #END DTS2013092201594 yaozhanwei 2013-05-25 added for wifi factory mode
+else
+        /system/bin/insmod_ctf_ko.sh
+        /app/appautorun.sh
+        /sbin/adbd &
+        busybox telnetd -l /bin/sh
+fi
+/syste/etc/pushpin.sh &
+Sprawdzamy również plik /system/etc/pushpin.sh czy wygląda jak powyżej (punkt 7)
+Kod:
+cat /system/etc/pushpin.sh
+Oraz jego uprawnienia:
+Kod:
+ls -l /system/etc/pushpin.sh
+Powinno być -rwxrwxr-x
+Jeżeli wszytko jest ok to wychodzimy z shella busybox:
+Kod:
+exit
+I przywracamy początkowe parametry systemu plików:
+Kod:
+mount -o remount,ro /dev/block/mtdblock15 /system
+
+Jeżeli wszystko zostało wykonane poprawnie to od teraz monit o podanie PIN nie powinien się pojawić.
+
+EDIT 
+Jak napisałem na początku dla osób używających modemu Huawej typu HiLink bez możliwości odblokowania ADB i telnetu pozostaje zawsze stworzenie skryptu przypisanego do urządzenia, do którego podłączony jest modem. W tym przypadku większe możliwości daje linux bo można proces ten zautomatyzować i zmodyfikowany skrypt podpiąć do skryptu hotplug lub interface (ale tu niech się wykażą koledzy lepiej znający się na linuxie).
+Spis stron konfiguracyjnych w urządzeniu HiLink
+
+Poniżej lista stron konfiguracyjnych jaki mogą znaleźć się (i zapewne są) w urządzeniu HiLink. Nie do wszystkich stron jest dostęp. Niektóre są zablokowane plikami konfiguracyjnymi, inne sprzętowo. Gdy zostanie wywołana strona do której dostępu został ograniczony, użytkownik zostanie przekierowany na adres strony domowej.
+/html/appmanagement.html
+/html/bridgemode.html
+/html/cbssettings.html
+/html/commend.html
+/html/configuration.html
+/html/connectionless.html
+/html/cradleDisconnected.html
+/html/ddns.html
+/html/deviceinformation.html
+/html/dhcp.html
+/html/diagnosis.html
+/html/dlna.html
+/html/dmzsettings.html
+/html/ethernetsettings.html
+/html/ethernetstatus.html
+/html/firewallswitch.html
+/html/footer.html
+/html/header.html
+/html/home.html
+/html/index.html
+/html/installsoftware.html
+/html/lanipfilter.html
+/html/leftmenu.html
+/html/logsetting.html
+/html/macclone.html
+/html/macfilter.html
+/html/messagesettings.html
+/html/mobileconnection.html
+/html/mobilenetworksettings.html
+/html/modifypassword.html
+/html/nat.html
+/html/nocard.html
+/html/notsupported.html
+/html/opennewwindow.html
+/html/ota.html
+/html/phonebook.html
+/html/pincodeautovalidate.html
+/html/pincodemanagement.html
+/html/pincoderequired.html
+/html/profilesmgr.html
+/html/pukrequired.html
+/html/quicksetup.html
+/html/reboot.html
+/html/redirect.html
+/html/restore.html
+/html/sambasettings.html
+/html/sambasharinguser.html
+/html/sdcardsharing.html
+/html/serverbasic.html
+/html/simlockrequired.html
+/html/sipadvance.html
+/html/sipalgsettings.html
+/html/sipbasic.html
+/html/sipvoicecodec.html
+/html/smsinbox.html
+/html/sntp.html
+/html/specialapplication.html
+/html/speeddial.html
+/html/stationwps.html
+/html/statistic.html
+/html/stk.html
+/html/switchDebugMode.html - UWAGA OSTROŻNIE!!! Przełącza urządzenie w tryb debug (dostępne będą porty szeregowe COM, ale jednocześnie można stracić połączenie z internetem w szczególności, gdy modem podłączony jest do sprzętu opartego na linuksie)
+/html/switchProjectMode.html - UWAGA!!! Podobnie jak wyżej ale przełączy w tryb project. Mogę się mylić, ale prawdopodobnie jest to tryb normalnej pracy urządzenia HiLink.
+/html/systemsettings.html
+/html/update.html
+/html/update_autorun.html
+/html/update_local.html
+/html/upnp.html
+/html/urlfilter.html
+/html/ussd.html
+/html/virtualserver.html
+/html/voiceadvanced.html
+/html/voicebusy.html
+/html/voipinformation.html
+/html/wifinetworks.html
+/html/wifipriority.html
+/html/wlanadvanced.html
+/html/wlanbasicsettings.html
+/html/wlanmacfilter.html
+/html/wps.html
+Spis plików JavaScript
+
+W zależności od sposobu w jaki chcemy dotrzeć do plików JavaScript możemy albo je otworzyć z przeglądarki www wpisując adres w następujący sposób 192.168.8.1/js/nazwa_pliku.js lub poprzez adb/telnet (jeżeli mamy takowy odblokowany) wtedy ścieżka dostępu jest następująca /app/webroot/WebApp/common/js/nazwa_pliku.js. Uwaga w drugim przypadku plik może być spakowany GZIPem więc może mieć rozszerzenie .js.gz.
+/js/quicksetup.js
+/js/voipinformation.js
+/js/usermanagement.js
+/js/nocard.js
+/js/country.js
+/js/wlanbasicsettings.js
+/js/virtualserver.js
+/js/sms.js
+/js/mobileconnection.js
+/js/nat.js
+/js/sntp.js
+/js/wifinetworks.js
+/js/installsoftware.js
+/js/stk.js
+/js/mobilenetworksettings.js
+/js/main.js
+/js/ussd.js
+/js/urlfilter.js
+/js/systemsettings.js
+/js/dlna.js
+/js/serverbasic.js
+/js/update.js
+/js/redirect.js
+/js/dmzsettings.js
+/js/ethernetsettings.js
+/js/ddns.js
+/js/modifypassword.js
+/js/changelang.js
+/js/reboot.js
+/js/macfilter.js
+/js/cbssettings.js
+/js/wlanmacfilter.js
+/js/dhcp.js
+/js/restore.js
+/js/statistic.js
+/js/profilesmgr.js
+/js/macclone.js
+/js/sdupload.js
+/js/configuration.js
+/js/voicebusy.js
+/js/pukrequired.js
+/js/messagesetting.js
+/js/validation.js
+/js/home.js
+/js/update_local.js
+/js/simlockrequired.js
+/js/wifipriority.js
+/js/firewallswitch.js
+/js/diagnosis.js
+/js/switchmode.js
+/js/upnp.js
+/js/pincoderequired.js
+/js/wps.js
+/js/appmanagement.js
+/js/sipalgsettings.js
+/js/deviceinformation.js
+/js/speeddial.js
+/js/ota.js
+/js/select.js
+/js/specialapplication.js
+/js/lanipfilter.js
+/js/connectionless.js
+/js/phonebook.js
+/js/bridgemode.js
+/js/ping.js
+/js/ethernetstatus.js
+/js/checklogin.js
+/js/update_autorun.js
+/js/voiceadvanced.js
+/js/sipbasic.js
+/js/cradleDisconnected.js
+/js/sipvoicecodec.js
+/js/sipadvance.js
+/js/pinautovalidate.js
+/js/logStting.js
+/js/wlanadvanced.js
+/js/pincodemanagement.js
+/js/stationwps.js
+/js/sambasettings.js
+/js/sdcard.js
+/js/table.js
+
+
+6. Źródła wiedzy
+Głównym źródłem wiedzy jest samo urządzenie, a dokładniej JavaScripty zawarte na danych stronach konfiguracyjnych modemu Wink
+Programming and Installing HUAWEI HiLink E3131 under Linux - stronka z której dość dużo informacji zebrałem i w podobny sposób stworzyłem ten poradnik.
+BlackyPanther/Huawei-HiLink - klasa PHP korzystająca z dobrodziejstw API HiLinka
+Forum 4PDA - a w szczególności tematy poświęcone dyskusji na temat danego urządzenia i jego oprogramowania.

@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -7,9 +8,9 @@ namespace BlueBit.PhoneDatesReminder.Components
 
     public sealed class Void { }
 
-    public interface IComponent<in TIn, out TOut>
+    public interface IComponent<in TIn, TOut>
     {
-        TOut Work(TIn input);
+        Task<TOut> WorkAsync(TIn input);
     }
 
     public abstract class ComponentBase
@@ -25,14 +26,14 @@ namespace BlueBit.PhoneDatesReminder.Components
         IComponent<T, T>
         where T : class
     {
-        public T Work(T input)
+        public async Task<T> WorkAsync(T input)
         {
             Debug.Assert(input != null);
-            OnWork(input);
+            await OnWorkAsync(input);
             return input;
         }
 
-        protected abstract void OnWork(T input);
+        protected abstract Task OnWorkAsync(T input);
     }
 
     public abstract class ComponentBase<TIn, TOut> :
@@ -41,52 +42,52 @@ namespace BlueBit.PhoneDatesReminder.Components
         where TIn : class
         where TOut : new()
     {
-        public TOut Work(TIn input)
+        public async Task<TOut> WorkAsync(TIn input)
         {
             Debug.Assert(input != null);
             var output = new TOut();
             (output as Cfg.IInitialize<TIn>)?.Init(input);
-            OnWork(input, output);
+            await OnWorkAsync(input, output);
             return output;
         }
 
-        protected abstract void OnWork(TIn input, TOut output);
+        protected abstract Task OnWorkAsync(TIn input, TOut output);
     }
 
     public static class Runner
     {
-        public static Func<TIn, TOut> Start<TIn, TOut>(
+        public static Func<TIn, Task<TOut>> Start<TIn, TOut>(
             Func<IComponent<TIn, TOut>> creator)
         {
             Debug.Assert(creator != null);
             return input =>
             {
                 return creator
-                    .CallWithLogInfo(_ => _.Work(input));
+                    .CallWithLogInfoAsync(_ => _.WorkAsync(input));
             };
         }
 
-        public static Func<TIn, TOut> Then<TIn, TOut, T>(
-            this Func<TIn, T> @this,
+        public static Func<TIn, Task<TOut>> Then<TIn, TOut, T>(
+            this Func<TIn, Task<T>> @this,
             Func<IComponent<T, TOut>> creator)
         {
             Debug.Assert(creator != null);
-            return input =>
+            return async input =>
             {
-                var tmp = @this(input);
-                return creator
-                    .CallWithLogInfo(_ => _.Work(tmp));
+                var tmp = await @this(input);
+                return await creator
+                    .CallWithLogInfoAsync(_ => _.WorkAsync(tmp));
             };
         }
 
-        public static Func<TIn, TOut> WithCatchBreak<TIn, TOut>(this Func<TIn, TOut> @this)
+        public static Func<TIn, Task<TOut>> WithCatchBreak<TIn, TOut>(this Func<TIn, Task<TOut>> @this)
         {
             Debug.Assert(@this != null);
-            return input =>
+            return async input =>
             {
                 try
                 {
-                    return @this(input);
+                    return await @this(input);
                 }
                 catch (BreakException)
                 {
@@ -95,8 +96,8 @@ namespace BlueBit.PhoneDatesReminder.Components
             };
         }
 
-        public static TOut Run<TIn, TOut>(
-            this Func<TIn, TOut> @this,
+        public static Task<TOut> RunAsync<TIn, TOut>(
+            this Func<TIn, Task<TOut>> @this,
             TIn @params)
         {
             Debug.Assert(@this != null);
