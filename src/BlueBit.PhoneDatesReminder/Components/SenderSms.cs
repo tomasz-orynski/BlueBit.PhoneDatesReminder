@@ -47,7 +47,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             }
 
             using (var client = new HttpClient())
-            using(var tokenResult = await client.GetAsync($"{input.SenderSmsCfg.Url}/api/webserver/SesTokInfo"))
+            using (var tokenResult = await client.GetAsync($"{input.SenderSmsCfg.Url}/api/webserver/SesTokInfo"))
             {
                 var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
                 using (var sendSmsResult = await client.PostAsync($"{input.SenderSmsCfg.Url}/api/sms/send-sms", prepareMsg(session)))
