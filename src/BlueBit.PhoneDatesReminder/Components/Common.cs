@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -8,6 +9,14 @@ namespace BlueBit.PhoneDatesReminder.Components
 
     public sealed class Void { }
 
+    public enum Reason
+    {
+        [Description("Aktywacja DIL")]
+        Internet = 1,
+        [Description("Do³adowanie 100")]
+        Payment,
+    }
+
     public interface IComponent<in TIn, TOut>
     {
         Task<TOut> WorkAsync(TIn input);
@@ -15,10 +24,14 @@ namespace BlueBit.PhoneDatesReminder.Components
 
     public abstract class ComponentBase
     {
-        protected static void Break()
-        {
-            throw new BreakException();
-        }
+        private static DateTime _now = DateTime.Now;
+
+        protected static DateTime Now => _now;
+#if DEBUG
+        internal static void SetNow(DateTime now) => _now = now;
+#endif
+
+        protected static void Break() => throw new BreakException();
     }
 
     public abstract class ComponentBase<T> :
@@ -91,7 +104,7 @@ namespace BlueBit.PhoneDatesReminder.Components
                 }
                 catch (BreakException)
                 {
-                    return default(TOut);
+                    return default;
                 }
             };
         }

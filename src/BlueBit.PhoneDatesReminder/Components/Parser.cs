@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         public interface OutputData
         {
-            DateTime Date { set; }
+            IReadOnlyList<(string PhoneNumber, DateTime Date, Reason Reason)> Items { set; }
         }
     }
 
@@ -24,22 +25,41 @@ namespace BlueBit.PhoneDatesReminder.Components
         where TIn : class, Parser.InputData
         where TOut : Parser.OutputData, new()
     {
+        private const int ValueCountInRow = 7;
+        private const int ValueNumberIndex = 1;
+        private static readonly IReadOnlyDictionary<Reason, int> Reason2ValueIndex = new Dictionary<Reason, int>()
+        {
+            [Reason.Internet] = 4,
+            [Reason.Payment] = 6,
+        };
+
         override protected async Task OnWorkAsync(TIn input, TOut output)
         {
             Debug.Assert(input.ParserCfg != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(input.Content));
-            var minDate = input.Content
-                .Split(new[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                .Last()
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(Convert.ToDateTime)
-                .Min();
 
-            var diff = minDate - DateTime.Now;
-            if (diff.TotalDays > input.ParserCfg.DaysCnt)
+            var dt = Now + TimeSpan.FromDays(input.ParserCfg.DaysCnt);
+            IEnumerable<(string PhoneNumber, DateTime Date, Reason Reason)> ParseLine(string[] fields)
+            {
+                foreach(var item in Reason2ValueIndex)
+                {
+                    var fieldDate = DateTime.Parse(fields[item.Value]);
+                    if (fieldDate > dt) continue;
+                    yield return (fields[ValueNumberIndex], fieldDate, item.Key);
+                }
+            }
+
+            var items = input.Content
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(_ => _.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                .Where(_ => _?.Length == ValueCountInRow)
+                .SelectMany(ParseLine)
+                .ToList();
+
+            if (items.Count == 0)
                 Break();
 
-            output.Date = minDate;
+            output.Items = items;
         }
     }
 }

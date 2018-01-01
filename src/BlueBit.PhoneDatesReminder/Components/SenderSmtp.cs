@@ -2,21 +2,21 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
     public static class SenderSmtp
     {
-        public interface InputData
+        public interface InputData : Sender.InputData
         {
             Cfg.SenderSmtpCfg SenderSmtpCfg { get; }
-            DateTime Date { get; }
         }
     }
 
     public class SenderSmtp<T> :
-        ComponentBase<T>
+        Sender<T>
         where T : class, SenderSmtp.InputData
     {
         override protected async Task OnWorkAsync(T input)
@@ -25,9 +25,8 @@ namespace BlueBit.PhoneDatesReminder.Components
 
             MimeMessage prepareMsg()
             {
-                var dt = $"{input.Date.ToString("yyyy-MM-dd")}";
-                var content = $"Dnia [{dt}] upływa termin aktywacji/zapłaty za telefon!";
                 var title = $"Przypomnienie o terminie";
+                var content = string.Join(Environment.NewLine, input.Items.OrderBy(_=> new { _.Date, _.PhoneNumber}).Select(GetMsg));
 
                 var msg = new MimeMessage();
                 msg.From.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));

@@ -1,6 +1,7 @@
 ﻿using BlueBit.PhoneDatesReminder.Components;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace BlueBit.PhoneDatesReminder
             SenderSmtp.InputData,
             Storage.InputData
         {
-            public DateTime Date { get; set; }
+            public IReadOnlyList<(string PhoneNumber, DateTime Date, Reason Reason)> Items { get; set; }
         }
 
         private class DataFromWeb :
@@ -28,18 +29,23 @@ namespace BlueBit.PhoneDatesReminder
 
         private class DataFromCfg :
             DataBase,
-            Downloader.InputData
+            Downloader.InputData,
+            Storage.InputData
         {
         }
 
         public static async Task Main(string[] args)
         {
-            Debug.Assert(args.Length == 1);
+#if DEBUG
+            Debug.Assert(args.Length >= 1);
+            if (args.Length > 1)
+                ComponentBase.SetNow(DateTime.Parse(args[1]));
+#endif
             var result = await Runner
                 .Start(() => new Configurator<DataFromCfg>())
+                .Then(() => new StorageCheck<DataFromCfg>())
                 .Then(() => new Downloader<DataFromCfg, DataFromWeb>())
                 .Then(() => new Parser<DataFromWeb, Data>())
-                .Then(() => new StorageCheck<Data>())
                 .Then(() => new SenderSms<Data>())
                 .Then(() => new SenderSmtp<Data>())
                 .Then(() => new StorageSave<Data>())

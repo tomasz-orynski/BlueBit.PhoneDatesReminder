@@ -10,7 +10,6 @@ namespace BlueBit.PhoneDatesReminder.Components
         public interface InputData
         {
             Cfg.StorageCfg StorageCfg { get; }
-            DateTime Date { get; }
         }
     }
 
@@ -22,10 +21,10 @@ namespace BlueBit.PhoneDatesReminder.Components
         {
             Debug.Assert(input.StorageCfg != null);
             const string frmt = "yyyyMMdd";
-            var path = Path.Combine(input.StorageCfg.Path, DateTime.Now.ToString(frmt));
+            var path = Path.Combine(input.StorageCfg.Path, Now.ToString(frmt));
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            path = Path.Combine(path, input.Date.ToString(frmt));
+            path = Path.Combine(path, Now.ToString(frmt));
             return OnWorkWithPathAsync(Path.Combine(path));
         }
 
