@@ -26,7 +26,7 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         private static DateTime _now = DateTime.Now;
 
-        protected static DateTime Now => _now;
+        public static DateTime Now => _now;
 #if DEBUG
         internal static void SetNow(DateTime now) => _now = now;
 #endif

@@ -1,6 +1,7 @@
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,31 +20,37 @@ namespace BlueBit.PhoneDatesReminder.Components
         Sender<T>
         where T : class, SenderSmtp.InputData
     {
-        override protected async Task OnWorkAsync(T input)
+        protected override string Name => "eMail";
+
+        protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
         {
             Debug.Assert(input.SenderSmtpCfg != null);
+            yield return (
+                "ALL",
+                async () => {
+                    MimeMessage prepareMsg()
+                    {
+                        var title = $"Przypomnienie o terminie";
+                        var content = string.Join(Environment.NewLine, input.Items.OrderBy(_ => (_.Date, _.PhoneNumber)).Select(GetMsg));
 
-            MimeMessage prepareMsg()
-            {
-                var title = $"Przypomnienie o terminie";
-                var content = string.Join(Environment.NewLine, input.Items.OrderBy(_=> new { _.Date, _.PhoneNumber}).Select(GetMsg));
+                        var msg = new MimeMessage();
+                        msg.From.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
+                        msg.To.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
+                        msg.Subject = title;
+                        msg.Body = new TextPart("plain") { Text = content };
+                        return msg;
+                    };
 
-                var msg = new MimeMessage();
-                msg.From.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
-                msg.To.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
-                msg.Subject = title;
-                msg.Body = new TextPart("plain") { Text = content };
-                return msg;
-            };
-
-            using (var client = new SmtpClient())
-            {
-                await client.ConnectAsync(input.SenderSmtpCfg.Host, input.SenderSmtpCfg.Port);
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-                await client.AuthenticateAsync(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Password);
-                await client.SendAsync(prepareMsg());
-                await client.DisconnectAsync(true);
-            }
+                    using (var client = new SmtpClient())
+                    {
+                        await client.ConnectAsync(input.SenderSmtpCfg.Host, input.SenderSmtpCfg.Port);
+                        client.AuthenticationMechanisms.Remove("XOAUTH2");
+                        await client.AuthenticateAsync(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Password);
+                        await client.SendAsync(prepareMsg());
+                        await client.DisconnectAsync(true);
+                    }
+                }
+            );
         }
     }
 }

@@ -1,3 +1,4 @@
+using BlueBit.PhoneDatesReminder.Components.Cfg;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -20,12 +21,11 @@ namespace BlueBit.PhoneDatesReminder.Components
         override sealed protected Task OnWorkAsync(T input)
         {
             Debug.Assert(input.StorageCfg != null);
-            const string frmt = "yyyyMMdd";
-            var path = Path.Combine(input.StorageCfg.Path, Now.ToString(frmt));
+
+            var path = input.StorageCfg.GetDirPath();
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            path = Path.Combine(path, Now.ToString(frmt));
-            return OnWorkWithPathAsync(Path.Combine(path));
+            return OnWorkWithPathAsync(path);
         }
 
         protected abstract Task OnWorkWithPathAsync(string path);
@@ -37,19 +37,6 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         override protected async Task OnWorkWithPathAsync(string path)
         {
-            if (File.Exists(path))
-                Break();
-        }
-    }
-
-    public class StorageSave<T> :
-        StorageBase<T>
-        where T : class, Storage.InputData
-    {
-        override protected async Task OnWorkWithPathAsync(string path)
-        {
-            using (var file = File.Create(path))
-                await file.WriteAsync(new byte[] { 0 }, 0, 1);
         }
     }
 }

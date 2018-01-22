@@ -48,7 +48,6 @@ namespace BlueBit.PhoneDatesReminder
                 .Then(() => new Parser<DataFromWeb, Data>())
                 .Then(() => new SenderSms<Data>())
                 .Then(() => new SenderSmtp<Data>())
-                .Then(() => new StorageSave<Data>())
                 .RunAsync(args[0]);
         }
     }

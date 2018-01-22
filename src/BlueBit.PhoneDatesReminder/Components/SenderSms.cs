@@ -1,4 +1,6 @@
+using BlueBit.PhoneDatesReminder.Commons.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -20,7 +22,9 @@ namespace BlueBit.PhoneDatesReminder.Components
         Sender<T>
         where T : class, SenderSms.InputData
     {
-        override protected async Task OnWorkAsync(T input)
+        protected override string Name => "SMS";
+
+        protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
         {
             Debug.Assert(input.SenderSmsCfg != null);
 
@@ -28,7 +32,6 @@ namespace BlueBit.PhoneDatesReminder.Components
             StringContent prepareMsg((string Cookie, string Token) session, (string PhoneNumber, DateTime Date, Reason Reason) item)
             {
                 var msg = GetMsg(item);
-                
                 var numbers = string.Join("", phoneNumbers.Append(item.PhoneNumber).Distinct().Select(_ => $"<Phone>{_}</Phone>"));
                 var content = new StringContent(
                     $"<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><Index>-1</Index><Phones>{numbers}</Phones><Sca></Sca><Content>{msg}</Content><Length>{msg.Length}</Length><Reserved>1</Reserved><Date>{Now.ToString("yyyy-MM-dd hh:mm:ss")}</Date></request>",
@@ -46,14 +49,22 @@ namespace BlueBit.PhoneDatesReminder.Components
                 return (cookie, token);
             }
 
-            using (var client = new HttpClient())
-            using (var tokenResult = await client.GetAsync($"{input.SenderSmsCfg.Url}/api/webserver/SesTokInfo"))
+            foreach (var item in input.Items.OrderBy(_ => _.Date))
             {
-                var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
-                foreach(var item in input.Items.OrderBy(_ => _.Date))
-                    using (var sendSmsResult = await client.PostAsync($"{input.SenderSmsCfg.Url}/api/sms/send-sms", prepareMsg(session, item)))
+                yield return (
+                    $"[{item.PhoneNumber}][{item.Reason.AsDescription()}]",
+                    async () =>
                     {
+                        using (var client = new HttpClient())
+                        using (var tokenResult = await client.GetAsync($"{input.SenderSmsCfg.Url}/api/webserver/SesTokInfo"))
+                        {
+                            var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
+                            using (var sendSmsResult = await client.PostAsync($"{input.SenderSmsCfg.Url}/api/sms/send-sms", prepareMsg(session, item)))
+                            {
+                            }
+                        }
                     }
+                );
             }
         }
     }
