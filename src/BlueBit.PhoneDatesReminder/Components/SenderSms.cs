@@ -28,8 +28,13 @@ namespace BlueBit.PhoneDatesReminder.Components
         protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
         {
             input.SenderSmsCfg.CannotBeNull();
+            input.SenderSmsCfg.Phones.CannotBeEmpty();
+            input.SenderSmsCfg.Urls.CannotBeEmpty();
 
-            var phoneNumbers = input.SenderSmsCfg.Phones.Split(";");
+            var phoneNumbers = input.SenderSmsCfg.Phones;
+            var random = new Random();
+            string GetUrl() => input.SenderSmsCfg.Urls[random.Next(input.SenderSmsCfg.Urls.Count)];
+
             StringContent prepareMsg((string Cookie, string Token) session, (string PhoneNumber, DateTime Date, Reason Reason) item)
             {
                 var msg = GetMsg(item);
@@ -52,15 +57,16 @@ namespace BlueBit.PhoneDatesReminder.Components
 
             foreach (var item in input.Items.OrderBy(_ => _.Date))
             {
+                var url = GetUrl();
                 yield return (
                     $"[{item.PhoneNumber}][{item.Reason.AsDescription()}]",
                     async () =>
                     {
                         using (var client = new HttpClient())
-                        using (var tokenResult = await client.GetAsync($"{input.SenderSmsCfg.Url}/api/webserver/SesTokInfo"))
+                        using (var tokenResult = await client.GetAsync($"{url}/api/webserver/SesTokInfo"))
                         {
                             var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
-                            using (var sendSmsResult = await client.PostAsync($"{input.SenderSmsCfg.Url}/api/sms/send-sms", prepareMsg(session, item)))
+                            using (var sendSmsResult = await client.PostAsync($"{url}/api/sms/send-sms", prepareMsg(session, item)))
                             {
                             }
                         }
