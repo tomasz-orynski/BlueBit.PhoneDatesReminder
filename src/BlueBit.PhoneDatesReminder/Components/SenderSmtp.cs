@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
@@ -24,7 +25,7 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
         {
-            Debug.Assert(input.SenderSmtpCfg != null);
+            input.SenderSmtpCfg.CannotBeNull();
             yield return (
                 "ALL",
                 async () => {

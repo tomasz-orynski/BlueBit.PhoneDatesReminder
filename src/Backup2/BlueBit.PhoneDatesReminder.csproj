@@ -5,7 +5,7 @@
     <Version>2.0.0</Version>
     <Description />
     <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>D:\Repos\Git\BlueBit.PhoneDatesReminder\src\Backup2\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>D:\Repos\Git\BlueBit.PhoneDatesReminder\src\Backup1\</UpgradeBackupLocation>
     <OldToolsVersion>15.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,7 +17,6 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DefensiveProgrammingFramework" Version="1.0.4" />
     <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="morelinq" Version="2.9.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />

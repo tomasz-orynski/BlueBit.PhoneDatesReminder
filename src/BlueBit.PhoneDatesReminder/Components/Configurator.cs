@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
@@ -10,8 +11,8 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public async Task<TOut> WorkAsync(string input)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(input));
-            Debug.Assert(File.Exists(input));
+            input.CannotBeEmpty();
+            input.DoesFileExist();
             return JsonConvert.DeserializeObject<TOut>(await File.ReadAllTextAsync(input));
         }
     }

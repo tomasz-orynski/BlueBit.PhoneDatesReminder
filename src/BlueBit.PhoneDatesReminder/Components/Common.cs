@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -41,7 +42,7 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public async Task<T> WorkAsync(T input)
         {
-            Debug.Assert(input != null);
+            input.CannotBeNull();
             await OnWorkAsync(input);
             return input;
         }
@@ -57,7 +58,7 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         public async Task<TOut> WorkAsync(TIn input)
         {
-            Debug.Assert(input != null);
+            input.CannotBeNull();
             var output = new TOut();
             (output as Cfg.IInitialize<TIn>)?.Init(input);
             await OnWorkAsync(input, output);
@@ -72,7 +73,7 @@ namespace BlueBit.PhoneDatesReminder.Components
         public static Func<TIn, Task<TOut>> Start<TIn, TOut>(
             Func<IComponent<TIn, TOut>> creator)
         {
-            Debug.Assert(creator != null);
+            creator.CannotBeNull();
             return input =>
             {
                 return creator
@@ -84,7 +85,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             this Func<TIn, Task<T>> @this,
             Func<IComponent<T, TOut>> creator)
         {
-            Debug.Assert(creator != null);
+            creator.CannotBeNull();
             return async input =>
             {
                 var tmp = await @this(input);
@@ -95,7 +96,7 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         public static Func<TIn, Task<TOut>> WithCatchBreak<TIn, TOut>(this Func<TIn, Task<TOut>> @this)
         {
-            Debug.Assert(@this != null);
+            @this.CannotBeNull();
             return async input =>
             {
                 try
@@ -113,7 +114,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             this Func<TIn, Task<TOut>> @this,
             TIn @params)
         {
-            Debug.Assert(@this != null);
+            @this.CannotBeNull();
             return @this
                 .WithCatchBreak()
                 .WithLogStartStop()

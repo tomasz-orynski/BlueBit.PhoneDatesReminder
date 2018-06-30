@@ -1,4 +1,5 @@
 using BlueBit.PhoneDatesReminder.Commons.Extensions;
+using DefensiveProgrammingFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
         {
-            Debug.Assert(input.SenderSmsCfg != null);
+            input.SenderSmsCfg.CannotBeNull();
 
             var phoneNumbers = input.SenderSmsCfg.Phones.Split(";");
             StringContent prepareMsg((string Cookie, string Token) session, (string PhoneNumber, DateTime Date, Reason Reason) item)

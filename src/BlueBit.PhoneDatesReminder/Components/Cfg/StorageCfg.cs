@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using System.Diagnostics;
 using System.IO;
 
@@ -12,8 +13,8 @@ namespace BlueBit.PhoneDatesReminder.Components.Cfg
     {
         public static string GetDirPath(this StorageCfg @this)
         {
-            Debug.Assert(@this != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(@this.Path));
+            @this.CannotBeNull();
+            @this.Path.CannotBeEmpty();
             const string frmt = "yyyyMMdd";
             return Path.Combine(@this.Path, ComponentBase.Now.ToString(frmt));
         }

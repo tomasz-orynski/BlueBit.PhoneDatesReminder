@@ -38,8 +38,8 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         private Func<Task> Handle((string Code, Func<Task> Action) item, string path)
             => async () => {
-
                 var fileName = $"{Name}#{item.Code}";
+                Console.WriteLine($"{DateTime.Now}??Sender:{fileName}");
                 var filePath = Path.Combine(path, fileName);
                 if (File.Exists(filePath))
                     return;

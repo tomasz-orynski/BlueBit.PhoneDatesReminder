@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -26,8 +27,8 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         override protected async Task OnWorkAsync(TIn input, TOut output)
         {
-            Debug.Assert(input.DownloaderCfg != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(input.DownloaderCfg.Url));
+            input.DownloaderCfg.CannotBeNull();
+            input.DownloaderCfg.Url.CannotBeEmpty();
             var uri = new Uri(input.DownloaderCfg.Url);
             using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
             using (var client = new HttpClient())

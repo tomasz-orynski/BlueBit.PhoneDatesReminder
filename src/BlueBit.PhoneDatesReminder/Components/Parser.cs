@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,8 +36,8 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         override protected async Task OnWorkAsync(TIn input, TOut output)
         {
-            Debug.Assert(input.ParserCfg != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(input.Content));
+            input.ParserCfg.CannotBeNull();
+            input.Content.CannotBeEmpty();
 
             var dt = Now + TimeSpan.FromDays(input.ParserCfg.DaysCnt);
             IEnumerable<(string PhoneNumber, DateTime Date, Reason Reason)> ParseLine(string[] fields)

@@ -1,3 +1,4 @@
+using DefensiveProgrammingFramework;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace BlueBit.PhoneDatesReminder
     {
         public static Func<TIn, TOut> WithLogStartStop<TIn, TOut>(this Func<TIn, TOut> @this)
         {
-            Debug.Assert(@this != null);
+            @this.CannotBeNull();
             return input =>
             {
                 Console.WriteLine($"{DateTime.Now}=>START");
@@ -25,8 +26,8 @@ namespace BlueBit.PhoneDatesReminder
 
         public static async Task<TOut> CallWithLogInfoAsync<T, TOut>(this Func<T> @this, Func<T, Task<TOut>> call)
         {
-            Debug.Assert(@this != null);
-            Debug.Assert(@call != null);
+            @this.CannotBeNull();
+            @call.CannotBeNull();
             var tmp = @this();
             var info = tmp.GetType().Name;
             Console.WriteLine($"{DateTime.Now}=>{info}");

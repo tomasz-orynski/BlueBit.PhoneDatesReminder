@@ -1,4 +1,5 @@
 using BlueBit.PhoneDatesReminder.Components.Cfg;
+using DefensiveProgrammingFramework;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -20,7 +21,7 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         override sealed protected Task OnWorkAsync(T input)
         {
-            Debug.Assert(input.StorageCfg != null);
+            input.StorageCfg.CannotBeNull();
 
             var path = input.StorageCfg.GetDirPath();
             if (!Directory.Exists(path))

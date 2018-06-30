@@ -1,8 +1,11 @@
 ﻿using BlueBit.PhoneDatesReminder.Components;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
+using DefensiveProgrammingFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder
@@ -37,7 +40,8 @@ namespace BlueBit.PhoneDatesReminder
         public static async Task Main(string[] args)
         {
 #if DEBUG
-            Debug.Assert(args.Length >= 1);
+            args.CannotBeNull();
+            args.CannotBeEmpty();
             if (args.Length > 1)
                 ComponentBase.SetNow(DateTime.Parse(args[1]));
 #endif
