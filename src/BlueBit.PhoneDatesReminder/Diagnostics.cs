@@ -23,23 +23,5 @@ namespace BlueBit.PhoneDatesReminder
                 }
             };
         }
-
-        public static async Task<TOut> CallWithLogInfoAsync<T, TOut>(this Func<T> @this, Func<T, Task<TOut>> call)
-        {
-            @this.CannotBeNull();
-            @call.CannotBeNull();
-            var tmp = @this();
-            var info = tmp.GetType().Name;
-
-            Log.Logger.Information($"=>{info}");
-            try
-            {
-                return await call(tmp);
-            }
-            finally
-            {
-                Log.Logger.Information($"<={info}");
-            }
-        }
     }
 }

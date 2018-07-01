@@ -37,9 +37,11 @@ namespace BlueBit.PhoneDatesReminder
 
         static Program()
         {
+            var template = "{Timestamp:yyyyMMdd#HHmmss.fffzzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}";
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.ColoredConsole()
-                .WriteTo.File("..\\logs\\PhoneDatesReminder.DailyLog-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.Trace(outputTemplate: template)
+                .WriteTo.ColoredConsole(outputTemplate: template)
+                .WriteTo.File("..\\logs\\PhoneDatesReminder.DailyLog-.txt", rollingInterval: RollingInterval.Day, outputTemplate: template)
                 .CreateLogger();
         }
 
@@ -56,8 +58,9 @@ namespace BlueBit.PhoneDatesReminder
                 .Then(() => new StorageCheck<DataFromCfg>())
                 .Then(() => new Downloader<DataFromCfg, DataFromWeb>())
                 .Then(() => new Parser<DataFromWeb, Data>())
-                .Then(() => new SenderSms<Data>())
-                .Then(() => new SenderSmtp<Data>())
+                .ThenMany(
+                    () => new SenderSms<Data>(),
+                    () => new SenderSmtp<Data>())
                 .RunAsync(args[0]);
         }
     }

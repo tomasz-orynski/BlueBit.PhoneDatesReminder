@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DefensiveProgrammingFramework;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Commons.Extensions
@@ -9,9 +10,8 @@ namespace BlueBit.PhoneDatesReminder.Commons.Extensions
     {
         public static async Task CallAsync(this IEnumerable<Func<Task>> @this)
         {
-            Contract.Assert(@this != null);
-            foreach (var task in @this)
-                await task();
+            @this.CannotBeNull();
+            await Task.WhenAll(@this.Select(@_ => @_.Invoke()));
         }
     }
 }

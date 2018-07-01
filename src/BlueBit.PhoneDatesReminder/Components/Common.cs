@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Linq;
+using BlueBit.PhoneDatesReminder.Commons.Extensions;
+using Serilog;
+using System.Runtime.CompilerServices;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -39,6 +43,27 @@ namespace BlueBit.PhoneDatesReminder.Components
             TimeSpan.FromSeconds(3),
             TimeSpan.FromSeconds(5)
         };
+
+        protected async Task<TOut> WithLogingAsync<TOut>(Func<Task<TOut>> func, [CallerMemberName]string name = null)
+        {
+            func.CannotBeNull();
+            name.CannotBeNull();
+
+            var type = GetType();
+            var typeArgs = type.GetGenericArguments();
+            var className = $"{type.Name}<{string.Join(",", typeArgs.Select(@_=>@_.Name))}>";
+
+            var log = Log.ForContext(type);
+            log.Information(">>{Class}.{Mehod}", className, name);
+            try
+            {
+                return await func();
+            }
+            finally
+            {
+                log.Information("<<{Class}.{Mehod}", className, name);
+            }
+        }
     }
 
     public abstract class ComponentBase<T> :
@@ -62,14 +87,14 @@ namespace BlueBit.PhoneDatesReminder.Components
         where TIn : class
         where TOut : new()
     {
-        public async Task<TOut> WorkAsync(TIn input)
+        public Task<TOut> WorkAsync(TIn input) => WithLogingAsync(async () =>
         {
             input.CannotBeNull();
             var output = new TOut();
             (output as Cfg.IInitialize<TIn>)?.Init(input);
             await OnWorkAsync(input, output);
             return output;
-        }
+        });
 
         protected abstract Task OnWorkAsync(TIn input, TOut output);
     }
@@ -80,10 +105,11 @@ namespace BlueBit.PhoneDatesReminder.Components
             Func<IComponent<TIn, TOut>> creator)
         {
             creator.CannotBeNull();
-            return input =>
+            return async input =>
             {
-                return creator
-                    .CallWithLogInfoAsync(@_ => @_.WorkAsync(input));
+                var obj = creator();
+                obj.CannotBeNull();
+                return await obj.WorkAsync(input);
             };
         }
 
@@ -95,8 +121,32 @@ namespace BlueBit.PhoneDatesReminder.Components
             return async input =>
             {
                 var tmp = await @this(input);
-                return await creator
-                    .CallWithLogInfoAsync(@_ => @_.WorkAsync(tmp));
+                var obj = creator();
+                obj.CannotBeNull();
+                return await obj.WorkAsync(tmp);
+            };
+        }
+
+        public static Func<TIn, Task<T>> ThenMany<TIn, T>(
+            this Func<TIn, Task<T>> @this,
+            params Func<IComponent<T, T>>[] @params)
+        {
+            @params.CannotBeNull();
+            @params.CannotBeEmpty();
+            @params.CannotContainNull();
+            return async input =>
+            {
+                var tmp = await @this(input);
+                var tasks = @params
+                    .Select(async creator =>
+                    {
+                        var obj = creator();
+                        obj.CannotBeNull();
+                        await obj.WorkAsync(tmp);
+                    })
+                    .ToArray();
+                await Task.WhenAll(tasks);
+                return tmp;
             };
         }
 
