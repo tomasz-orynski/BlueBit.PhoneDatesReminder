@@ -1,11 +1,9 @@
 ﻿using BlueBit.PhoneDatesReminder.Components;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
 using DefensiveProgrammingFramework;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder
@@ -35,6 +33,14 @@ namespace BlueBit.PhoneDatesReminder
             Downloader.InputData,
             Storage.InputData
         {
+        }
+
+        static Program()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole()
+                .WriteTo.File("..\\logs\\PhoneDatesReminder.DailyLog-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
         }
 
         public static async Task Main(string[] args)

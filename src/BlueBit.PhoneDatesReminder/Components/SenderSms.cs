@@ -2,7 +2,6 @@ using BlueBit.PhoneDatesReminder.Commons.Extensions;
 using DefensiveProgrammingFramework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;

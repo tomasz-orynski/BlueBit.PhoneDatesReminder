@@ -1,6 +1,7 @@
 ﻿using BlueBit.PhoneDatesReminder.Commons.Extensions;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
 using Polly;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,8 +40,10 @@ namespace BlueBit.PhoneDatesReminder.Components
 
         private Func<Task> Handle((string Code, Func<Task> Action) item, string path)
             => async () => {
+                var log = Log.ForContext<Sender<T>>();
+
                 var fileName = $"{Name}#{item.Code}";
-                Console.WriteLine($"{DateTime.Now}??Sender:{fileName}");
+                log.Information("Check send '{Item}'", fileName);
                 var filePath = Path.Combine(path, fileName);
                 if (File.Exists(filePath))
                     return;
@@ -49,16 +52,13 @@ namespace BlueBit.PhoneDatesReminder.Components
                     .Handle<Exception>()
                     .WaitAndRetryAsync(
                         RetrySleepDurations,
-                        (ex, ts) =>
-                        {
-                            Console.WriteLine($"{DateTime.Now}!!Sender:{fileName} [{ex.Message}]");
-                        }
+                        (ex, ts) => log.Warning(ex, "Cannot send '{Item}' after {SleepDuration}", fileName, ts)
                     )
                     .ExecuteAsync(async () => {
-                        Console.WriteLine($"{DateTime.Now}=>{nameof(Sender)}:{fileName}");
+                        log.Information("Begin send '{Item}'", fileName);
                         await item.Action();
                         await File.WriteAllBytesAsync(filePath, new byte[] { });
-                        Console.WriteLine($"{DateTime.Now}<=Sender:{fileName}");
+                        log.Information("End send '{Item}'", fileName);
                     });
             };
     }

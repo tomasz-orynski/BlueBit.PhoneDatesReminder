@@ -2,7 +2,6 @@ using DefensiveProgrammingFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Components
@@ -84,7 +83,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             return input =>
             {
                 return creator
-                    .CallWithLogInfoAsync(_ => _.WorkAsync(input));
+                    .CallWithLogInfoAsync(@_ => @_.WorkAsync(input));
             };
         }
 
@@ -97,7 +96,7 @@ namespace BlueBit.PhoneDatesReminder.Components
             {
                 var tmp = await @this(input);
                 return await creator
-                    .CallWithLogInfoAsync(_ => _.WorkAsync(tmp));
+                    .CallWithLogInfoAsync(@_ => @_.WorkAsync(tmp));
             };
         }
 
@@ -117,12 +116,12 @@ namespace BlueBit.PhoneDatesReminder.Components
             };
         }
 
-        public static Task<TOut> RunAsync<TIn, TOut>(
+        public static async Task<TOut> RunAsync<TIn, TOut>(
             this Func<TIn, Task<TOut>> @this,
             TIn @params)
         {
             @this.CannotBeNull();
-            return @this
+            return await @this
                 .WithCatchBreak()
                 .WithLogStartStop()
                 .Invoke(@params);

@@ -1,7 +1,7 @@
 using DefensiveProgrammingFramework;
 using Polly;
+using Serilog;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -36,10 +36,9 @@ namespace BlueBit.PhoneDatesReminder.Components
                 .Handle<Exception>()
                 .WaitAndRetryAsync(
                     RetrySleepDurations,
-                    (ex, ts) =>
-                    {
-                        Console.WriteLine($"{DateTime.Now}!!{nameof(Downloader)} [{ex.Message}]");
-                    }
+                    (ex, ts) => Log
+                        .ForContext<Downloader<TIn, TOut>>()
+                        .Warning(ex, "Cannot download from '{Url}' after {SleepDuration}", uri, ts)
                 )
                 .ExecuteAsync(async () =>
                 {

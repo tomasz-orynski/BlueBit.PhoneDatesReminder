@@ -1,25 +1,25 @@
 using DefensiveProgrammingFramework;
+using Serilog;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder
 {
     public static class Diagnostics
     {
-        public static Func<TIn, TOut> WithLogStartStop<TIn, TOut>(this Func<TIn, TOut> @this)
+        public static Func<TIn, Task<TOut>> WithLogStartStop<TIn, TOut>(this Func<TIn, Task<TOut>> @this)
         {
             @this.CannotBeNull();
-            return input =>
+            return async input =>
             {
-                Console.WriteLine($"{DateTime.Now}=>START");
+                Log.Logger.Information("### START ###");
                 try
                 {
-                    return @this(input);
+                    return await @this(input);
                 }
                 finally
                 {
-                    Console.WriteLine($"{DateTime.Now}<=STOP");
+                    Log.Logger.Information("### STOP ###");
                 }
             };
         }
@@ -30,14 +30,15 @@ namespace BlueBit.PhoneDatesReminder
             @call.CannotBeNull();
             var tmp = @this();
             var info = tmp.GetType().Name;
-            Console.WriteLine($"{DateTime.Now}=>{info}");
+
+            Log.Logger.Information($"=>{info}");
             try
             {
                 return await call(tmp);
             }
             finally
             {
-                Console.WriteLine($"{DateTime.Now}<={info}");
+                Log.Logger.Information($"<={info}");
             }
         }
     }

@@ -1,5 +1,4 @@
 using DefensiveProgrammingFramework;
-using System.Diagnostics;
 using System.IO;
 
 namespace BlueBit.PhoneDatesReminder.Components.Cfg
