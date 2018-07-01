@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -52,7 +53,7 @@ namespace BlueBit.PhoneDatesReminder.Components
                     .Handle<Exception>()
                     .WaitAndRetryAsync(
                         RetrySleepDurations,
-                        (ex, ts) => log.Warning(ex, "Cannot send '{Item}' after {SleepDuration}", fileName, ts)
+                        (ex, ts) => log.Warning(ex.Demystify(), "Cannot send '{Item}' after {SleepDuration}", fileName, ts)
                     )
                     .ExecuteAsync(async () => {
                         log.Information("Begin send '{Item}'", fileName);

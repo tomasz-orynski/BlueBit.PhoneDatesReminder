@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -38,7 +39,7 @@ namespace BlueBit.PhoneDatesReminder.Components
                     RetrySleepDurations,
                     (ex, ts) => Log
                         .ForContext<Downloader<TIn, TOut>>()
-                        .Warning(ex, "Cannot download from '{Url}' after {SleepDuration}", uri, ts)
+                        .Warning(ex.Demystify(), "Cannot download from '{Url}' after {SleepDuration}", uri, ts)
                 )
                 .ExecuteAsync(async () =>
                 {

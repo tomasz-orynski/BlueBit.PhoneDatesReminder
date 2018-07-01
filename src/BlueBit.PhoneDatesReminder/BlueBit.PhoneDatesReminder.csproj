@@ -17,6 +17,7 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Ben.Demystifier" Version="0.1.1" />
     <PackageReference Include="DefensiveProgrammingFramework" Version="1.0.4" />
     <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="morelinq" Version="2.9.0" />
