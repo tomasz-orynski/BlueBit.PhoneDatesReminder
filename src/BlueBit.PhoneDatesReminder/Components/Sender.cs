@@ -1,5 +1,6 @@
 ﻿using BlueBit.PhoneDatesReminder.Commons.Extensions;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,17 +44,26 @@ namespace BlueBit.PhoneDatesReminder.Components
                 var filePath = Path.Combine(path, fileName);
                 if (File.Exists(filePath))
                     return;
-                try
-                {
-                    Console.WriteLine($"{DateTime.Now}=>Sender:{fileName}");
-                    await item.Action();
-                    await File.WriteAllBytesAsync(filePath, new byte[] { });
-                    Console.WriteLine($"{DateTime.Now}<=Sender:{fileName}");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"{DateTime.Now}!!Sender:{fileName} [{e.Message}]");
-                }
+
+                await Policy
+                    .Handle<Exception>()
+                    .WaitAndRetryAsync(
+                        new[] {
+                            TimeSpan.FromSeconds(1),
+                            TimeSpan.FromSeconds(3),
+                            TimeSpan.FromSeconds(5)
+                        },
+                        (ex, ts) =>
+                        {
+                            Console.WriteLine($"{DateTime.Now}!!Sender:{fileName} [{ex.Message}]");
+                        }
+                    )
+                    .ExecuteAsync(async () => {
+                        Console.WriteLine($"{DateTime.Now}=>Sender:{fileName}");
+                        await item.Action();
+                        await File.WriteAllBytesAsync(filePath, new byte[] { });
+                        Console.WriteLine($"{DateTime.Now}<=Sender:{fileName}");
+                    });
             };
     }
 }
