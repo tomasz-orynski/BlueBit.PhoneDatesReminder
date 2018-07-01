@@ -31,13 +31,10 @@ namespace BlueBit.PhoneDatesReminder.Components
             input.SenderSmsCfg.Urls.CannotBeEmpty();
 
             var phoneNumbers = input.SenderSmsCfg.Phones;
-            var random = new Random();
-            string GetUrl() => input.SenderSmsCfg.Urls[random.Next(input.SenderSmsCfg.Urls.Count)];
-
-            StringContent prepareMsg((string Cookie, string Token) session, (string PhoneNumber, DateTime Date, Reason Reason) item)
+            StringContent prepareMsg((string Cookie, string Token) session, (string PhoneNumber, DateTime Date, Reason Reason) item, IEnumerable<string> to)
             {
                 var msg = GetMsg(item);
-                var numbers = string.Join("", phoneNumbers.Append(item.PhoneNumber).Distinct().Select(_ => $"<Phone>{_}</Phone>"));
+                var numbers = string.Join("", to.Select(_ => $"<Phone>{_}</Phone>"));
                 var content = new StringContent(
                     $"<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><Index>-1</Index><Phones>{numbers}</Phones><Sca></Sca><Content>{msg}</Content><Length>{msg.Length}</Length><Reserved>1</Reserved><Date>{Now.ToString("yyyy-MM-dd hh:mm:ss")}</Date></request>",
                     Encoding.UTF8,
@@ -54,23 +51,28 @@ namespace BlueBit.PhoneDatesReminder.Components
                 return (cookie, token);
             }
 
-            foreach (var item in input.Items.OrderBy(_ => _.Date))
+            using (var urlsEnum = input.SenderSmsCfg.Urls.AsRandomAndCyclic().GetEnumerator())
             {
-                var url = GetUrl();
-                yield return (
-                    $"[{item.PhoneNumber}][{item.Reason.AsDescription()}]",
-                    async () =>
-                    {
-                        using (var client = new HttpClient())
-                        using (var tokenResult = await client.GetAsync($"{url}/api/webserver/SesTokInfo"))
+                foreach (var item in input.Items.OrderBy(_ => _.Date))
+                {
+                    urlsEnum.MoveNext().CannotBeEqualTo(false);
+                    var url = urlsEnum.Current;
+                    var numbers = phoneNumbers.Append(item.PhoneNumber).Distinct().OrderBy(n => n).ToList();
+                    yield return (
+                        $"[{item.PhoneNumber}][{item.Reason.AsDescription()}]>>[{string.Join(",", numbers)}]",
+                        async () =>
                         {
-                            var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
-                            using (var sendSmsResult = await client.PostAsync($"{url}/api/sms/send-sms", prepareMsg(session, item)))
+                            using (var client = new HttpClient())
+                            using (var tokenResult = await client.GetAsync($"{url}/api/webserver/SesTokInfo"))
                             {
+                                var session = GetSession(await tokenResult.Content.ReadAsStringAsync());
+                                using (var sendSmsResult = await client.PostAsync($"{url}/api/sms/send-sms", prepareMsg(session, item, numbers)))
+                                {
+                                }
                             }
                         }
-                    }
-                );
+                    );
+                }
             }
         }
     }

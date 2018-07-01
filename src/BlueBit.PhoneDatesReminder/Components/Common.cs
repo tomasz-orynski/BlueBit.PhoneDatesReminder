@@ -1,12 +1,11 @@
 using DefensiveProgrammingFramework;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Linq;
-using BlueBit.PhoneDatesReminder.Commons.Extensions;
-using Serilog;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace BlueBit.PhoneDatesReminder.Components
 {
@@ -41,7 +40,10 @@ namespace BlueBit.PhoneDatesReminder.Components
         protected static IEnumerable<TimeSpan> RetrySleepDurations => new[] {
             TimeSpan.FromSeconds(1),
             TimeSpan.FromSeconds(3),
-            TimeSpan.FromSeconds(5)
+            TimeSpan.FromSeconds(5),
+            TimeSpan.FromSeconds(10),
+            TimeSpan.FromSeconds(30),
+            TimeSpan.FromSeconds(60)
         };
 
         protected async Task<TOut> WithLogingAsync<TOut>(Func<Task<TOut>> func, [CallerMemberName]string name = null)

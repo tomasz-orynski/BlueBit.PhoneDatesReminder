@@ -2,7 +2,7 @@
   "profiles": {
     "BlueBit.PhoneDatesReminder": {
       "commandName": "Project",
-      "commandLineArgs": "d:\\Program.cfg 2018-01-22"
+      "commandLineArgs": "d:\\Program.cfg 2018-07-19"
     }
   }
 }
