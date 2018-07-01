@@ -48,18 +48,14 @@ namespace BlueBit.PhoneDatesReminder.Components
                 await Policy
                     .Handle<Exception>()
                     .WaitAndRetryAsync(
-                        new[] {
-                            TimeSpan.FromSeconds(1),
-                            TimeSpan.FromSeconds(3),
-                            TimeSpan.FromSeconds(5)
-                        },
+                        RetrySleepDurations,
                         (ex, ts) =>
                         {
                             Console.WriteLine($"{DateTime.Now}!!Sender:{fileName} [{ex.Message}]");
                         }
                     )
                     .ExecuteAsync(async () => {
-                        Console.WriteLine($"{DateTime.Now}=>Sender:{fileName}");
+                        Console.WriteLine($"{DateTime.Now}=>{nameof(Sender)}:{fileName}");
                         await item.Action();
                         await File.WriteAllBytesAsync(filePath, new byte[] { });
                         Console.WriteLine($"{DateTime.Now}<=Sender:{fileName}");

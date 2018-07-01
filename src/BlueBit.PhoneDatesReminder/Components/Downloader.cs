@@ -1,4 +1,5 @@
 using DefensiveProgrammingFramework;
+using Polly;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -30,12 +31,25 @@ namespace BlueBit.PhoneDatesReminder.Components
             input.DownloaderCfg.CannotBeNull();
             input.DownloaderCfg.Url.CannotBeEmpty();
             var uri = new Uri(input.DownloaderCfg.Url);
-            using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
-            using (var client = new HttpClient())
-            using (var response = await client.SendAsync(request))
-            using (var contentStream = await response.Content.ReadAsStreamAsync())
-            using (var contentReader = new StreamReader(contentStream))
-                output.Content = await contentReader.ReadToEndAsync();
+
+            await Policy
+                .Handle<Exception>()
+                .WaitAndRetryAsync(
+                    RetrySleepDurations,
+                    (ex, ts) =>
+                    {
+                        Console.WriteLine($"{DateTime.Now}!!{nameof(Downloader)} [{ex.Message}]");
+                    }
+                )
+                .ExecuteAsync(async () =>
+                {
+                    using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
+                    using (var client = new HttpClient())
+                    using (var response = await client.SendAsync(request))
+                    using (var contentStream = await response.Content.ReadAsStreamAsync())
+                    using (var contentReader = new StreamReader(contentStream))
+                        output.Content = await contentReader.ReadToEndAsync();
+                });
         }
     }
 }

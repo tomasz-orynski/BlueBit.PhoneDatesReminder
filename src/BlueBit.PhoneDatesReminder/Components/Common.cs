@@ -1,5 +1,6 @@
 using DefensiveProgrammingFramework;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -33,6 +34,12 @@ namespace BlueBit.PhoneDatesReminder.Components
 #endif
 
         protected static void Break() => throw new BreakException();
+
+        protected static IEnumerable<TimeSpan> RetrySleepDurations => new[] {
+            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(3),
+            TimeSpan.FromSeconds(5)
+        };
     }
 
     public abstract class ComponentBase<T> :
