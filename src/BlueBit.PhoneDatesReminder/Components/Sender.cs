@@ -1,5 +1,6 @@
 ﻿using BlueBit.PhoneDatesReminder.Commons.Extensions;
 using BlueBit.PhoneDatesReminder.Components.Cfg;
+using DefensiveProgrammingFramework;
 using Polly;
 using Serilog;
 using System;
@@ -32,22 +33,33 @@ namespace BlueBit.PhoneDatesReminder.Components
         override protected async Task OnWorkAsync(T input)
         {
             var path = input.StorageCfg.GetDirPath();
+            path.MustBeAbsoluteDirectoryPath();
+
             await GetTasks(input)
-                .Select(_ => Handle(_, path))
+                .Select(i => Handle(i, path))
                 .CallAsync();
         }
 
-        protected abstract IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input);
+        protected abstract IEnumerable<(IEnumerable<string> To, string Content, Func<Task> Action)> GetTasks(T input);
 
-        private Func<Task> Handle((string Code, Func<Task> Action) item, string path)
-            => async () => {
+        private Func<Task> Handle((IEnumerable<string> To, string Content, Func<Task> Action) item, string path)
+        {
+            item.To.CannotBeNull();
+            item.Content.CannotBeEmpty();
+            item.Action.CannotBeNull();
+
+            return async () => {
                 var log = Log.ForContext<Sender<T>>();
 
-                var fileName = $"{Name}#{item.Code}";
+                var fileName = $"{Name}#({string.Join(",", item.To)})";
                 log.Information("Check send '{Item}'", fileName);
                 var filePath = Path.Combine(path, fileName);
                 if (File.Exists(filePath))
-                    return;
+                {
+                    var content = await File.ReadAllTextAsync(filePath);
+                    if (content == item.Content)
+                        return;
+                }
 
                 await Policy
                     .Handle<Exception>()
@@ -58,9 +70,10 @@ namespace BlueBit.PhoneDatesReminder.Components
                     .ExecuteAsync(async () => {
                         log.Information("Begin send '{Item}'", fileName);
                         await item.Action();
-                        await File.WriteAllBytesAsync(filePath, new byte[] { });
+                        await File.WriteAllTextAsync(filePath, item.Content);
                         log.Information("End send '{Item}'", fileName);
                     });
-            };
+               };
+        }
     }
 }

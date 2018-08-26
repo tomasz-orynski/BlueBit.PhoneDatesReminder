@@ -22,17 +22,18 @@ namespace BlueBit.PhoneDatesReminder.Components
     {
         protected override string Name => "eMail";
 
-        protected override IEnumerable<(string Code, Func<Task> Action)> GetTasks(T input)
+        protected override IEnumerable<(IEnumerable<string> To, string Content, Func<Task> Action)> GetTasks(T input)
         {
             input.SenderSmtpCfg.CannotBeNull();
+
+            var content = string.Join(Environment.NewLine, input.Items.OrderBy(_ => (_.Date, _.PhoneNumber)).Select(GetMsg));
             yield return (
-                "ALL",
+                new[] { "CFG" },
+                content,
                 async () => {
                     MimeMessage prepareMsg()
                     {
                         var title = $"Przypomnienie o terminie";
-                        var content = string.Join(Environment.NewLine, input.Items.OrderBy(_ => (_.Date, _.PhoneNumber)).Select(GetMsg));
-
                         var msg = new MimeMessage();
                         msg.From.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
                         msg.To.Add(new MailboxAddress(input.SenderSmtpCfg.User, input.SenderSmtpCfg.Email));
